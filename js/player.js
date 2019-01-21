@@ -12,6 +12,10 @@ class Player
   constructor(context, imageOptions, fps, y, x)
   {
 //  this.x=x;
+this.collisionUp = false;
+this.collisionDown = false;
+this.collisionLeft = false;
+this.collisionRight = false;
   this.moveX = null;
   this.moveY = null;
   this.enableLeft = null;
@@ -57,28 +61,45 @@ class Player
   }
 
  update(level)
- { if(gameNs.playScene.gameover == false)
+ {
+
+
+
+   if(gameNs.playScene.gameover == false)
    {
+
      if(this.moveX == false && this.x> 0 /*&& this.checkCollisionMap(level.mazeSquares[this.i -1])==false*/)
       {
         this.x -= 5;
         this.direction = 4;
+        this.collisionRight = false;
+        this.collisionUp = false;
+        this.collisionDown = false;
 
       }
       else if (this.moveX == true && this.x < 23 * 75 /*&& this.checkCollisionMap(level.mazeSquares[this.i +1]==false)*/)
       {
         this.x +=5;
         this.direction = 2;
+        this.collisionLeft = false;
+        this.collisionUp = false;
+        this.collisionDown = false;
       }
       else if (this.moveY == false && this.y > 10)
       {
          this.y-=5;
          this.direction = 1;
+         this.collisionDown = false;
+         this.collisionLeft = false;
+         this.collisionRight = false;
       }
       else if (this.moveY == true && this.y < 12 * 75)
       {
        this.y+=5;
        this.direction = 3;
+       this.collisionUp = false;
+       this.collisionLeft = false;
+       this.collisionRight = false;
       }
 
 
@@ -157,6 +178,7 @@ class Player
    }
 
    this.checkCollisionMap(level);
+
   //ctx.fillText('Timer '+gameNs.score, gameNs.playScene.player.x , gameNs.playScene.player.y);
 
 
@@ -202,6 +224,7 @@ class Player
         {
           this.moveX = null;
           this.moveY = null;
+          this.collisionRight = true;
           if(this.moved==false)
           {
 
@@ -211,6 +234,7 @@ class Player
         else
          {
            this.moved=false;
+           this.collisionRight = false;
         }
       }
     }
@@ -223,6 +247,7 @@ class Player
           {
             this.moveX = null;
             this.moveY = null;
+            this.collisionLeft = true;
             if(this.moved==false)
             {
               this.moved=true;
@@ -231,6 +256,7 @@ class Player
           else
            {
              this.moved=false;
+             this.collisionLeft = false;
           }
         }
 
@@ -244,6 +270,7 @@ class Player
         {
           this.moveX = null;
           this.moveY = null;
+          this.collisionUp = true;
           if(this.moved==false)
           {
             this.moved=true;
@@ -256,6 +283,7 @@ class Player
         else
          {
            this.moved=false;
+           this.collisionUp = false;
         }
       }
 
@@ -269,6 +297,7 @@ class Player
       {
         this.moveX = null;
         this.moveY = null;
+        this.collisionDown = true;
         if(this.moved==false)
         {
                     this.moved=true;
@@ -277,6 +306,7 @@ class Player
       else
        {
          this.moved=false;
+         this.collisionDown = false;
       }
     }
 
@@ -406,7 +436,7 @@ class Player
       {
        level.mazeSquares[this.i  +  this.maxCols].breakWall = false;
        level.mazeSquares[this.i +  this.maxCols ].containsWall = false;
-  
+
 
      }
 

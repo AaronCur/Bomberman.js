@@ -22,52 +22,67 @@ function main()
 }
 function keyDownHandler(e)
 {
-	//code triggered when left arrow is pressed
-	if(e.keyCode === 37  )
+  if(e.keyCode === 37 && gameNs.playScene.player.collisionLeft == false)
 	{
 		gameNs.playScene.player.moveX = false;
 
-    gameNs.swipe = true;
 
 	}
-  else if(e.keyCode === 39 )
+  else if(e.keyCode === 39 && gameNs.playScene.player.collisionRight == false)
 	{
 		gameNs.playScene.player.moveX = true;
 
-    gameNs.swipe = true;
 	}
   else
   {
     gameNs.playScene.player.moveX = null;
 
-    gameNs.swipe = true;
   }
 
 //code triggered when UP arrow is pressed
-	if(e.keyCode === 38)
+	if(e.keyCode === 38 && gameNs.playScene.player.collisionUp == false)
 	{
 		gameNs.playScene.player.moveY = false;
-
-    gameNs.swipe = true;
 	}
-  else if(e.keyCode === 40)
+  else if(e.keyCode === 40 && gameNs.playScene.player.collisionDown == false)
 	{
 		gameNs.playScene.player.moveY = true;
-
-    gameNs.swipe = true;
 
 	}
   else
   {
     gameNs.playScene.player.moveY = null;
 
-    gameNs.swipe = true;
-
   }
+
+}
+function keyUpHandler(e)
+{
+  if(e.keyCode === 37 )
+	{
+		gameNs.playScene.player.moveX = null;
+
+
+	}
+  else if(e.keyCode === 39 )
+	{
+		gameNs.playScene.player.moveX = null;
+
+	}
+
+//code triggered when UP arrow is pressed
+	if(e.keyCode === 38)
+	{
+		gameNs.playScene.player.moveY = null;
+	}
+  else if(e.keyCode === 40)
+	{
+		gameNs.playScene.player.moveY = null;
+
+	}
 
 
 }
-
 
 
 /**
@@ -80,6 +95,7 @@ function keyDownHandler(e)
  function initCanvas()
  {
    document.addEventListener("keydown", this.keyDownHandler, true);
+  document.addEventListener("keyup", this.keyUpHandler, true);
  	//Use the document object to create a new element canvas.
  	var canvas = document.createElement("canvas");
  	//Assign the canvas an id so we can reference it elsewhere.
