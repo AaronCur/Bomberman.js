@@ -54,7 +54,7 @@ class PlayScene
     ctx.save();
 
     //  if( this.player.y > canvas.height/2 &&this.player.y < (14 * 60) - canvas.height/ 2)
-      this.player.breakWall(this.level);
+
       this.player.moveWall(this.level);
     //  this.otherPlayer.breakWall(this.level);
     //  this.otherPlayer.moveWall(this.level);

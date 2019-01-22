@@ -231,9 +231,7 @@ class Player
 
   plantBomb()
   {
-    var posX = this.x + this.width;
-    var posY = this.y + this.height * 1.3 ;
-    this.bomb.place({x:posX, y:posY})
+    this.bomb.place({x:this.col - 1, y:this.row})
   }
 
   checkCollisionMap(level)
@@ -403,70 +401,6 @@ class Player
     }
 
 }
-
-
-
-  }
-  breakWall(level)
-  {
-
-    if(this.direction == 2  )
-    {
-      if(level.mazeSquares[this.i +1].breakWall == true )
-      {
-        if(level.mazeSquares[this.i+1].x <= this.x+this.width - 6)
-        {
-          level.mazeSquares[this.i+1].breakWall = false;
-          level.mazeSquares[this.i+1].containsWall = false;
-
-        }
-
-      }
-
-    }
-    else if(this.direction == 4 )
-    {
-      if(level.mazeSquares[this.i -1].breakWall == true )
-      {
-        if(this.x <= level.mazeSquares[this.i - 1].x + (this.squareSize - 6))
-        {
-          level.mazeSquares[this.i-1].breakWall = false;
-          level.mazeSquares[this.i-1].containsWall = false;
-
-         }
-
-
-      }
-
-    }
-   else if(this.direction == 1 )
-    {
-      if(level.mazeSquares[this.i - this.maxCols].breakWall == true )
-      {
-        if(this.y + (this.height / 2) + 5<= level.mazeSquares[this.i-this.maxCols].y + this.squareSize)
-        {
-          level.mazeSquares[this.i - this.maxCols].breakWall = false;
-          level.mazeSquares[this.i - this.maxCols].containsWall = false;
-         }
-
-      }
-
-  }
-  else if(this.direction == 3)
-  {
-    if(level.mazeSquares[this.i + this.maxCols].breakWall == true )
-    {
-      if(this.y + this.height >= level.mazeSquares[this.i+this.maxCols].y)
-      {
-       level.mazeSquares[this.i  +  this.maxCols].breakWall = false;
-       level.mazeSquares[this.i +  this.maxCols ].containsWall = false;
-
-
-     }
-
-    }
-
-  }
 
   }
 

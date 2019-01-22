@@ -7,7 +7,8 @@ class Bomb
     this.gridPos = {};
     this.gridPos.x;
     this.gridPos.y;
-    this.alive = true;
+    this.alive = false;
+    this.exploding = false;
 
     this.img = imageOptions.image;
     this.fps = fps;
@@ -16,7 +17,9 @@ class Bomb
     this.height = imageOptions.height;
 
     this.time = 0;
+    this.timeExplode = 0;
     this.fuse = 1000 * this.fps;
+    this.explosionTime = 100 * this.fps;
     this.ticksPerFrame = 1000/this.fps;
     this.tileWidth = tile.width;
     this.tileHeight = tile.height;
@@ -26,24 +29,42 @@ class Bomb
   {
     this.alive = true;
     this.time = 0;
-    this.gridPos.x = Math.floor(pos.x / this.tileWidth);
-    this.gridPos.y = Math.floor(pos.y / this.tileHeight);
-    console.log(this.gridPos.x)
-    console.log(this.gridPos.y)
-    this.x = (this.gridPos.x * this.tileWidth ) * .8 + 5;
-    this.y = (this.gridPos.y * this.tileHeight) * .8 + 5;
+    this.timeExplode = 0;
+    this.gridPos.x = pos.x;
+    this.gridPos.y = pos.y;
+    console.log(pos.y)
+    console.log(this.gridPos.y * this.tileWidth)
+    this.x = (this.gridPos.x * this.tileWidth * .8);
+    this.y = (this.gridPos.y * this.tileHeight * .8);
   }
 
   update()
   {
-    if(this.alive)
+    if(this.alive || this.exploding)
     {
-      console.log(this.ticksPerFrame)
       if(this.time > this.fuse)
       {
         this.alive = false;
+        this.timeExplode = this.timeExplode + this.ticksPerFrame;
+        this.exploding = true;
+        if (this.timeExplode > this.explosionTime)
+        {
+          this.exploding = false;
+        }
       }
       this.time = this.time + this.ticksPerFrame;
+    }
+
+  }
+
+  onExplode()
+  {
+    if(this.exploding)
+    {
+      return this.gridPos;
+    }
+    else {
+      return {x:0, y:0};
     }
   }
 
