@@ -199,6 +199,7 @@ class Player
    }
 
    this.checkCollisionMap(level);
+   this.breakWall(level);
 
   //gameNs.ctx.fillText('Timer '+gameNs.score, gameNs.playScene.player.x , gameNs.playScene.player.y);
 
@@ -415,6 +416,7 @@ class Player
         {
           level.mazeSquares[this.i+1].breakWall = false;
           level.mazeSquares[this.i+1].containsWall = false;
+          this.collisionRight = false;;
 
         }
 
@@ -429,6 +431,7 @@ class Player
         {
           level.mazeSquares[this.i-1].breakWall = false;
           level.mazeSquares[this.i-1].containsWall = false;
+          this.collisionLeft = false;
 
          }
 
@@ -444,6 +447,7 @@ class Player
         {
           level.mazeSquares[this.i - this.maxCols].breakWall = false;
           level.mazeSquares[this.i - this.maxCols].containsWall = false;
+          this.collisionUp = false;
          }
 
       }
@@ -457,6 +461,10 @@ class Player
       {
        level.mazeSquares[this.i  +  this.maxCols].breakWall = false;
        level.mazeSquares[this.i +  this.maxCols ].containsWall = false;
+
+       this.collisionDown = false;
+
+
      }
     }
   }
