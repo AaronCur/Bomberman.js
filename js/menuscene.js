@@ -97,7 +97,7 @@ class MenuScene
            gameNs.optionsScene.createDiv("VolumeUp");
            gameNs.optionsScene.createDiv("VolumeDown");
            gameNs.optionsScene.createDiv("Back");
-
+           gameNs.optionsScene.createDiv("HelpScreen");
 
          }
          else if (filename === "tutorialbutton.png" )

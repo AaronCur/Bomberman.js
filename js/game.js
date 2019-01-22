@@ -22,9 +22,15 @@ class Game
     gameNs.sceneManager = new SceneManager();
     gameNs.menuScene = new MenuScene('Too Many Walls');
     gameNs.playScene = new PlayScene('Play');
+    gameNs.optionsScene = new optionsScene('Options')
+    gameNs.helpScene = new HelpScene('Help')
+    gameNs.hintsScene = new HintsScene('Hints')
 
     gameNs.sceneManager.addScene(gameNs.menuScene);
     gameNs.sceneManager.addScene(gameNs.playScene);
+    gameNs.sceneManager.addScene(gameNs.optionsScene);
+    gameNs.sceneManager.addScene(gameNs.helpScene)
+    gameNs.sceneManager.addScene(gameNs.hintsScene)
     gameNs.sceneManager.goToScene(gameNs.menuScene.title);
 
   //  document.addEventListener("click", this.clickHandler.bind(null, gameNs.sceneManager));
