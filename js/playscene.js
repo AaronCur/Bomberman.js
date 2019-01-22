@@ -19,7 +19,7 @@ class PlayScene
     width: 78 * 0.8,
     height: 108 * 0.8,
     image: this.img
-  }, 10, 100, 50, 1);
+  }, 10, 100, 50, 2);
 
 
     this.scoreboard = new ScoreboardManager();
@@ -28,7 +28,7 @@ class PlayScene
     var ctx = mycanvas.getContext("2d");
 
    ctx.translate((window.innerWidth / 2)- (7.5*(75 * 0.8)), 0);
-   ctx.scale(0.9,0.9);
+   //ctx.scale(0.9,0.9);
 
 
 
@@ -87,8 +87,8 @@ class PlayScene
    ctx.fillStyle ='white';
   ctx.font = '55px Adventure Regular';
   ctx.strokeStyle = 'black';
-  ctx.fillText(this.time,100,100);
-  ctx.strokeText(this.time,100,100);
+  ctx.fillText(this.time,390,60);
+  ctx.strokeText(this.time,390,60);
 
   }
 

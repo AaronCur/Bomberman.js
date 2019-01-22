@@ -39,7 +39,7 @@ class HealthSystem
       // code block
     }
     else {
-      this.positionX = 1000;
+      this.positionX = 640;
       this.positionY = 0;
       switch(this.healthVal) {
     case 3:
