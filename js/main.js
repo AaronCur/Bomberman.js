@@ -47,11 +47,39 @@ function keyDownHandler(e)
   else if(e.keyCode === 40 && gameNs.playScene.player.collisionDown == false)
 	{
 		gameNs.playScene.player.moveY = true;
-
 	}
   else
   {
     gameNs.playScene.player.moveY = null;
+  }
+
+
+  if(e.keyCode === 37 && gameNs.tutorialScene.player.collisionLeft == false)
+	{
+		gameNs.tutorialScene.player.moveX = false;
+	}
+  else if(e.keyCode === 39 && gameNs.tutorialScene.player.collisionRight == false)
+	{
+		gameNs.tutorialScene.player.moveX = true;
+	}
+  else
+  {
+    gameNs.tutorialScene.player.moveX = null;
+  }
+
+//code triggered when UP arrow is pressed
+	if(e.keyCode === 38 && gameNs.tutorialScene.player.collisionUp == false)
+	{
+		gameNs.tutorialScene.player.moveY = false;
+	}
+  else if(e.keyCode === 40 && gameNs.tutorialScene.player.collisionDown == false)
+	{
+		gameNs.tutorialScene.player.moveY = true;
+
+	}
+  else
+  {
+    gameNs.tutorialScene.player.moveY = null;
 
   }
 

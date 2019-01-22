@@ -25,12 +25,14 @@ class Game
     gameNs.optionsScene = new optionsScene('Options')
     gameNs.helpScene = new HelpScene('Help')
     gameNs.hintsScene = new HintsScene('Hints')
+    gameNs.tutorialScene = new TutorialScene('tutorial')
 
     gameNs.sceneManager.addScene(gameNs.menuScene);
     gameNs.sceneManager.addScene(gameNs.playScene);
     gameNs.sceneManager.addScene(gameNs.optionsScene);
     gameNs.sceneManager.addScene(gameNs.helpScene)
     gameNs.sceneManager.addScene(gameNs.hintsScene)
+    gameNs.sceneManager.addScene(gameNs.tutorialScene)
     gameNs.sceneManager.goToScene(gameNs.menuScene.title);
 
   //  document.addEventListener("click", this.clickHandler.bind(null, gameNs.sceneManager));

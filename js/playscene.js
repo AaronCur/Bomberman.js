@@ -29,8 +29,6 @@ class PlayScene
     this.ctx.scale(1,1);
     //gameNs.previousTime = Date.now();	// previousTime is initially 0
 
-
-
     this.initWorld();
 
 
@@ -45,8 +43,6 @@ class PlayScene
 
   update()
   {
-
-
     var canvas = document.getElementById('mycanvas');
     var ctx = canvas.getContext('2d');
     ctx.clearRect(0,0, canvas.width, canvas.height);
@@ -54,10 +50,9 @@ class PlayScene
 
     //  if( this.player.y > canvas.height/2 &&this.player.y < (14 * 60) - canvas.height/ 2)
       this.player.breakWall(this.level);
-      this.player.moveWall(this.level);
     //  this.otherPlayer.breakWall(this.level);
     //  this.otherPlayer.moveWall(this.level);
-    
+
     this.level.update();
 
     if(this.player.direction === 1)
@@ -67,7 +62,6 @@ class PlayScene
     else {
 
       this.player.update(this.level);
-
     }
 
 
