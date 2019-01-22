@@ -30,6 +30,7 @@ class PlayScene
   }
   initWorld() //prints out “Initialising game world”
   {
+
     this.scoreboard.startTimer();
 
   }
@@ -79,6 +80,7 @@ class PlayScene
    var canvas = document.createElement("mycanvas");
    var ctx = mycanvas.getContext("2d");
    document.body.style.background = "#ffffff";
+
    ctx.fillStyle ='white';
   ctx.font = '55px Adventure Regular';
   ctx.strokeStyle = 'black';
@@ -86,6 +88,4 @@ class PlayScene
   ctx.strokeText(this.time,100,100);
 
   }
-
-
 }

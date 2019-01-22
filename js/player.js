@@ -44,7 +44,28 @@ class Player
   this.maxCols=24
   this.moved =false
   gameNs.collides = false;
+
   this.healthSystem = new HealthSystem(playerID);
+
+  //particle effects
+  gameNs.maxParticles = 200;
+  gameNs.particleSize = 1;
+  gameNs.objectSize = 10;
+  gameNs.life = 0;
+  gameNs.maxLife = 200;
+  gameNs.loop = true;
+  gameNs.alpha = 255;
+
+  gameNs.particles = [];
+  gameNs.canvas = document.querySelector('canvas');
+  gameNs.ctx = gameNs.canvas.getContext('2d');
+
+  gameNs.canvas.width = window.innerWidth;
+  gameNs.canvas.height = window.innerHeight;
+  gameNs.emitters = [new Emitter(new VectorTwo(this.x+40, this.y+75), VectorTwo.fromAngle(0, 0))];
+
+  update();
+
 
   }
   setPosition()
@@ -64,13 +85,13 @@ class Player
  update(level)
  {
 
-
+   drawParticles();
 
    if(gameNs.playScene.gameover == false)
    {
-
      if(this.moveX == false && this.x> 0 /*&& this.checkCollisionMap(level.mazeSquares[this.i -1])==false*/)
       {
+        gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(0.5, 2))];
         this.x -= 5;
         this.direction = 4;
         this.collisionRight = false;
@@ -80,6 +101,7 @@ class Player
       }
       else if (this.moveX == true && this.x < 23 * 75 /*&& this.checkCollisionMap(level.mazeSquares[this.i +1]==false)*/)
       {
+        gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(3.5, 2))];
         this.x +=5;
         this.direction = 2;
         this.collisionLeft = false;
@@ -88,6 +110,7 @@ class Player
       }
       else if (this.moveY == false && this.y > 10)
       {
+        gameNs.emitters = [new Emitter(new VectorTwo(this.x + 40, this.y +75), VectorTwo.fromAngle(2, 2))];
          this.y-=5;
          this.direction = 1;
          this.collisionDown = false;
@@ -96,6 +119,7 @@ class Player
       }
       else if (this.moveY == true && this.y < 12 * 75)
       {
+        gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(5, 2))];
        this.y+=5;
        this.direction = 3;
        this.collisionUp = false;
@@ -110,27 +134,27 @@ class Player
      this.moveY = null;
    }
 
-   var canvas = document.getElementById('mycanvas');
-   var ctx = canvas.getContext('2d');
+   //var canvas = document.getElementById('mycanvas');
+   //var gameNs.ctx = canvas.getContext('2d');
 
    var image = this.img;
    //if(moveX == true)
 
   if (this.moveX == false)
    {
-     ctx.drawImage(image, this.index* 78 , 108,78, 108 ,this.x,this.y, this.width,this.height);
+     gameNs.ctx.drawImage(image, this.index* 78 , 108,78, 108 ,this.x,this.y, this.width,this.height);
    }
    else if (this.moveX == true)
    {
-     ctx.drawImage(image, this.index* 78 , 216,78, 108 ,this.x,this.y, this.width,this.height);
+     gameNs.ctx.drawImage(image, this.index* 78 , 216,78, 108 ,this.x,this.y, this.width,this.height);
    }
    else if (this.moveY == true)
    {
-     ctx.drawImage(image, this.index* 78, 0,78, 108 ,this.x,this.y, this.width,this.height);
+     gameNs.ctx.drawImage(image, this.index* 78, 0,78, 108 ,this.x,this.y, this.width,this.height);
    }
    else if (this.moveY == false)
    {
-     ctx.drawImage(image, this.index* 78 , 324,78, 108 ,this.x,this.y, this.width,this.height);
+     gameNs.ctx.drawImage(image, this.index* 78 , 324,78, 108 ,this.x,this.y, this.width,this.height);
    }
 
    if(this.moveX== null && this.moveY ==null)
@@ -138,21 +162,21 @@ class Player
      if(this.direction == 1)
      {
 
-       ctx.drawImage(image, 78 , 324,78, 108 ,this.x,this.y, this.width,this.height);
+       gameNs.ctx.drawImage(image, 78 , 324,78, 108 ,this.x,this.y, this.width,this.height);
 
      }
      else if(this.direction == 2)
      {
 
-       ctx.drawImage(image, 78 , 216,78, 108 ,this.x,this.y, this.width,this.height);
+       gameNs.ctx.drawImage(image, 78 , 216,78, 108 ,this.x,this.y, this.width,this.height);
      }
      else if(this.direction == 3)
      {
-       ctx.drawImage(image, 78, 0,78, 108 ,this.x,this.y, this.width,this.height);
+       gameNs.ctx.drawImage(image, 78, 0,78, 108 ,this.x,this.y, this.width,this.height);
      }
      else
      {
-        ctx.drawImage(image, 78 , 108,78, 108 ,this.x,this.y, this.width,this.height);
+        gameNs.ctx.drawImage(image, 78 , 108,78, 108 ,this.x,this.y, this.width,this.height);
      }
 
    }
@@ -181,7 +205,9 @@ class Player
    this.checkCollisionMap(level);
    this.breakWall(level);
 
+
    this.healthSystem.update();
+
 
  }
 
@@ -413,15 +439,12 @@ class Player
       {
        level.mazeSquares[this.i  +  this.maxCols].breakWall = false;
        level.mazeSquares[this.i +  this.maxCols ].containsWall = false;
+
        this.collisionDown = false;
 
 
      }
-
     }
-
   }
-
   }
-
 }
