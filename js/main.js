@@ -104,8 +104,10 @@ function keyUpHandler(e)
  	canvas.height = window.innerHeight;
  	//We want this to be a 2D canvas.
  	var ctx = canvas.getContext("2D");
+
  	//Adds the canvas element to the document.
  	document.body.appendChild(canvas);
+  
   document.addEventListener("touchstart", onTouchStart.bind(null,canvas));
   document.addEventListener("touchmove", onTouchMove, {passive:false});
   document.addEventListener("touchend", onTouchEnd);
