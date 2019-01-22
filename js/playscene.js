@@ -17,10 +17,20 @@ class PlayScene
     var ctx = canvas.getContext('2d');
 
     this.player = new Player(ctx, {
-    width: 78 * 0.8,
-    height: 108 * 0.8,
-    image: this.img
-  }, 10, 100, 50);
+      width: 78 * 0.8,
+      height: 108 * 0.8,
+      image: this.img
+    }, 10, 100, 50);
+
+
+    this.imgB=new Image();
+    this.imgB.src = "img/Bomb.png";
+
+    this.bomb = new Bomb({
+      width: 256,
+      height: 244,
+      image: this.imgB
+    }, 10)
 
     this.ready = false;
 
@@ -57,7 +67,7 @@ class PlayScene
       this.player.moveWall(this.level);
     //  this.otherPlayer.breakWall(this.level);
     //  this.otherPlayer.moveWall(this.level);
-    
+
     this.level.update();
 
     if(this.player.direction === 1)
@@ -69,7 +79,7 @@ class PlayScene
       this.player.update(this.level);
 
     }
-
+    this.bomb.update();
 
     if(this.gameover == true)
     {
@@ -97,7 +107,7 @@ class PlayScene
    var ctx = mycanvas.getContext("2d");
    document.body.style.background = "#ffffff";
 
-
+   this.bomb.draw()
 
 
 
