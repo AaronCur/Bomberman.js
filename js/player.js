@@ -9,7 +9,7 @@ class Player
   @param {number}height assigns height of square
   @param {number}colour assigns colour of square
   */
-  constructor(context, imageOptions, fps, y, x)
+  constructor(context, imageOptions, fps, y, x, playerID)
   {
 //  this.x=x;
   this.collisionUp = false;
@@ -44,6 +44,7 @@ class Player
   this.maxCols=24
   this.moved =false
   gameNs.collides = false;
+  this.healthSystem = new HealthSystem(playerID);
 
   }
   setPosition()
@@ -180,38 +181,9 @@ class Player
    this.checkCollisionMap(level);
    this.breakWall(level);
 
-  //ctx.fillText('Timer '+gameNs.score, gameNs.playScene.player.x , gameNs.playScene.player.y);
-
+   this.healthSystem.update();
 
  }
-
-  /**
-   * function of Square which gives the r g b varialbles an
-   * initial value and thrn fills the sqare  colour initially
-   * @type {Integer} r -given value of 10
-   * @type {Integer} b -given value of 255
-   * @type {Integer} g -given value of 10
-  *fills the rectanglewith this rgb value at the positon this.x, this.y
-   */
-
-  moveLeft()
-  {
-    this.x -= 10;
-  }
-
-  moveRight()
-  {
-    this.x += 10;
-  }
-
-  moveDown()
-  {
-    this.y += 10;
-  }
-  moveUp()
-  {
-    this.y -= 10;
-  }
 
   checkCollisionMap(level)
   {
@@ -226,6 +198,7 @@ class Player
           this.moveX = null;
           this.moveY = null;
           this.collisionRight = true;
+          this.healthSystem.healthVal = 1;
           if(this.moved==false)
           {
 
