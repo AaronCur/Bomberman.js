@@ -10,13 +10,30 @@ class WorldSquare
     this.imgNotWall = new Image();
     this.imgBreakWall = new Image();
     this.imgMoveWall = new Image();
+    //power-up
+    this.imgSpeedUp = new Image();
+    this.imgArmour = new Image();
+    this.imgBomb = new Image();
+    this.imgFire = new Image();
+    this.imgOneUp = new Image();
+
     this.imgWall.src = "img/wall.png";
     this.imgNotWall.src = "img/notwall.png";
     this.imgBreakWall.src = "img/breakwall.png";
-    this.imgMoveWall.src = "img/movewall.png";
+    //power-up
+    this.imgSpeedUp.src = "img/skate.png";
+    this.imgArmour.src = "img/armour.png";
+    this.imgBomb.src = "img/Bomb.png";
+    this.imgFire.src = "img/Fire.png";
+    this.imgOneUp.src = "img/OneUp.png";
+
     this.containsWall = false;
     this.breakWall = false;
-    this.moveWall = false;
+    this.speedUp = false;
+    this.armour = false;
+    this.bomb = false;
+    this.fire = false;
+    this.oneup = false;
     this.row = row;
     this.x = this.row;
     this.col = col;
@@ -51,17 +68,42 @@ class WorldSquare
   }
   update()
   {
+
     var canvas = document.getElementById('mycanvas');
     var ctx = canvas.getContext('2d');
     if(this.containsWall == true)
     {
       var image = this.imgWall;
       ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
-
     }
     else if(this.containsWall == false)
     {
-      var image = this.imgNotWall
+      var image = this.imgNotWall;
+      ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
+    }
+    if(this.speedUp == true)
+    {
+      var image = this.imgSpeedUp;
+      ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
+    }
+    if(this.armour == true)
+    {
+      var image = this.imgArmour;
+      ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
+    }
+    if(this.fire == true)
+    {
+      var image = this.imgFire;
+      ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
+    }
+    if(this.bomb == true)
+    {
+      var image = this.imgBomb;
+      ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
+    }
+    if(this.oneup == true)
+    {
+      var image = this.imgOneUp;
       ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
     }
 
@@ -70,14 +112,6 @@ class WorldSquare
       var image = this.imgBreakWall;
       ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
     }
-    if(this.moveWall == true)
-    {
-      var image = this.imgMoveWall;
-      ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
-
-    }
-
-
   }
   draw()
   {

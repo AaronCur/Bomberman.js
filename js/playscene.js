@@ -58,9 +58,9 @@ class PlayScene
 
 
     this.time = this.scoreboard.getDisplayTimer();
-    console.log(this.time);
+    //console.log(this.time);
 
-    if(this.time == "00:22"){
+    if(this.time == "20:22"){
       this.endScene.render();
      this.scoreboard.addToBoard(40);
      this.scoreboard.filterTime(1);
