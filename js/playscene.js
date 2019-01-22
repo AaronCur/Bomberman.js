@@ -23,15 +23,6 @@ class PlayScene
     }, 10, 100, 50);
 
 
-    this.imgB=new Image();
-    this.imgB.src = "img/Bomb.png";
-
-    this.bomb = new Bomb({
-      width: 256,
-      height: 244,
-      image: this.imgB
-    }, 10)
-
     this.ready = false;
 
     this.canvas = document.getElementById('mycanvas');
@@ -79,7 +70,6 @@ class PlayScene
       this.player.update(this.level);
 
     }
-    this.bomb.update();
 
     if(this.gameover == true)
     {
@@ -107,7 +97,6 @@ class PlayScene
    var ctx = mycanvas.getContext("2d");
    document.body.style.background = "#ffffff";
 
-   this.bomb.draw()
 
 
 

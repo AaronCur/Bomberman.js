@@ -45,6 +45,18 @@ class Player
   this.moved =false
   gameNs.collides = false;
 
+  this.imgB=new Image();
+  this.imgB.src = "img/Bomb.png";
+  this.tile = {};
+  this.tile.width = 75;
+  this.tile.height = 75;
+
+  this.bomb = new Bomb({
+    width: 256,
+    height: 244,
+    image: this.imgB
+  }, 10, this.tile)
+
   }
   setPosition()
   {
@@ -67,6 +79,8 @@ class Player
 
    if(gameNs.playScene.gameover == false)
    {
+
+     this.bomb.update();
 
      if(this.moveX == false && this.x> 0 /*&& this.checkCollisionMap(level.mazeSquares[this.i -1])==false*/)
       {
@@ -154,6 +168,9 @@ class Player
         ctx.drawImage(image, 78 , 108,78, 108 ,this.x,this.y, this.width,this.height);
      }
 
+
+     this.bomb.draw()
+
    }
    if(this.ticksPerFrame < this.time)
    {
@@ -210,6 +227,13 @@ class Player
   moveUp()
   {
     this.y -= 10;
+  }
+
+  plantBomb()
+  {
+    var posX = this.x + this.width;
+    var posY = this.y + this.height * 1.3 ;
+    this.bomb.place({x:posX, y:posY})
   }
 
   checkCollisionMap(level)

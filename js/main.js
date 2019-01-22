@@ -22,6 +22,11 @@ function main()
 }
 function keyDownHandler(e)
 {
+  if(e.keyCode === 32)
+	{
+        gameNs.playScene.player.plantBomb();
+  }
+
   if(e.keyCode === 37 && gameNs.playScene.player.collisionLeft == false)
 	{
 		gameNs.playScene.player.moveX = false;

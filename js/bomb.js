@@ -1,6 +1,6 @@
 class Bomb
 {
-  constructor( imageOptions, fps)
+  constructor( imageOptions, fps, tile)
   {
     this.x = 0;
     this.y = 0;
@@ -18,12 +18,20 @@ class Bomb
     this.time = 0;
     this.fuse = 1000 * this.fps;
     this.ticksPerFrame = 1000/this.fps;
-
+    this.tileWidth = tile.width;
+    this.tileHeight = tile.height;
   }
 
   place(pos)
   {
-
+    this.alive = true;
+    this.time = 0;
+    this.gridPos.x = Math.floor(pos.x / this.tileWidth);
+    this.gridPos.y = Math.floor(pos.y / this.tileHeight);
+    console.log(this.gridPos.x)
+    console.log(this.gridPos.y)
+    this.x = (this.gridPos.x * this.tileWidth ) * .8 + 5;
+    this.y = (this.gridPos.y * this.tileHeight) * .8 + 5;
   }
 
   update()
