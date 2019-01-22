@@ -192,7 +192,7 @@ class Player
        this.time =0;
    }
    this.xFeet = (this.x + (this.width/2));
-   this.yFeet = (this.y + 5);
+   this.yFeet = (this.y -(this.squareSize * 1.5)+ 5);
    this.col = Math.floor(this.xFeet / this.squareSize) + 1 ;
    this.row = Math.floor(this.yFeet / this.squareSize) + 1 ;
    this.i = (this.row * this.maxCols)+this.col;

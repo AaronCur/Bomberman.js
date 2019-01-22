@@ -28,7 +28,7 @@ class LevelLoader
      for (this.row = 0; this.row < 13; this.row++)
      {
        //that.mazeSquares = [];
-         for (this.col = 0; this.col < 24; this.col++)
+         for (this.col = 0; this.col < 15; this.col++)
          {
               that.mazeSquares.push(new WorldSquare(that.x, that.y));
               //that.mazeSquares[this.row][this.col] = new WorldSquare(that.x, that.y);
