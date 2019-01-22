@@ -40,8 +40,10 @@ class Player
   this.i = 0;
   this.j = 0;
   this.squareSize = 75 * 0.8;
-  this.maxRows=14
-  this.maxCols=24
+
+  this.maxRows=13
+  this.maxCols=15
+
   this.moved =false
   gameNs.collides = false;
 
