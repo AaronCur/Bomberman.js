@@ -19,7 +19,7 @@ class PlayScene
     width: 78 * 0.8,
     height: 108 * 0.8,
     image: this.img
-  }, 10, 100, 50);
+  }, 10, 100, 50, 1);
 
 
     this.scoreboard = new ScoreboardManager();
@@ -60,14 +60,14 @@ class PlayScene
     this.time = this.scoreboard.getDisplayTimer();
     console.log(this.time);
 
-    if(this.time == "00:22"){
-      this.endScene.render();
-     this.scoreboard.addToBoard(40);
-     this.scoreboard.filterTime(1);
-     console.log(this.scoreboard.getBoard());
-     this.scoreboard.generate_table();
+    //if(this.time == "00:22"){
+    //  this.endScene.render();
+  //   this.scoreboard.addToBoard(40);
+  //   this.scoreboard.filterTime(1);
+    // console.log(this.scoreboard.getBoard());
+    // this.scoreboard.generate_table();
 
-   }
+   //}
 
   }
   /**
