@@ -19,7 +19,13 @@ class PlayScene
     width: 78 * 0.8,
     height: 108 * 0.8,
     image: this.img
-  }, 10, 100, 50, 2);
+  }, 10, 100, 50, 1);
+
+    this.otherPlayer = new Player(ctx, {
+    width: 78 * 0.8,
+    height: 108 * 0.8,
+    image: this.img
+  }, 10, 700, 790, 2);
 
 
     this.scoreboard = new ScoreboardManager();
@@ -53,16 +59,9 @@ class PlayScene
     ctx.save();
 
     this.level.update();
-    if(this.player.direction === 1)
-    {
-      this.player.update(this.level);
-    }
-    else {
 
-      this.player.update(this.level);
-
-    }
-
+    this.player.update(this.level);
+    this.otherPlayer.update(this.level);
 
     this.time = this.scoreboard.getDisplayTimer();
     console.log(this.time);
