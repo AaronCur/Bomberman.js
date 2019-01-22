@@ -6,6 +6,7 @@ class PlayScene
    */
   constructor(title)
   {
+    this.endScene = new EndScene();
     this.gameover = false;
     this.level = new LevelLoader();
     this.posX = 0;
@@ -29,7 +30,8 @@ class PlayScene
     this.ctx.scale(1,1);
     //gameNs.previousTime = Date.now();	// previousTime is initially 0
 
-
+    this.scoreboard = new ScoreboardManager();
+    this.scoreboard.initBoard("Local");
 
     this.initWorld();
 
@@ -37,8 +39,7 @@ class PlayScene
   }
   initWorld() //prints out “Initialising game world”
   {
-    console.log("Initialising game world");
-
+    this.scoreboard.startTimer();
 
   }
 
@@ -57,7 +58,7 @@ class PlayScene
       this.player.moveWall(this.level);
     //  this.otherPlayer.breakWall(this.level);
     //  this.otherPlayer.moveWall(this.level);
-    
+
     this.level.update();
 
     if(this.player.direction === 1)
@@ -84,6 +85,18 @@ class PlayScene
 
     }
 
+    this.time = this.scoreboard.getDisplayTimer();
+    console.log(this.time);
+
+    if(this.time == "00:22"){
+      this.endScene.render();
+     this.scoreboard.addToBoard(40);
+     this.scoreboard.filterTime(1);
+     console.log(this.scoreboard.getBoard());
+     this.scoreboard.generate_table();
+
+   }
+
     this.ctx.restore();
   }
   /**
@@ -96,6 +109,12 @@ class PlayScene
    var canvas = document.createElement("mycanvas");
    var ctx = mycanvas.getContext("2d");
    document.body.style.background = "#ffffff";
+   ctx.fillStyle ='white';
+  ctx.font = '55px Adventure Regular';
+  ctx.strokeStyle = 'black';
+  ctx.fillText(this.time,100,100);
+  ctx.strokeText(this.time,100,100);
+
 
 
 
