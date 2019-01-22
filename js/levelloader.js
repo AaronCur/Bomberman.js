@@ -23,11 +23,12 @@ class LevelLoader
      this.levelloader = JSON.parse(this.responseText);
      this.map= this.levelloader.Map;
      console.log("MapData :" +that.map[10] );
+
      that.y = that.squareSize * 1.5;
      for (this.row = 0; this.row < 13; this.row++)
      {
        //that.mazeSquares = [];
-         for (this.col = 0; this.col < 15; this.col++)
+         for (this.col = 0; this.col < 24; this.col++)
          {
               that.mazeSquares.push(new WorldSquare(that.x, that.y));
               //that.mazeSquares[this.row][this.col] = new WorldSquare(that.x, that.y);
@@ -39,6 +40,7 @@ class LevelLoader
      }
 
     //console.log(that.map[10]);
+
      for (this.i = 0; this.i< 195; this.i++)
      {
 
@@ -65,6 +67,7 @@ this.request.send();
 
   update()
   {
+
 
     for (this.i = 0; this.i < 195; this.i++)
     {
