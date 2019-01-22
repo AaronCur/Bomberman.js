@@ -9,7 +9,7 @@ class Player
   @param {number}height assigns height of square
   @param {number}colour assigns colour of square
   */
-  constructor(context, imageOptions, fps, y, x)
+  constructor(context, imageOptions, fps, y, x, playerID)
   {
 //  this.x=x;
   this.collisionUp = false;
@@ -40,8 +40,10 @@ class Player
   this.i = 0;
   this.j = 0;
   this.squareSize = 75 * 0.8;
-  this.maxRows=14
-  this.maxCols=24
+
+  this.maxRows=13
+  this.maxCols=15
+
   this.moved =false
   gameNs.collides = false;
 
@@ -56,6 +58,28 @@ class Player
     height: 244,
     image: this.imgB
   }, 10, this.tile)
+    
+  this.healthSystem = new HealthSystem(playerID);
+
+  //particle effects
+  gameNs.maxParticles = 200;
+  gameNs.particleSize = 1;
+  gameNs.objectSize = 10;
+  gameNs.life = 0;
+  gameNs.maxLife = 200;
+  gameNs.loop = true;
+  gameNs.alpha = 255;
+
+  gameNs.particles = [];
+  gameNs.canvas = document.querySelector('canvas');
+  gameNs.ctx = gameNs.canvas.getContext('2d');
+
+  gameNs.canvas.width = window.innerWidth;
+  gameNs.canvas.height = window.innerHeight;
+  gameNs.emitters = [new Emitter(new VectorTwo(this.x+40, this.y+75), VectorTwo.fromAngle(0, 0))];
+
+  update();
+
 
   }
   setPosition()
@@ -75,7 +99,7 @@ class Player
  update(level)
  {
 
-
+   drawParticles();
 
    if(gameNs.playScene.gameover == false)
    {
@@ -84,6 +108,7 @@ class Player
 
      if(this.moveX == false && this.x> 0 /*&& this.checkCollisionMap(level.mazeSquares[this.i -1])==false*/)
       {
+        gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(0.5, 2))];
         this.x -= 5;
         this.direction = 4;
         this.collisionRight = false;
@@ -93,6 +118,7 @@ class Player
       }
       else if (this.moveX == true && this.x < 23 * 75 /*&& this.checkCollisionMap(level.mazeSquares[this.i +1]==false)*/)
       {
+        gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(3.5, 2))];
         this.x +=5;
         this.direction = 2;
         this.collisionLeft = false;
@@ -101,6 +127,7 @@ class Player
       }
       else if (this.moveY == false && this.y > 10)
       {
+        gameNs.emitters = [new Emitter(new VectorTwo(this.x + 40, this.y +75), VectorTwo.fromAngle(2, 2))];
          this.y-=5;
          this.direction = 1;
          this.collisionDown = false;
@@ -109,6 +136,7 @@ class Player
       }
       else if (this.moveY == true && this.y < 12 * 75)
       {
+        gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(5, 2))];
        this.y+=5;
        this.direction = 3;
        this.collisionUp = false;
@@ -123,27 +151,27 @@ class Player
      this.moveY = null;
    }
 
-   var canvas = document.getElementById('mycanvas');
-   var ctx = canvas.getContext('2d');
+   //var canvas = document.getElementById('mycanvas');
+   //var gameNs.ctx = canvas.getContext('2d');
 
    var image = this.img;
    //if(moveX == true)
 
   if (this.moveX == false)
    {
-     ctx.drawImage(image, this.index* 78 , 108,78, 108 ,this.x,this.y, this.width,this.height);
+     gameNs.ctx.drawImage(image, this.index* 78 , 108,78, 108 ,this.x,this.y, this.width,this.height);
    }
    else if (this.moveX == true)
    {
-     ctx.drawImage(image, this.index* 78 , 216,78, 108 ,this.x,this.y, this.width,this.height);
+     gameNs.ctx.drawImage(image, this.index* 78 , 216,78, 108 ,this.x,this.y, this.width,this.height);
    }
    else if (this.moveY == true)
    {
-     ctx.drawImage(image, this.index* 78, 0,78, 108 ,this.x,this.y, this.width,this.height);
+     gameNs.ctx.drawImage(image, this.index* 78, 0,78, 108 ,this.x,this.y, this.width,this.height);
    }
    else if (this.moveY == false)
    {
-     ctx.drawImage(image, this.index* 78 , 324,78, 108 ,this.x,this.y, this.width,this.height);
+     gameNs.ctx.drawImage(image, this.index* 78 , 324,78, 108 ,this.x,this.y, this.width,this.height);
    }
 
    if(this.moveX== null && this.moveY ==null)
@@ -151,21 +179,21 @@ class Player
      if(this.direction == 1)
      {
 
-       ctx.drawImage(image, 78 , 324,78, 108 ,this.x,this.y, this.width,this.height);
+       gameNs.ctx.drawImage(image, 78 , 324,78, 108 ,this.x,this.y, this.width,this.height);
 
      }
      else if(this.direction == 2)
      {
 
-       ctx.drawImage(image, 78 , 216,78, 108 ,this.x,this.y, this.width,this.height);
+       gameNs.ctx.drawImage(image, 78 , 216,78, 108 ,this.x,this.y, this.width,this.height);
      }
      else if(this.direction == 3)
      {
-       ctx.drawImage(image, 78, 0,78, 108 ,this.x,this.y, this.width,this.height);
+       gameNs.ctx.drawImage(image, 78, 0,78, 108 ,this.x,this.y, this.width,this.height);
      }
      else
      {
-        ctx.drawImage(image, 78 , 108,78, 108 ,this.x,this.y, this.width,this.height);
+        gameNs.ctx.drawImage(image, 78 , 108,78, 108 ,this.x,this.y, this.width,this.height);
      }
 
 
@@ -182,7 +210,7 @@ class Player
        this.time =0;
    }
    this.xFeet = (this.x + (this.width/2));
-   this.yFeet = (this.y + 5);
+   this.yFeet = (this.y -(this.squareSize * 1.5)+ 5);
    this.col = Math.floor(this.xFeet / this.squareSize) + 1 ;
    this.row = Math.floor(this.yFeet / this.squareSize) + 1 ;
    this.i = (this.row * this.maxCols)+this.col;
@@ -195,39 +223,13 @@ class Player
    }
 
    this.checkCollisionMap(level);
+   this.breakWall(level);
 
-  //ctx.fillText('Timer '+gameNs.score, gameNs.playScene.player.x , gameNs.playScene.player.y);
+
+   this.healthSystem.update();
 
 
  }
-
-  /**
-   * function of Square which gives the r g b varialbles an
-   * initial value and thrn fills the sqare  colour initially
-   * @type {Integer} r -given value of 10
-   * @type {Integer} b -given value of 255
-   * @type {Integer} g -given value of 10
-  *fills the rectanglewith this rgb value at the positon this.x, this.y
-   */
-
-  moveLeft()
-  {
-    this.x -= 10;
-  }
-
-  moveRight()
-  {
-    this.x += 10;
-  }
-
-  moveDown()
-  {
-    this.y += 10;
-  }
-  moveUp()
-  {
-    this.y -= 10;
-  }
 
   plantBomb()
   {
@@ -247,6 +249,7 @@ class Player
           this.moveX = null;
           this.moveY = null;
           this.collisionRight = true;
+          this.healthSystem.healthVal = 1;
           if(this.moved==false)
           {
 
@@ -402,6 +405,71 @@ class Player
 
 }
 
-  }
+    
 
+  }
+  breakWall(level)
+  {
+
+    if(this.direction == 2  )
+    {
+      if(level.mazeSquares[this.i +1].breakWall == true )
+      {
+        if(level.mazeSquares[this.i+1].x <= this.x+this.width - 6)
+        {
+          level.mazeSquares[this.i+1].breakWall = false;
+          level.mazeSquares[this.i+1].containsWall = false;
+          this.collisionRight = false;;
+
+        }
+
+      }
+
+    }
+    else if(this.direction == 4 )
+    {
+      if(level.mazeSquares[this.i -1].breakWall == true )
+      {
+        if(this.x <= level.mazeSquares[this.i - 1].x + (this.squareSize - 6))
+        {
+          level.mazeSquares[this.i-1].breakWall = false;
+          level.mazeSquares[this.i-1].containsWall = false;
+          this.collisionLeft = false;
+
+         }
+
+
+      }
+
+    }
+   else if(this.direction == 1 )
+    {
+      if(level.mazeSquares[this.i - this.maxCols].breakWall == true )
+      {
+        if(this.y + (this.height / 2) + 5<= level.mazeSquares[this.i-this.maxCols].y + this.squareSize)
+        {
+          level.mazeSquares[this.i - this.maxCols].breakWall = false;
+          level.mazeSquares[this.i - this.maxCols].containsWall = false;
+          this.collisionUp = false;
+         }
+
+      }
+
+  }
+  else if(this.direction == 3)
+  {
+    if(level.mazeSquares[this.i + this.maxCols].breakWall == true )
+    {
+      if(this.y + this.height >= level.mazeSquares[this.i+this.maxCols].y)
+      {
+       level.mazeSquares[this.i  +  this.maxCols].breakWall = false;
+       level.mazeSquares[this.i +  this.maxCols ].containsWall = false;
+
+       this.collisionDown = false;
+
+
+     }
+    }
+  }
+  }
 }
