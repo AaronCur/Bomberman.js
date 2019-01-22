@@ -12,10 +12,10 @@ class Player
   constructor(context, imageOptions, fps, y, x)
   {
 //  this.x=x;
-this.collisionUp = false;
-this.collisionDown = false;
-this.collisionLeft = false;
-this.collisionRight = false;
+  this.collisionUp = false;
+  this.collisionDown = false;
+  this.collisionLeft = false;
+  this.collisionRight = false;
   this.moveX = null;
   this.moveY = null;
   this.enableLeft = null;
