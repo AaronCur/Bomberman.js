@@ -67,11 +67,24 @@ this.request.send();
 
   update()
   {
+    var explosionSrc = gameNs.playScene.player.bomb.onExplode()
 
 
     for (this.i = 0; this.i < 195; this.i++)
     {
-            this.mazeSquares[this.i].update();
+      if((this.mazeSquares[this.i].row / 60 >= explosionSrc.x - 1 &&
+        this.mazeSquares[this.i].row / 60 <= explosionSrc.x + 1 &&
+        this.mazeSquares[this.i].col / 60 == explosionSrc.y) ||
+        (this.mazeSquares[this.i].row / 60 == explosionSrc.x &&
+        this.mazeSquares[this.i].col / 60 >= explosionSrc.y - 1 &&
+        this.mazeSquares[this.i].col / 60 <= explosionSrc.y + 1))
+        {
+          if(this.mazeSquares[this.i].breakWall)
+          {
+            this.mazeSquares[this.i].breakWall = false;
+          }
+        }
+      this.mazeSquares[this.i].update();
     }
 
 

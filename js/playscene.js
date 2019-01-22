@@ -66,15 +66,6 @@ class PlayScene
     this.time = this.scoreboard.getDisplayTimer();
     console.log(this.time);
 
-    //if(this.time == "00:22"){
-    //  this.endScene.render();
-  //   this.scoreboard.addToBoard(40);
-  //   this.scoreboard.filterTime(1);
-    // console.log(this.scoreboard.getBoard());
-    // this.scoreboard.generate_table();
-
-   //}
-
   }
   /**
    * render function which will overwrite the one inherited by scene
@@ -87,11 +78,11 @@ class PlayScene
    var ctx = mycanvas.getContext("2d");
    document.body.style.background = "#ffffff";
 
-   ctx.fillStyle ='white';
-  ctx.font = '55px Adventure Regular';
-  ctx.strokeStyle = 'black';
-  ctx.fillText(this.time,390,60);
-  ctx.strokeText(this.time,390,60);
+    ctx.fillStyle ='white';
+    ctx.font = '55px Adventure Regular';
+    ctx.strokeStyle = 'black';
+    ctx.fillText(this.time,390,60);
+    ctx.strokeText(this.time,390,60);
 
   }
 }
