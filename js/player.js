@@ -23,6 +23,7 @@ class Player
   this.enableDown = null;
   this.enableUp = null;
   this.direction = 0;
+  this.idle = false;
 
   this.img= imageOptions.image;
   this.fps = fps;
@@ -151,9 +152,20 @@ class Player
      this.moveX = null;
      this.moveY = null;
    }
+   if(this.idle == true){
+       gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(0, 0))];
+   }
 
    //var canvas = document.getElementById('mycanvas');
    //var gameNs.ctx = canvas.getContext('2d');
+
+     if (gameNs.playScene.player.moveY == null && gameNs.playScene.player.moveX == null){
+       gameNs.playScene.player.idle= true;
+     }
+     else{
+       gameNs.playScene.player.idle= false;
+     }
+
 
    var image = this.img;
    //if(moveX == true)
