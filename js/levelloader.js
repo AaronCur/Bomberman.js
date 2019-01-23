@@ -99,6 +99,23 @@ this.request.send();
         }
       this.mazeSquares[this.i].update();
     }
+    var explosionTut = gameNs.tutorialScene.player.bomb.onExplode()
+    for (this.i = 0; this.i < 195; this.i++)
+    {
+      if((this.mazeSquares[this.i].row / (75 * 0.8) >= explosionTut.x - 1 &&
+        this.mazeSquares[this.i].row / (75 * 0.8) <= explosionTut.x + 1 &&
+        (this.mazeSquares[this.i].col - 90) / (75 * 0.8) == explosionTut.y) ||
+        (this.mazeSquares[this.i].row / (75 * 0.8) == explosionTut.x &&
+        (this.mazeSquares[this.i].col - 90) / (75 * 0.8) >= explosionTut.y - 1 &&
+        (this.mazeSquares[this.i].col - 90) / (75 * 0.8) <= explosionTut.y + 1))
+        {
+          if(this.mazeSquares[this.i].breakWall)
+          {
+            this.mazeSquares[this.i].breakWall = false;
+          }
+        }
+      this.mazeSquares[this.i].update();
+    }
 
 
   }

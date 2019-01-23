@@ -33,7 +33,7 @@ class TutorialScene
      this.ctx.scale(1,1);
      //gameNs.previousTime = Date.now();	// previousTime is initially 0
 
-     this.initWorld();
+    ctx.translate((window.innerWidth / 2)- (7.5*(75 * 0.8)), 0);
 
 
    }
@@ -52,7 +52,6 @@ class TutorialScene
      ctx.clearRect(0,0, canvas.width, canvas.height);
      ctx.save();
      //  if( this.player.y > canvas.height/2 &&this.player.y < (14 * 60) - canvas.height/ 2)
-       this.player.breakWall(this.level);
      //  this.otherPlayer.breakWall(this.level);
      //  this.otherPlayer.moveWall(this.level);
 
@@ -89,11 +88,14 @@ class TutorialScene
          else if (gameNs.tipsText.goalwall === true)
          {
            gameNs.tipsText.goalwall = false
-           gameNs.tipsText.display = false
+           gameNs.display = false
          }
-
-         gameNs.tipsText.Leveltipdisplay()
        }
+       if(e.keyCode === 32)
+       {
+         gameNs.tipsText.spacePressed = true
+       }
+       gameNs.tipsText.Leveltipdisplay()
      }
 
    }
