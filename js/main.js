@@ -31,13 +31,10 @@ function keyDownHandler(e)
   if(e.keyCode === 37 && gameNs.playScene.player.collisionLeft == false)
 	{
 		gameNs.playScene.player.moveX = false;
-
-
 	}
    if(e.keyCode === 39 && gameNs.playScene.player.collisionRight == false)
 	{
 		gameNs.playScene.player.moveX = true;
-
 	}
 
 //code triggered when UP arrow is pressed
@@ -48,7 +45,6 @@ function keyDownHandler(e)
   if(e.keyCode === 40 && gameNs.playScene.player.collisionDown == false)
 	{
 		gameNs.playScene.player.moveY = true;
-
 	}
 
 
@@ -84,7 +80,6 @@ function keyUpHandler(e)
   if(e.keyCode === 37 )
 	{
 		gameNs.playScene.player.moveX = null;
-
 
 	}
   if(e.keyCode === 39 )

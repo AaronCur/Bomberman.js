@@ -147,8 +147,8 @@ class Player
 
    }
    else {
-     this.moveX = null;
-     this.moveY = null;
+    // this.moveX = null;
+    // this.moveY = null;
    }
 
    //var canvas = document.getElementById('mycanvas');
