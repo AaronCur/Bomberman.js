@@ -33,7 +33,7 @@ class TutorialScene
      this.ctx.scale(1,1);
      //gameNs.previousTime = Date.now();	// previousTime is initially 0
 
-     this.initWorld();
+    ctx.translate((window.innerWidth / 2)- (7.5*(75 * 0.8)), 0);
 
 
    }

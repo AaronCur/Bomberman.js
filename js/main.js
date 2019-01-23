@@ -49,10 +49,6 @@ function keyDownHandler(e)
 	{
 		gameNs.playScene.player.moveY = true;
 	}
-  else
-  {
-    gameNs.playScene.player.moveY = null;
-  }
 
 
   if(e.keyCode === 37 && gameNs.tutorialScene.player.collisionLeft == false && gameNs.display===false)
