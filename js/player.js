@@ -100,6 +100,7 @@ class Player
  {
 
    drawParticles();
+   this.bomb.draw()
 
    if(gameNs.playScene.gameover == false)
    {
@@ -197,7 +198,7 @@ class Player
      }
 
 
-     this.bomb.draw()
+
 
    }
    if(this.ticksPerFrame < this.time)
