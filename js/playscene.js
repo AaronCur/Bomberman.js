@@ -65,6 +65,18 @@ class PlayScene
 
     this.time = this.scoreboard.getDisplayTimer();
 
+    //console.log(this.time);
+
+    if(this.time == "20:22"){
+      this.endScene.render();
+     this.scoreboard.addToBoard(40);
+     this.scoreboard.filterTime(1);
+     console.log(this.scoreboard.getBoard());
+     this.scoreboard.generate_table();
+
+   }
+
+
   }
   /**
    * render function which will overwrite the one inherited by scene

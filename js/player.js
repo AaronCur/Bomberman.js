@@ -223,6 +223,7 @@ class Player
    }
 
    this.checkCollisionMap(level);
+   this.collectPowerUp(level);
 
 
    this.healthSystem.update();
@@ -240,8 +241,7 @@ class Player
 
     if(this.direction == 2  )
     {
-      if(level.mazeSquares[this.i+1].containsWall === true ||level.mazeSquares[this.i+1].moveWall === true
-        || level.mazeSquares[this.i+1].breakWall === true)
+      if(level.mazeSquares[this.i+1].containsWall === true || level.mazeSquares[this.i+1].breakWall === true)
       {
         if(level.mazeSquares[this.i+1].x <= this.x+this.width - 6)
         {
@@ -264,8 +264,7 @@ class Player
     }
       else if(this.direction == 4 )
       {
-        if(level.mazeSquares[this.i - 1].containsWall === true || level.mazeSquares[this.i - 1].moveWall === true
-          ||level.mazeSquares[this.i - 1].breakWall === true)
+        if(level.mazeSquares[this.i - 1].containsWall === true || level.mazeSquares[this.i - 1].breakWall === true )
         {
           if(this.x <= level.mazeSquares[this.i - 1].x + (this.squareSize - 6)   )
           {
@@ -287,8 +286,7 @@ class Player
     }
     else if(this.direction == 1)
     {
-      if(level.mazeSquares[this.i - this.maxCols].containsWall ===true ||level.mazeSquares[this.i - this.maxCols].moveWall ===true ||
-        level.mazeSquares[this.i - this.maxCols].breakWall ===true)
+      if(level.mazeSquares[this.i - this.maxCols].containsWall ===true || level.mazeSquares[this.i - this.maxCols].breakWall ===true)
       {
         if(this.y + (this.height / 2) + 5<= level.mazeSquares[this.i-this.maxCols].y + this.squareSize)
         {
@@ -314,8 +312,7 @@ class Player
   }
   else if(this.direction == 3)
   {
-    if(level.mazeSquares[this.i + this.maxCols].containsWall===true || level.mazeSquares[this.i + this.maxCols].breakWall===true
-        || level.mazeSquares[this.i + this.maxCols].moveWall === true)
+    if(level.mazeSquares[this.i + this.maxCols].containsWall===true || level.mazeSquares[this.i + this.maxCols].breakWall===true)
     {
       if(this.y + this.height >= level.mazeSquares[this.i+this.maxCols].y)
       {
@@ -334,6 +331,43 @@ class Player
       }
     }
 
+ }
 }
+  collectPowerUp(level)
+  {
+    if(level.mazeSquares[this.i].speedUp == true || level.mazeSquares[this.i].armour == true
+    || level.mazeSquares[this.i].fire == true || level.mazeSquares[this.i].bomb == true
+  || level.mazeSquares[this.i].oneup == true)
+      {
+        if(level.mazeSquares[this.i].speedUp == true){
+          //output speed collected
+          console.log("speed");
+        }
+        if(level.mazeSquares[this.i].armour == true){
+          //output speed collected
+          console.log("armour");
+        }
+        if(level.mazeSquares[this.i].fire == true){
+          //output speed collected
+          console.log("fire");
+        }
+        if(level.mazeSquares[this.i].bomb == true){
+          //output speed collected
+          console.log("bomb");
+        }
+        if(level.mazeSquares[this.i].oneup == true){
+          //output speed collected
+          console.log("oneup");
+        }
+
+          level.mazeSquares[this.i].containsWall = false;
+          level.mazeSquares[this.i].speedUp = false;
+          level.mazeSquares[this.i].armour = false;
+          level.mazeSquares[this.i].fire = false;
+          level.mazeSquares[this.i].bomb = false;
+          level.mazeSquares[this.i].oneup = false;
+
+
+    }
   }
 }
