@@ -1,4 +1,4 @@
-git c[submodule "RWM1819-Help-A"]
+[submodule "RWM1819-Help-A"]
 	path = RWM1819-Help-A
 	url = https://github.com/itcgames/RWM1819-Help-A.git
 
