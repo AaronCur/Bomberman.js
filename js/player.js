@@ -239,7 +239,7 @@ class Player
 
     if(this.direction == 2  )
     {
-      if(level.mazeSquares[this.i+1].containsWall === true || level.mazeSquares[this.i+1].breakWall === true || level.mazeSquares[this.i+1].speedUp === true)
+      if(level.mazeSquares[this.i+1].containsWall === true || level.mazeSquares[this.i+1].breakWall === true)
       {
         if(level.mazeSquares[this.i+1].x <= this.x+this.width - 6)
         {
@@ -261,7 +261,7 @@ class Player
     }
       else if(this.direction == 4 )
       {
-        if(level.mazeSquares[this.i - 1].containsWall === true || level.mazeSquares[this.i - 1].breakWall === true || level.mazeSquares[this.i+1].speedUp === true)
+        if(level.mazeSquares[this.i - 1].containsWall === true || level.mazeSquares[this.i - 1].breakWall === true )
         {
           if(this.x <= level.mazeSquares[this.i - 1].x + (this.squareSize - 6)   )
           {
@@ -283,7 +283,7 @@ class Player
     }
     else if(this.direction == 1)
     {
-      if(level.mazeSquares[this.i - this.maxCols].containsWall ===true || level.mazeSquares[this.i - this.maxCols].breakWall ===true || level.mazeSquares[this.i+1].speedUp === true)
+      if(level.mazeSquares[this.i - this.maxCols].containsWall ===true || level.mazeSquares[this.i - this.maxCols].breakWall ===true)
       {
         if(this.y + (this.height / 2) + 5<= level.mazeSquares[this.i-this.maxCols].y + this.squareSize)
         {
@@ -309,8 +309,7 @@ class Player
   }
   else if(this.direction == 3)
   {
-    if(level.mazeSquares[this.i + this.maxCols].containsWall===true || level.mazeSquares[this.i + this.maxCols].breakWall===true
-        || level.mazeSquares[this.i + this.maxCols].speedUp === true)
+    if(level.mazeSquares[this.i + this.maxCols].containsWall===true || level.mazeSquares[this.i + this.maxCols].breakWall===true)
     {
       if(this.y + this.height >= level.mazeSquares[this.i+this.maxCols].y)
       {
@@ -395,64 +394,22 @@ class Player
 
   collectPowerUp(level)
   {
-
-    if(this.direction == 2  )
-    {
-      if(level.mazeSquares[this.i +1].speedUp == true || level.mazeSquares[this.i +1].armour == true )
+    if(level.mazeSquares[this.i].speedUp == true || level.mazeSquares[this.i].armour == true )
       {
-        if(level.mazeSquares[this.i+1].x <= this.x+this.width - 6)
-        {
-          console.log("Collided");
-          if(level.mazeSquares[this.i].speedUp == true){
-            //output speed collected
-            console.log("speed");
-          }
-          if(level.mazeSquares[this.i].armour == true){
-            //output speed collected
-            console.log("armour");
-          }
-          level.mazeSquares[this.i+1].containsWall = false;
-          level.mazeSquares[this.i+1].speedUp = false;
-          level.mazeSquares[this.i+1].armour = false;
-          this.collisionRight = false;
+        if(level.mazeSquares[this.i].speedUp == true){
+          //output speed collected
+          console.log("speed");
         }
-      }
+        if(level.mazeSquares[this.i].armour == true){
+          //output speed collected
+          console.log("armour");
+        }
+
+          level.mazeSquares[this.i].containsWall = false;
+          level.mazeSquares[this.i].speedUp = false;
+          level.mazeSquares[this.i].armour = false;
+
+
     }
-    else if(this.direction == 4 )
-    {
-      if(level.mazeSquares[this.i -1].speedUp == true )
-      {
-        if(this.x <= level.mazeSquares[this.i - 1].x + (this.squareSize - 6))
-        {
-          level.mazeSquares[this.i-1].speedUp = false;
-          level.mazeSquares[this.i-1].containsWall = false;
-          this.collisionLeft = false;
-         }
-      }
-    }
-   else if(this.direction == 1 )
-    {
-      if(level.mazeSquares[this.i - this.maxCols].speedUp == true )
-      {
-        if(this.y + (this.height / 2) + 5<= level.mazeSquares[this.i-this.maxCols].y + this.squareSize)
-        {
-          level.mazeSquares[this.i - this.maxCols].speedUp = false;
-          level.mazeSquares[this.i - this.maxCols].containsWall = false;
-          this.collisionUp = false;
-         }
-      }
-  }
-  else if(this.direction == 3)
-  {
-    if(level.mazeSquares[this.i + this.maxCols].speedUp == true )
-    {
-      if(this.y + this.height >= level.mazeSquares[this.i+this.maxCols].y)
-      {
-       level.mazeSquares[this.i  +  this.maxCols].speedUp = false;
-       level.mazeSquares[this.i +  this.maxCols ].containsWall = false;
-       this.collisionDown = false;
-     }
-    }
-   }
   }
 }
