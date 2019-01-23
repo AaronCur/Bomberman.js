@@ -95,6 +95,7 @@ class MenuScene
          else if (filename === "optionsbutton.png" )
          {
           // gameNs.soundManager.playSound("Concentrate", true, 0.2);
+          debugger
            gameNs.sceneManager.goToScene(gameNs.optionsScene.title);
            gameNs.optionsScene.createDiv("Mute");
            gameNs.optionsScene.createDiv("VolumeUp");
