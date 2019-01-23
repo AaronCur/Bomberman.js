@@ -95,24 +95,18 @@ class MenuScene
          else if (filename === "optionsbutton.png" )
          {
           // gameNs.soundManager.playSound("Concentrate", true, 0.2);
+          debugger
            gameNs.sceneManager.goToScene(gameNs.optionsScene.title);
            gameNs.optionsScene.createDiv("Mute");
            gameNs.optionsScene.createDiv("VolumeUp");
            gameNs.optionsScene.createDiv("VolumeDown");
            gameNs.optionsScene.createDiv("Back");
-
+           gameNs.optionsScene.createDiv("HelpScreen");
 
          }
          else if (filename === "tutorialbutton.png" )
          {
            gameNs.sceneManager.goToScene(gameNs.tutorialScene.title);
-           gameNs.timerStart = true;
-           gameNs.start = Date.now();
-           //throw new Error("Something went badly wrong!");
-          // div.style.background = "Teal";
-           //gameNs.soundManager.Stop();
-           //gameNs.count = 0;
-      //   gameNs.sceneManager.goToScene(gameNs.optionsScene.title);
 
          }
 

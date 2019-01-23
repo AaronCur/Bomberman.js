@@ -8,7 +8,7 @@ class Game
   constructor()
   {
     console.log("game constructed");
-
+    
   }
   /**
   *helper funtion that records the time when the application is loaded
@@ -22,9 +22,17 @@ class Game
     gameNs.sceneManager = new SceneManager();
     gameNs.menuScene = new MenuScene('Too Many Walls');
     gameNs.playScene = new PlayScene('Play');
+    gameNs.optionsScene = new optionsScene('Options')
+    gameNs.helpScene = new HelpScene('Help')
+    gameNs.hintsScene = new HintsScene('Hints')
+    gameNs.tutorialScene = new TutorialScene('tutorial')
 
     gameNs.sceneManager.addScene(gameNs.menuScene);
     gameNs.sceneManager.addScene(gameNs.playScene);
+    gameNs.sceneManager.addScene(gameNs.optionsScene);
+    gameNs.sceneManager.addScene(gameNs.helpScene)
+    gameNs.sceneManager.addScene(gameNs.hintsScene)
+    gameNs.sceneManager.addScene(gameNs.tutorialScene)
     gameNs.sceneManager.goToScene(gameNs.menuScene.title);
 
     // Audio sceneManager
