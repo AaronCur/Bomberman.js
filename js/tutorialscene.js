@@ -76,20 +76,20 @@ class TutorialScene
      {
        if(e.keyCode === 39 && gameNs.display === true)//w key
        {
-         if(gameNs.wall === true)
+         if(gameNs.tipsText.wall === true)
          {
-           gameNs.wall = false
-           gameNs.breakwall = true;
+          gameNs.tipsText.wall = false
+           gameNs.tipsText.breakwall = true;
          }
-         else if(gameNs.breakwall === true)
+         else if(gameNs.tipsText.breakwall === true)
          {
-           gameNs.breakwall = false
-           gameNs.goalwall = true
+           gameNs.tipsText.breakwall = false
+           gameNs.tipsText.goalwall = true
          }
-         else if (gameNs.goalwall === true)
+         else if (gameNs.tipsText.goalwall === true)
          {
-           gameNs.goalwall = false
-           gameNs.display = false
+           gameNs.tipsText.goalwall = false
+           gameNs.tipsText.display = false
          }
 
          gameNs.tipsText.Leveltipdisplay()
