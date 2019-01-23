@@ -37,12 +37,7 @@ class TutorialScene
 
 
    }
-   initWorld() //prints out “Initialising game world”
-   {
-     console.log("Initialising game world");
 
-
-   }
 
 
    update()
