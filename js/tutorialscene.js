@@ -40,10 +40,64 @@ class TutorialScene
    initWorld() //prints out “Initialising game world”
    {
      console.log("Initialising game world");
-
-
    }
 
+   createDiv(divID)
+   {
+     var div = document.createElement("div");
+     div.id = divID;
+     if(div.id === "return")
+     {
+       console.log("return button created");
+       div.innerHTML = "<img src=\'img/back.png\'>";
+       this.div = div;
+
+       div.style.visibility = "visible";
+       div.style.position = "absolute";
+       div.style.left = (this.width/ 2) - 450 +"px";
+       div.style.top = (this.height/8) - 100 +'px';
+     }
+     div.addEventListener("click", this.onTouchStart,{passive:false});
+     document.body.appendChild(div);
+   }
+
+   onTouchStart(e)
+ {
+   e.preventDefault();
+   var currentElement = e.target;
+   var parentDiv = currentElement.parentNode;
+   console.log("Div id = " + parentDiv.id);
+   console.log("Image URL = " + currentElement.src);
+
+   var parentDiv = currentElement.parentNode;
+   var fullPath = currentElement.src;
+   console.log("Current element" + fullPath);
+
+   if (fullPath !== undefined)
+   {
+     console.log(gameNs.count);
+     var index = fullPath.lastIndexOf("/");
+     console.log("Path: " + index);
+     var filename = fullPath;
+     if(index !== -1)
+     {
+       gameNs.count += 1;
+
+        filename = fullPath.substring(index+1,fullPath.length);
+        console.log(filename);
+        if(filename === "back.png")
+        {
+          gameNs.sceneManager.goToScene(gameNs.menuScene.title);
+          var el = document.getElementById('return')
+          el.parentNode.removeChild(el)
+          gameNs.menuScene.createDiv("Play");
+          gameNs.menuScene.createDiv("Options");
+          gameNs.menuScene.createDiv("Tutorial");
+          gameNs.ctx.clearRect(0,0,mycanvas.width,mycanvas.height)
+        }
+     }
+   }
+ }
 
    update()
    {
