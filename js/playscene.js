@@ -27,6 +27,24 @@ class PlayScene
     image: this.img
   }, 10, 700, 790, 2);
 
+    this.ai = new Ai(ctx, {
+    width: 78 * 0.8,
+    height: 108 * 0.8,
+    image: this.img
+  }, 10, 100, 100);
+
+    this.ai1 = new Ai(ctx, {
+    width: 78 * 0.8,
+    height: 108 * 0.8,
+    image: this.img
+  }, 10, 90, 100);
+
+    this.ai2 = new Ai(ctx, {
+    width: 78 * 0.8,
+    height: 108 * 0.8,
+    image: this.img
+  }, 10, 100, 90);
+
 
     this.scoreboard = new ScoreboardManager();
     this.scoreboard.initBoard("Local");
@@ -61,7 +79,9 @@ class PlayScene
 
     this.player.update(this.level);
     this.otherPlayer.update(this.level);
-
+  //  this.ai.update(this.level, this.player);
+  //  this.ai1.update(this.level, this.player);
+  //  this.ai2.update(this.level, this.player);
     this.time = this.scoreboard.getDisplayTimer();
 
     //console.log(this.time);
