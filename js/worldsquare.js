@@ -23,7 +23,7 @@ class WorldSquare
     //power-up
     this.imgSpeedUp.src = "img/skate.png";
     this.imgArmour.src = "img/armour.png";
-    this.imgBomb.src = "img/Bomb.png";
+    this.imgBomb.src = "img/bomb.png";
     this.imgFire.src = "img/Fire.png";
     this.imgOneUp.src = "img/OneUp.png";
 
