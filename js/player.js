@@ -58,7 +58,7 @@ class Player
     height: 244,
     image: this.imgB
   }, 10, this.tile)
-    
+
   this.healthSystem = new HealthSystem(playerID);
 
   //particle effects
@@ -223,7 +223,6 @@ class Player
    }
 
    this.checkCollisionMap(level);
-   this.breakWall(level);
 
 
    this.healthSystem.update();
@@ -336,140 +335,5 @@ class Player
     }
 
 }
-
-
-
-
-  }
-  moveWall(level)
-  {
-
-
-    if(this.direction == 2  )
-    {
-      if(level.mazeSquares[this.i +1].moveWall == true &&level.mazeSquares[this.i +2].containsWall == false)
-      {
-        if(level.mazeSquares[this.i+1].x <= this.x+this.width - 6)
-        {
-          level.mazeSquares[this.i+1].moveWall = false;
-          level.mazeSquares[this.i+2].moveWall = true;
-
-        }
-
-      }
-
-    }
-    else if(this.direction == 4 )
-    {
-      if(level.mazeSquares[this.i -1].moveWall == true&&level.mazeSquares[this.i -2].containsWall == false  )
-      {
-        if(this.x <= level.mazeSquares[this.i - 1].x + (this.squareSize - 6) )
-        {
-          level.mazeSquares[this.i-1].moveWall = false;
-          level.mazeSquares[this.i-2].moveWall = true;
-
-        }
-
-      }
-
-    }
-   else if(this.direction == 1 )
-    {
-      if(level.mazeSquares[this.i - this.maxCols].moveWall== true&&level.mazeSquares[this.i - (this.maxCols * 2)].containsWall == false )
-      {
-        if(this.y + (this.height / 2) + 5<= level.mazeSquares[this.i-this.maxCols].y + this.squareSize)
-        {
-          level.mazeSquares[this.i - this.maxCols ].moveWall = false;
-          level.mazeSquares[this.i - (this.maxCols * 2)].moveWall = true;
-          var message = {};
-          message.type = "updateState";
-          message.mazeMove = {index1:this.i - this.maxCols,index2:this.i - (this.maxCols * 2), containsWall:false, breakWall:false, moveWall1:false,moveWall2:true};
-
-        }
-
-      }
-
-  }
-  else if(this.direction == 3)
-  {
-    if(level.mazeSquares[this.i + this.maxCols].moveWall == true&&level.mazeSquares[this.i + (this.maxCols * 2)].containsWall == false)
-    {
-      if(this.y + this.height >= level.mazeSquares[this.i+this.maxCols].y)
-      {
-        level.mazeSquares[this.i + this.maxCols ].moveWall = false;
-        level.mazeSquares[this.i + (this.maxCols * 2)].moveWall = true;
-        gameNs.tutorialcount = 5;
-      }
-
-    }
-
-}
-
-    
-
-  }
-  breakWall(level)
-  {
-
-    if(this.direction == 2  )
-    {
-      if(level.mazeSquares[this.i +1].breakWall == true )
-      {
-        if(level.mazeSquares[this.i+1].x <= this.x+this.width - 6)
-        {
-          level.mazeSquares[this.i+1].breakWall = false;
-          level.mazeSquares[this.i+1].containsWall = false;
-          this.collisionRight = false;;
-
-        }
-
-      }
-
-    }
-    else if(this.direction == 4 )
-    {
-      if(level.mazeSquares[this.i -1].breakWall == true )
-      {
-        if(this.x <= level.mazeSquares[this.i - 1].x + (this.squareSize - 6))
-        {
-          level.mazeSquares[this.i-1].breakWall = false;
-          level.mazeSquares[this.i-1].containsWall = false;
-          this.collisionLeft = false;
-
-         }
-
-
-      }
-
-    }
-   else if(this.direction == 1 )
-    {
-      if(level.mazeSquares[this.i - this.maxCols].breakWall == true )
-      {
-        if(this.y + (this.height / 2) + 5<= level.mazeSquares[this.i-this.maxCols].y + this.squareSize)
-        {
-          level.mazeSquares[this.i - this.maxCols].breakWall = false;
-          level.mazeSquares[this.i - this.maxCols].containsWall = false;
-          this.collisionUp = false;
-         }
-
-      }
-
-  }
-  else if(this.direction == 3)
-  {
-    if(level.mazeSquares[this.i + this.maxCols].breakWall == true )
-    {
-      if(this.y + this.height >= level.mazeSquares[this.i+this.maxCols].y)
-      {
-       level.mazeSquares[this.i  +  this.maxCols].breakWall = false;
-       level.mazeSquares[this.i +  this.maxCols ].containsWall = false;
-
-       this.collisionDown = false;
-
-
-     }
-    }
-  }
   }
 }

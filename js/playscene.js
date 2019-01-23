@@ -64,7 +64,6 @@ class PlayScene
     this.otherPlayer.update(this.level);
 
     this.time = this.scoreboard.getDisplayTimer();
-    console.log(this.time);
 
   }
   /**

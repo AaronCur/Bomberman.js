@@ -33,9 +33,9 @@ class Bomb
     this.gridPos.x = pos.x;
     this.gridPos.y = pos.y;
     console.log(pos.y)
-    console.log(this.gridPos.y * this.tileWidth)
-    this.x = (this.gridPos.x * this.tileWidth * .8);
-    this.y = (this.gridPos.y * this.tileHeight * .8);
+    console.log(pos.x)
+    this.x = (this.gridPos.x * this.tileWidth * .8) + 10;
+    this.y = (this.gridPos.y * this.tileHeight * .8) + 90;
   }
 
   update()
