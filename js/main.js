@@ -105,6 +105,7 @@ function keyDownHandler(e)
 
 
 }
+
 function keyUpHandler(e)
 {
   //Player 1
@@ -128,8 +129,8 @@ function keyUpHandler(e)
   if(e.keyCode === 40)
 	{
 		gameNs.playScene.player.moveY = null;
-
 	}
+
 
   ///Player 2
   if(e.keyCode === 65 )

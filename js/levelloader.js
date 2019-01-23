@@ -22,7 +22,7 @@ class LevelLoader
     //TADA! Now I have the class data.
      this.levelloader = JSON.parse(this.responseText);
      this.map= this.levelloader.Map;
-     console.log("MapData :" +that.map[10] );
+     //console.log("MapData :" +that.map[10] );
 
      that.y = that.squareSize * 1.5;
      for (this.row = 0; this.row < 13; this.row++)
@@ -95,6 +95,24 @@ this.request.send();
           if(this.mazeSquares[this.i].breakWall)
           {
             this.mazeSquares[this.i].breakWall = false;
+            //randomly give a power up
+            var powerRnd = Math.floor((Math.random() * 10) + 1);
+            console.log(powerRnd);
+            if (powerRnd == 1){
+              this.mazeSquares[this.i].speedUp = true;
+            }
+            if (powerRnd == 2){
+              this.mazeSquares[this.i].bomb = true;
+            }
+            if (powerRnd == 3){
+              this.mazeSquares[this.i].fire = true;
+            }
+            if (powerRnd == 4){
+              this.mazeSquares[this.i].oneup = true;
+            }
+            if (powerRnd == 5){
+              this.mazeSquares[this.i].armour = true;
+            }
           }
         }
       this.mazeSquares[this.i].update();
