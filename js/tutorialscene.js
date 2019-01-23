@@ -1,3 +1,4 @@
+var gameNs = {}
 class TutorialScene
 {
   /**
@@ -7,9 +8,13 @@ class TutorialScene
    constructor(title)
    {
      this.level = new LevelLoader();
+     gameNs.tipsText = new levelTips()
+     document.addEventListener("keydown", this.keyHandler, true)
      this.posX = 0;
      this.posY = 0;
      this.title = title;
+
+
      this.img=new Image();
      this.img.src = "img/player.png";
      var canvas = document.getElementById('mycanvas');
@@ -52,7 +57,7 @@ class TutorialScene
      //  this.otherPlayer.moveWall(this.level);
 
      this.level.update();
-
+     gameNs.tipsText.update()
      if(this.player.direction === 1)
      {
        this.player.update(this.level);
@@ -64,6 +69,35 @@ class TutorialScene
 
      this.ctx.restore();
    }
+
+   keyHandler(e)
+   {
+     if(gameNs.sceneManager.currentScene.title === gameNs.tutorialScene.title)
+     {
+       if(e.keyCode === 39 && gameNs.display === true)//w key
+       {
+         if(gameNs.wall === true)
+         {
+           gameNs.wall = false
+           gameNs.breakwall = true;
+         }
+         else if(gameNs.breakwall === true)
+         {
+           gameNs.breakwall = false
+           gameNs.goalwall = true
+         }
+         else if (gameNs.goalwall === true)
+         {
+           gameNs.goalwall = false
+           gameNs.display = false
+         }
+
+         gameNs.tipsText.Leveltipdisplay()
+       }
+     }
+
+   }
+
    /**
     * render function which will overwrite the one inherited by scene
     * it defines a font and its size along with the background colour
@@ -74,7 +108,7 @@ class TutorialScene
     var canvas = document.createElement("mycanvas");
     var ctx = mycanvas.getContext("2d");
     document.body.style.background = "#ffffff";
-
+    gameNs.tipsText.render()
    }
 
 }

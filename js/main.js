@@ -54,11 +54,11 @@ function keyDownHandler(e)
   }
 
 
-  if(e.keyCode === 37 && gameNs.tutorialScene.player.collisionLeft == false)
+  if(e.keyCode === 37 && gameNs.tutorialScene.player.collisionLeft == false && gameNs.display===false)
 	{
 		gameNs.tutorialScene.player.moveX = false;
 	}
-  else if(e.keyCode === 39 && gameNs.tutorialScene.player.collisionRight == false)
+  else if(e.keyCode === 39 && gameNs.tutorialScene.player.collisionRight == false && gameNs.display===false)
 	{
 		gameNs.tutorialScene.player.moveX = true;
 	}
@@ -68,19 +68,17 @@ function keyDownHandler(e)
   }
 
 //code triggered when UP arrow is pressed
-	if(e.keyCode === 38 && gameNs.tutorialScene.player.collisionUp == false)
+	if(e.keyCode === 38 && gameNs.tutorialScene.player.collisionUp == false && gameNs.display===false)
 	{
 		gameNs.tutorialScene.player.moveY = false;
 	}
-  else if(e.keyCode === 40 && gameNs.tutorialScene.player.collisionDown == false)
+  else if(e.keyCode === 40 && gameNs.tutorialScene.player.collisionDown == false && gameNs.display===false)
 	{
 		gameNs.tutorialScene.player.moveY = true;
-
 	}
   else
   {
     gameNs.tutorialScene.player.moveY = null;
-
   }
 
 }

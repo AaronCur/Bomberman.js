@@ -8,7 +8,7 @@ class Game
   constructor()
   {
     console.log("game constructed");
-
+    
   }
   /**
   *helper funtion that records the time when the application is loaded
