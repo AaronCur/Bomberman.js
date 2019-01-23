@@ -22,29 +22,30 @@ function main()
 }
 function keyDownHandler(e)
 {
+  if(e.keyCode === 32)
+	{
+    gameNs.playScene.player.plantBomb();
+  }
+
+  //Player 1
   if(e.keyCode === 37 && gameNs.playScene.player.collisionLeft == false)
 	{
 		gameNs.playScene.player.moveX = false;
 
 
 	}
-  else if(e.keyCode === 39 && gameNs.playScene.player.collisionRight == false)
+   if(e.keyCode === 39 && gameNs.playScene.player.collisionRight == false)
 	{
 		gameNs.playScene.player.moveX = true;
 
 	}
-  else
-  {
-    gameNs.playScene.player.moveX = null;
-
-  }
 
 //code triggered when UP arrow is pressed
 	if(e.keyCode === 38 && gameNs.playScene.player.collisionUp == false)
 	{
 		gameNs.playScene.player.moveY = false;
 	}
-  else if(e.keyCode === 40 && gameNs.playScene.player.collisionDown == false)
+  if(e.keyCode === 40 && gameNs.playScene.player.collisionDown == false)
 	{
 		gameNs.playScene.player.moveY = true;
 	}
@@ -81,16 +82,43 @@ function keyDownHandler(e)
     gameNs.tutorialScene.player.moveY = null;
   }
 
+
+  //Player 2
+  if(e.keyCode === 65 && gameNs.playScene.otherPlayer.collisionLeft == false)
+	{
+		gameNs.playScene.otherPlayer.moveX = false;
+
+
+	}
+  if(e.keyCode === 68 && gameNs.playScene.otherPlayer.collisionRight == false)
+	{
+		gameNs.playScene.otherPlayer.moveX = true;
+
+	}
+
+//code triggered when UP arrow is pressed
+	if(e.keyCode === 87 && gameNs.playScene.otherPlayer.collisionUp == false)
+	{
+		gameNs.playScene.otherPlayer.moveY = false;
+	}
+  if(e.keyCode === 83 && gameNs.playScene.otherPlayer.collisionDown == false)
+	{
+		gameNs.playScene.otherPlayer.moveY = true;
+
+	}
+
+
 }
 function keyUpHandler(e)
 {
+  //Player 1
   if(e.keyCode === 37 )
 	{
 		gameNs.playScene.player.moveX = null;
 
 
 	}
-  else if(e.keyCode === 39 )
+  if(e.keyCode === 39 )
 	{
 		gameNs.playScene.player.moveX = null;
 
@@ -101,11 +129,37 @@ function keyUpHandler(e)
 	{
 		gameNs.playScene.player.moveY = null;
 	}
-  else if(e.keyCode === 40)
+  if(e.keyCode === 40)
 	{
 		gameNs.playScene.player.moveY = null;
 
 	}
+
+  ///Player 2
+  if(e.keyCode === 65 )
+	{
+		gameNs.playScene.otherPlayer.moveX = null;
+
+
+	}
+  if(e.keyCode === 68 )
+	{
+		gameNs.playScene.otherPlayer.moveX = null;
+
+	}
+
+//code triggered when UP arrow is pressed
+	if(e.keyCode === 87)
+	{
+		gameNs.playScene.otherPlayer.moveY = null;
+	}
+  if(e.keyCode === 83)
+	{
+		gameNs.playScene.otherPlayer.moveY = null;
+
+	}
+
+
 
 
 }
@@ -120,7 +174,7 @@ function keyUpHandler(e)
  */
  function initCanvas()
  {
-   document.addEventListener("keydown", this.keyDownHandler, true);
+  document.addEventListener("keydown", this.keyDownHandler, true);
   document.addEventListener("keyup", this.keyUpHandler, true);
  	//Use the document object to create a new element canvas.
  	var canvas = document.createElement("canvas");

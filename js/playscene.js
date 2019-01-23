@@ -6,10 +6,9 @@ class PlayScene
    */
   constructor(title)
   {
+    this.endScene = new EndScene();
     this.gameover = false;
     this.level = new LevelLoader();
-    this.posX = 0;
-    this.posY = 0;
     this.title = title;
     this.img=new Image();
     this.img.src = "img/player.png";
@@ -20,23 +19,32 @@ class PlayScene
     width: 78 * 0.8,
     height: 108 * 0.8,
     image: this.img
-  }, 10, 100, 50);
+  }, 10, 100, 50, 1);
 
-    this.ready = false;
+    this.otherPlayer = new Player(ctx, {
+    width: 78 * 0.8,
+    height: 108 * 0.8,
+    image: this.img
+  }, 10, 700, 790, 2);
 
-    this.canvas = document.getElementById('mycanvas');
-    this.ctx = canvas.getContext('2d');
-    this.ctx.scale(1,1);
-    //gameNs.previousTime = Date.now();	// previousTime is initially 0
 
-    this.initWorld();
+    this.scoreboard = new ScoreboardManager();
+    this.scoreboard.initBoard("Local");
+
+    var canvas = document.createElement("mycanvas");
+    var ctx = mycanvas.getContext("2d");
+
+   ctx.translate((window.innerWidth / 2)- (7.5*(75 * 0.8)), 0);
+   //ctx.scale(0.9,0.9);
+
+
 
 
   }
   initWorld() //prints out “Initialising game world”
   {
-    console.log("Initialising game world");
 
+    this.scoreboard.startTimer();
 
   }
 
@@ -48,37 +56,25 @@ class PlayScene
     ctx.clearRect(0,0, canvas.width, canvas.height);
     ctx.save();
 
-    //  if( this.player.y > canvas.height/2 &&this.player.y < (14 * 60) - canvas.height/ 2)
-      this.player.breakWall(this.level);
-    //  this.otherPlayer.breakWall(this.level);
-    //  this.otherPlayer.moveWall(this.level);
-
     this.level.update();
 
-    if(this.player.direction === 1)
-    {
-      this.player.update(this.level);
-    }
-    else {
+    this.player.update(this.level);
+    this.otherPlayer.update(this.level);
 
-      this.player.update(this.level);
-    }
+    this.time = this.scoreboard.getDisplayTimer();
+
+    //console.log(this.time);
+
+    if(this.time == "20:22"){
+      this.endScene.render();
+     this.scoreboard.addToBoard(40);
+     this.scoreboard.filterTime(1);
+     console.log(this.scoreboard.getBoard());
+     this.scoreboard.generate_table();
+
+   }
 
 
-    if(this.gameover == true)
-    {
-      var message = {};
-      message.type = "EndGame";
-      {
-        gameNs.ws.send(JSON.stringify(message));
-      }
-      ctx.translate(0, 0);
-      this.gameoverscreen.getScoreTable();
-      this.gameoverscreen.render();
-
-    }
-
-    this.ctx.restore();
   }
   /**
    * render function which will overwrite the one inherited by scene
@@ -91,11 +87,11 @@ class PlayScene
    var ctx = mycanvas.getContext("2d");
    document.body.style.background = "#ffffff";
 
-
-
-
+    ctx.fillStyle ='white';
+    ctx.font = '55px Adventure Regular';
+    ctx.strokeStyle = 'black';
+    ctx.fillText(this.time,390,60);
+    ctx.strokeText(this.time,390,60);
 
   }
-
-
 }
