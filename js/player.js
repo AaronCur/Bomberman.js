@@ -394,7 +394,9 @@ class Player
 
   collectPowerUp(level)
   {
-    if(level.mazeSquares[this.i].speedUp == true || level.mazeSquares[this.i].armour == true )
+    if(level.mazeSquares[this.i].speedUp == true || level.mazeSquares[this.i].armour == true
+    || level.mazeSquares[this.i].fire == true || level.mazeSquares[this.i].bomb == true
+  || level.mazeSquares[this.i].oneup == true)
       {
         if(level.mazeSquares[this.i].speedUp == true){
           //output speed collected
@@ -404,10 +406,25 @@ class Player
           //output speed collected
           console.log("armour");
         }
+        if(level.mazeSquares[this.i].fire == true){
+          //output speed collected
+          console.log("fire");
+        }
+        if(level.mazeSquares[this.i].bomb == true){
+          //output speed collected
+          console.log("bomb");
+        }
+        if(level.mazeSquares[this.i].oneup == true){
+          //output speed collected
+          console.log("oneup");
+        }
 
           level.mazeSquares[this.i].containsWall = false;
           level.mazeSquares[this.i].speedUp = false;
           level.mazeSquares[this.i].armour = false;
+          level.mazeSquares[this.i].fire = false;
+          level.mazeSquares[this.i].bomb = false;
+          level.mazeSquares[this.i].oneup = false;
 
 
     }
