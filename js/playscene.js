@@ -45,6 +45,7 @@ class PlayScene
   {
 
     this.scoreboard.startTimer();
+    gameNs.audioManager.playAudio("bg", true, 100);
 
   }
 
