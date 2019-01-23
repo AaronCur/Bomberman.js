@@ -31,7 +31,7 @@ class HintsScene{
 
       div.style.visibility = "visible";
       div.style.position = "absolute";
-      div.style.left = (this.width/ 2) - 450 +"px";
+      div.style.left = 150 +"px";
       div.style.top = (this.height/8) - 100 +'px';
     }
     div.addEventListener("click", this.onTouchStart,{passive:false});
@@ -63,6 +63,7 @@ class HintsScene{
        console.log(filename);
        if(filename === "back.png")
        {
+         gameNs.ctx.clearRect(0,0,mycanvas.width,mycanvas.height)
          gameNs.sceneManager.goToScene(gameNs.helpScene.title);
          var el = document.getElementById( 'return' );
          el.parentNode.removeChild( el );
@@ -98,9 +99,8 @@ keyHandler(e)
   render()
   {
     var image = this.img;
-    gameNs.ctx.drawImage(image, 150,200,1700,800)
+    gameNs.ctx.drawImage(image, 0,200,1700,800)
     gameNs.hintsTxt.render()
-
   }
 
 }

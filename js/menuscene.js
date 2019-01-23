@@ -106,7 +106,7 @@ class MenuScene
          else if (filename === "tutorialbutton.png" )
          {
            gameNs.sceneManager.goToScene(gameNs.tutorialScene.title);
-
+           gameNs.tutorialScene.createDiv("return")
          }
 
          if(gameNs.sceneManager.currentScene != gameNs.menuScene.title)

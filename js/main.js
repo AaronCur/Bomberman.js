@@ -22,143 +22,174 @@ function main()
 }
 function keyDownHandler(e)
 {
-  if(e.keyCode === 32)
-	{
-    gameNs.playScene.player.plantBomb();
-  }
-
-  //Player 1
-  if(e.keyCode === 37 && gameNs.playScene.player.collisionLeft == false)
-	{
-		gameNs.playScene.player.moveX = false;
-
-
-	}
-   if(e.keyCode === 39 && gameNs.playScene.player.collisionRight == false)
-	{
-		gameNs.playScene.player.moveX = true;
-
-	}
-
-//code triggered when UP arrow is pressed
-	if(e.keyCode === 38 && gameNs.playScene.player.collisionUp == false)
-	{
-		gameNs.playScene.player.moveY = false;
-	}
-  if(e.keyCode === 40 && gameNs.playScene.player.collisionDown == false)
-	{
-		gameNs.playScene.player.moveY = true;
-	}
-
-
-  if(e.keyCode === 37 && gameNs.tutorialScene.player.collisionLeft == false && gameNs.display===false)
-	{
-		gameNs.tutorialScene.player.moveX = false;
-	}
-  else if(e.keyCode === 39 && gameNs.tutorialScene.player.collisionRight == false && gameNs.display===false)
-	{
-		gameNs.tutorialScene.player.moveX = true;
-	}
-  else
+  if(gameNs.sceneManager.currentScene.title === gameNs.playScene.title)
   {
-    gameNs.tutorialScene.player.moveX = null;
+
+    if(e.keyCode === 32)
+    {
+      gameNs.playScene.player.plantBomb();
+    }
+
+    //Player 1
+    if(e.keyCode === 37 && gameNs.playScene.player.collisionLeft == false)
+    {
+      gameNs.playScene.player.moveX = false;
+
+
+    }
+     if(e.keyCode === 39 && gameNs.playScene.player.collisionRight == false)
+    {
+      gameNs.playScene.player.moveX = true;
+
+    }
+
+  //code triggered when UP arrow is pressed
+    if(e.keyCode === 38 && gameNs.playScene.player.collisionUp == false)
+    {
+      gameNs.playScene.player.moveY = false;
+    }
+    if(e.keyCode === 40 && gameNs.playScene.player.collisionDown == false)
+    {
+      gameNs.playScene.player.moveY = true;
+    }
+
+    //Player 2
+    if(e.keyCode === 65 && gameNs.playScene.otherPlayer.collisionLeft == false)
+    {
+      gameNs.playScene.otherPlayer.moveX = false;
+
+
+    }
+    if(e.keyCode === 68 && gameNs.playScene.otherPlayer.collisionRight == false)
+    {
+      gameNs.playScene.otherPlayer.moveX = true;
+
+    }
+
+  //code triggered when UP arrow is pressed
+    if(e.keyCode === 87 && gameNs.playScene.otherPlayer.collisionUp == false)
+    {
+      gameNs.playScene.otherPlayer.moveY = false;
+    }
+    if(e.keyCode === 83 && gameNs.playScene.otherPlayer.collisionDown == false)
+    {
+      gameNs.playScene.otherPlayer.moveY = true;
+
+    }
   }
 
-//code triggered when UP arrow is pressed
-	if(e.keyCode === 38 && gameNs.tutorialScene.player.collisionUp == false && gameNs.display===false)
-	{
-		gameNs.tutorialScene.player.moveY = false;
-	}
-  else if(e.keyCode === 40 && gameNs.tutorialScene.player.collisionDown == false && gameNs.display===false)
-	{
-		gameNs.tutorialScene.player.moveY = true;
-	}
-  else
+
+if(gameNs.sceneManager.currentScene.title === gameNs.tutorialScene.title)
   {
-    gameNs.tutorialScene.player.moveY = null;
-  }
 
+    if(e.keyCode === 32)
+  	{
+      gameNs.tutorialScene.player.plantBomb();
+    }
 
-  //Player 2
-  if(e.keyCode === 65 && gameNs.playScene.otherPlayer.collisionLeft == false)
-	{
-		gameNs.playScene.otherPlayer.moveX = false;
+      if(e.keyCode === 37 && gameNs.tutorialScene.player.collisionLeft == false
+      && gameNs.display===false)
+  	{
+  		gameNs.tutorialScene.player.moveX = false;
+  	}
+    else if(e.keyCode === 39 && gameNs.tutorialScene.player.collisionRight == false
+      && gameNs.display===false)
+  	{
+  		gameNs.tutorialScene.player.moveX = true;
+  	}
+    else
+    {
+      gameNs.tutorialScene.player.moveX = null;
+    }
 
-
-	}
-  if(e.keyCode === 68 && gameNs.playScene.otherPlayer.collisionRight == false)
-	{
-		gameNs.playScene.otherPlayer.moveX = true;
-
-	}
-
-//code triggered when UP arrow is pressed
-	if(e.keyCode === 87 && gameNs.playScene.otherPlayer.collisionUp == false)
-	{
-		gameNs.playScene.otherPlayer.moveY = false;
-	}
-  if(e.keyCode === 83 && gameNs.playScene.otherPlayer.collisionDown == false)
-	{
-		gameNs.playScene.otherPlayer.moveY = true;
-
-	}
-
+  //code triggered when UP arrow is pressed
+  	if(e.keyCode === 38 && gameNs.tutorialScene.player.collisionUp == false
+      && gameNs.display===false)
+  	{
+  		gameNs.tutorialScene.player.moveY = false;
+  	}
+    else if(e.keyCode === 40 && gameNs.tutorialScene.player.collisionDown == false
+      && gameNs.display===false)
+  	{
+  		gameNs.tutorialScene.player.moveY = true;
+  	}
+    else
+    {
+      gameNs.tutorialScene.player.moveY = null;
+    }
 
 }
 
+
+
+
+
+}
 function keyUpHandler(e)
 {
   //Player 1
-  if(e.keyCode === 37 )
-	{
-		gameNs.playScene.player.moveX = null;
+  if(gameNs.sceneManager.currentScene.title === gameNs.playScene.title)
+  {
+    if(e.keyCode === 37 )
+    {
+      gameNs.playScene.player.moveX = null;
+    }
+    if(e.keyCode === 39 )
+    {
+      gameNs.playScene.player.moveX = null;
+    }
 
+  //code triggered when UP arrow is pressed
+    if(e.keyCode === 38)
+    {
+      gameNs.playScene.player.moveY = null;
+    }
+    if(e.keyCode === 40)
+    {
+      gameNs.playScene.player.moveY = null;
+    }
 
-	}
-  if(e.keyCode === 39 )
-	{
-		gameNs.playScene.player.moveX = null;
+    ///Player 2
+    if(e.keyCode === 65 )
+    {
+      gameNs.playScene.otherPlayer.moveX = null;
+    }
+    if(e.keyCode === 68 )
+    {
+      gameNs.playScene.otherPlayer.moveX = null;
+    }
 
-	}
+  //code triggered when UP arrow is pressed
+    if(e.keyCode === 87)
+    {
+      gameNs.playScene.otherPlayer.moveY = null;
+    }
+    if(e.keyCode === 83)
+    {
+      gameNs.playScene.otherPlayer.moveY = null;
+    }
+  }
 
-//code triggered when UP arrow is pressed
-	if(e.keyCode === 38)
-	{
-		gameNs.playScene.player.moveY = null;
-	}
-  if(e.keyCode === 40)
-	{
-		gameNs.playScene.player.moveY = null;
-	}
-
-
-  ///Player 2
-  if(e.keyCode === 65 )
-	{
-		gameNs.playScene.otherPlayer.moveX = null;
-
-
-	}
-  if(e.keyCode === 68 )
-	{
-		gameNs.playScene.otherPlayer.moveX = null;
-
-	}
-
-//code triggered when UP arrow is pressed
-	if(e.keyCode === 87)
-	{
-		gameNs.playScene.otherPlayer.moveY = null;
-	}
-  if(e.keyCode === 83)
-	{
-		gameNs.playScene.otherPlayer.moveY = null;
-
-	}
-
-
-
-
+  else if(gameNs.sceneManager.currentScene.title === gameNs.tutorialScene.title)
+  {
+    if(e.keyCode === 37 )
+    {
+      gameNs.tutorialScene.player.moveX = null;
+    }
+    if(e.keyCode === 39 )
+    {
+      gameNs.tutorialScene.player.moveX = null;
+    }
+  //code triggered when UP arrow is pressed
+    if(e.keyCode === 38)
+    {
+      gameNs.tutorialScene.player.moveY = null;
+    }
+    if(e.keyCode === 40)
+    {
+      gameNs.tutorialScene.player.moveY = null;
+    }
+  }
 }
 
 
