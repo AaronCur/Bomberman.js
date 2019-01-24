@@ -28,7 +28,7 @@ function keyDownHandler(e)
     //Player 1
     if(e.keyCode === 32)
   	{
-      gameNs.playScene.player.plantBomb();
+      gameNs.playScene.player.plantBomb(gameNs.playScene.level);
     }
 
     if(e.keyCode === 65 && gameNs.playScene.player.collisionLeft == false) //65
@@ -59,7 +59,7 @@ function keyDownHandler(e)
 
     if(e.keyCode === 96)  // 0 button
     {
-      gameNs.playScene.otherPlayer.plantBomb();
+      gameNs.playScene.otherPlayer.plantBomb(gameNs.playScene.level);
     }
 
     if(e.keyCode === 37 && gameNs.playScene.otherPlayer.collisionLeft == false) // 37

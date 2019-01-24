@@ -84,14 +84,14 @@ class PlayScene
     this.ai2.checkCollision(this.level, this.ai);
     this.ai2.checkCollision(this.level, this.ai1);
 
-    this.player.checkEnemyBomb(this.otherPlayer.bomb.onExplode())
-    this.otherPlayer.checkEnemyBomb(this.player.bomb.onExplode())
+    //this.player.checkEnemyBomb(this.otherPlayer.bomb.onExplode(this.level, this.otherPlayer.bombGrid))
+  //  this.otherPlayer.checkEnemyBomb(this.player.bomb.onExplode(this.level, this.player.bombGrid))
 
     this.time = this.scoreboard.getDisplayTimer();
 
     //console.log(this.time);
 
-    if(this.time == "20:22"){
+    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0){
       this.endScene.render();
      this.scoreboard.addToBoard(40);
      this.scoreboard.filterTime(1);
