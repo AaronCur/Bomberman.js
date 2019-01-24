@@ -118,6 +118,27 @@ this.request.send();
         (this.mazeSquares[this.i].col - 90) / (75 * 0.8) >= exploSrc.y - 1 &&
         (this.mazeSquares[this.i].col - 90) / (75 * 0.8) <= exploSrc.y + 1))
         {
+          // If the wall is not breakable
+          if(this.mazeSquares[this.i].containsWall)
+          {
+            if(this.mazeSquares[this.i].row / (75 * 0.8) > exploSrc.x)
+            {  // Right
+              gameNs.playScene.player.bomb.addWall("Right", true)
+            }
+            else if(this.mazeSquares[this.i].row / (75 * 0.8) < exploSrc.x)
+            {  // Left
+              gameNs.playScene.player.bomb.addWall("Left", true)
+            }
+            else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) > exploSrc.y)
+            {  // Down
+              gameNs.playScene.player.bomb.addWall("Down", true)
+            }
+            else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) < exploSrc.y)
+            {  // Up
+              gameNs.playScene.player.bomb.addWall("Up", true)
+            }
+          }
+
           // If the wall is breakable
           if(this.mazeSquares[this.i].breakWall)
           {
@@ -158,6 +179,28 @@ this.request.send();
         (this.mazeSquares[this.i].col - 90) / (75 * 0.8) >= player2ExploSrc.y - 1 &&
         (this.mazeSquares[this.i].col - 90) / (75 * 0.8) <= player2ExploSrc.y + 1))
         {
+
+          // If the wall is not breakable
+          if(this.mazeSquares[this.i].containsWall)
+          {
+            if(this.mazeSquares[this.i].row / (75 * 0.8) > player2ExploSrc.x)
+            {  // Right
+              gameNs.playScene.otherPlayer.bomb.addWall("Right", true)
+            }
+            else if(this.mazeSquares[this.i].row / (75 * 0.8) < player2ExploSrc.x)
+            {  // Left
+              gameNs.playScene.otherPlayer.bomb.addWall("Left", true)
+            }
+            else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) > player2ExploSrc.y)
+            {  // Down
+              gameNs.playScene.otherPlayer.bomb.addWall("Down", true)
+            }
+            else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) < player2ExploSrc.y)
+            {  // Up
+              gameNs.playScene.otherPlayer.bomb.addWall("Up", true)
+            }
+          }
+
           // If the wall is breakable
           if(this.mazeSquares[this.i].breakWall)
           {
@@ -202,6 +245,27 @@ this.request.send();
         (this.mazeSquares[this.i].col - 90) / (75 * 0.8) >= explosionTut.y - 1 &&
         (this.mazeSquares[this.i].col - 90) / (75 * 0.8) <= explosionTut.y + 1))
         {
+          // If the wall is not breakable
+          if(this.mazeSquares[this.i].containsWall)
+          {
+            if(this.mazeSquares[this.i].row / (75 * 0.8) > explosionTut.x)
+            {  // Right
+              gameNs.playScene.player.bomb.addWall("Right", true)
+            }
+            else if(this.mazeSquares[this.i].row / (75 * 0.8) < explosionTut.x)
+            {  // Left
+              gameNs.playScene.player.bomb.addWall("Left", true)
+            }
+            else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) > explosionTut.y)
+            {  // Down
+              gameNs.playScene.player.bomb.addWall("Down", true)
+            }
+            else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) < explosionTut.y)
+            {  // Up
+              gameNs.playScene.player.bomb.addWall("Up", true)
+            }
+          }
+
           if(this.mazeSquares[this.i].breakWall)
           {
             this.mazeSquares[this.i].breakWall = false;

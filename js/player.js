@@ -121,21 +121,16 @@ class Player
 
     this.moved =false
     gameNs.collides = false;
-    //power up
-      this.speed = 5;
-      this.invincible = false;
-      this.invincibleCount = 0;
-
 
     this.imgB=new Image();
-    this.imgB.src = "img/Bomb.png";
+    this.imgB.src = "img/BombSheet.png";
     this.tile = {};
     this.tile.width = 75;
     this.tile.height = 75;
 
     this.bomb = new Bomb({
-      width: 256,
-      height: 244,
+      width: 300,
+      height: 75,
       image: this.imgB
     }, 10, this.tile)
 
@@ -422,13 +417,6 @@ class Player
    else
    {
      this.animeTimer++;
-   }
-
-   if(this.id === 1)
-   {
-     console.log(this.direction)
-     console.log(this.fsm.currentState)
-     console.log(80 * this.animeCounter)
    }
 
    if(this.stateUp === this.fsm.currentState)
