@@ -50,6 +50,11 @@ class Player
   this.moved =false
   gameNs.collides = false;
 
+  //power up
+  this.speed = 5;
+  this.invincible = false;
+  this.invincibleCount = 0;
+
   this.imgB=new Image();
   this.imgB.src = "img/Bomb.png";
   this.tile = {};
@@ -125,8 +130,10 @@ class Player
       this.row >= bombP.y - 1 &&
       this.row <= bombP.y + 1))
       {
-        console.log("Enemy bomb")
-        this.die()
+        console.log("Enemy bomb");
+        if(this.invincible == false){
+          this.die();
+        }
       }
   }
 
@@ -142,7 +149,9 @@ class Player
       this.row <= explosionSrc.y + 1))
       {
         console.log("Own bomb")
-        this.die()
+        if(this.invincible == false){
+          this.die();
+        }
       }
 
 
@@ -150,10 +159,19 @@ class Player
 
  update(level)
  {
-
    drawParticles();
-   this.bomb.draw()
+   this.bomb.draw();
 
+   if(this.invincible == true){
+     this.invincibleCount++;
+     console.log("invincible");
+   }
+   else{
+     console.log("not invincible");
+   }
+   if(this.invincibleCount > 300){
+     this.invincible = false;
+   }
    //console.log("X: " + (this.col - 1))
    //console.log("Y: " + this.row)
    //console.log(this.bomb.onExplode());
@@ -165,7 +183,7 @@ class Player
      this.respawnTimer++;
      if(this.id === 1)
      {
-       console.log(this.respawnTimer);
+      // console.log(this.respawnTimer);
      }
      this.bomb.update();
 
@@ -175,7 +193,7 @@ class Player
 
         if(this.checkCollisionMapLeft(level) == false)
         {
-          this.x -= 5;
+          this.x -= this.speed;
         }
 
         this.direction = 4;
@@ -189,7 +207,7 @@ class Player
         gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(3.5, 2))];
         if(this.checkCollisionMapRight(level) == false)
         {
-            this.x +=5;
+            this.x +=this.speed;
         }
         this.direction = 2;
         this.collisionLeft = false;
@@ -202,7 +220,7 @@ class Player
 
         if(this.checkCollisionMapUp(level) == false)
         {
-          this.y-=5;
+          this.y-=this.speed;
         }
 
          this.direction = 1;
@@ -215,7 +233,7 @@ class Player
         gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(5, 2))];
         if(this.checkCollisionMapDown(level) == false)
         {
-          this.y+=5;
+          this.y+=this.speed;
         }
 
        this.direction = 3;
@@ -481,10 +499,15 @@ checkCollisionMapDown(level)
         if(level.mazeSquares[this.i].speedUp == true){
           //output speed collected
           console.log("speed");
+          this.powerSpeedUp();
+          //console.log(this.speed);
+
         }
         if(level.mazeSquares[this.i].armour == true){
           //output speed collected
           console.log("armour");
+          this.invincible = true;
+          this.invincibleCount = 0;
         }
         if(level.mazeSquares[this.i].fire == true){
           //output speed collected
@@ -516,12 +539,12 @@ checkCollisionMapDown(level)
       {
         //output speed collected
         console.log("game Over");
-
-
         level.mazeSquares[this.i].endtile = false;
-
-
-
+    }
+  }
+  powerSpeedUp(){
+    if(this.speed < 10){
+      this.speed += 1;
     }
   }
 }
