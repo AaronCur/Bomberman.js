@@ -29,6 +29,7 @@ class HelpScene{
       div.style.position = "absolute";
       div.style.left = (this.width/ 2) - 600 +"px";
       div.style.top = (this.height/8) - 50 +'px';
+
     }
     else if(div.id === "Hints")
     {
