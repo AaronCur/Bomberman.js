@@ -75,7 +75,6 @@ class LevelLoader
          {
            that.mazeSquares[this.i].endtile = true;
          }
-
          else if(this.map[this.i] === 9)
          {
            that.mazeSquares[this.i].edgeLeft = true;

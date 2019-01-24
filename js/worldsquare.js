@@ -29,11 +29,11 @@ class WorldSquare
     this.imgEdgeRight.src = "img/borderWallRight.png";
     this.imgEdgeDown.src = "img/borderWallDown.png";
     //power-up
-    this.imgSpeedUp.src = "img/skate.png";
-    this.imgArmour.src = "img/armour.png";
-    this.imgBomb.src = "img/bombP.png";
-    this.imgFire.src = "img/Fire.png";
-    this.imgOneUp.src = "img/1Up.png";
+    this.imgSpeedUp.src = "img/power/skate.png";
+    this.imgArmour.src = "img/power/armour.png";
+    this.imgBomb.src = "img/power/bombP.png";
+    this.imgFire.src = "img/power/Fire.png";
+    this.imgOneUp.src = "img/power/OneUp.png";
     //end game
     this.imgEnd.src = "img/exit.png";
 
@@ -137,7 +137,7 @@ class WorldSquare
       var image = this.endGoal
       ctx.drawImage(image,0,0,this.squareSize, this.squareSize, this.row, this.col, this.squareSize, this.squareSize)
     }
-    
+
     if(this.edgeLeft == true)
     {
       this.containsWall = true;
