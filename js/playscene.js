@@ -43,10 +43,8 @@ class PlayScene
   }
   initWorld() //prints out “Initialising game world”
   {
-
     this.scoreboard.startTimer();
-    gameNs.audioManager.playAudio("bg", true, 100);
-
+    gameNs.audioManager.playAudio("bg", true, gameNs.volume);
   }
 
 
@@ -61,6 +59,9 @@ class PlayScene
 
     this.player.update(this.level);
     this.otherPlayer.update(this.level);
+
+    this.player.checkEnemyBomb(this.otherPlayer.bomb.onExplode())
+    this.otherPlayer.checkEnemyBomb(this.player.bomb.onExplode())
 
     this.time = this.scoreboard.getDisplayTimer();
 
