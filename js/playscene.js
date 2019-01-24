@@ -101,7 +101,7 @@ class PlayScene
       this.player.checkCollisionAi(this.level, this.ai2);
     }
 
-    this.player.checkEnemyBomb(this.otherPlayer.bomb.onExplode());
+    this.player.checkEnemyBomb(this.otherPlayer.bomb.onExplode(), this.level);
     this.otherPlayer.checkEnemyBomb(this.player.bomb.onExplode());
 
     //Check if ai is bombed
@@ -116,7 +116,6 @@ class PlayScene
     this.time = this.scoreboard.getDisplayTimer();
 
     //console.log(this.time);
-
     if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0){
       this.endScene.render();
      this.scoreboard.addToBoard(40);

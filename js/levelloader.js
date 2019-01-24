@@ -10,6 +10,9 @@ class LevelLoader
     this.y = 0;
     this.col = 0;
     this.row = 0;
+    gameNs.map1 = true
+    gameNs.map2 = false
+    gameNs.map3 = false
     this.squareSize = 75 * 0.8;
     this.MaxRows = 12;
     this.MaxCols = 12;
@@ -22,6 +25,102 @@ class LevelLoader
     //TADA! Now I have the class data.
      this.levelloader = JSON.parse(this.responseText);
      this.map= this.levelloader.Map;
+     //console.log("MapData :" +that.map[10] );
+
+     that.y = that.squareSize * 1.5;
+     for (this.row = 0; this.row < 13; this.row++)
+     {
+       //that.mazeSquares = [];
+         for (this.col = 0; this.col < 15; this.col++)
+         {
+              that.mazeSquares.push(new WorldSquare(that.x, that.y));
+              //that.mazeSquares[this.row][this.col] = new WorldSquare(that.x, that.y);
+              that.x = that.x + that.squareSize;
+         }
+           that.x = 0;
+         that.y = that.y + that.squareSize;
+
+     }
+
+    //console.log(that.map[10]);
+     for (this.i = 0; this.i< 195; this.i++)
+     {
+
+         if (this.map[this.i] === 1)
+         {
+             that.mazeSquares[this.i].containsWall = true;
+         }
+         else if(this.map[this.i] === 2)
+         {
+           that.mazeSquares[this.i].breakWall = true;
+         }
+         else if(this.map[this.i] === 3)
+         {
+           that.mazeSquares[this.i].speedUp = true;
+         }
+         else if(this.map[this.i] === 4)
+         {
+           that.mazeSquares[this.i].armour = true;
+         }
+         else if(this.map[this.i] === 5)
+         {
+           that.mazeSquares[this.i].bomb = true;
+         }
+         else if(this.map[this.i] === 6)
+         {
+           that.mazeSquares[this.i].fire = true;
+         }
+         else if(this.map[this.i] === 7)
+         {
+           that.mazeSquares[this.i].oneup = true;
+         }
+         else if(this.map[this.i] === 8)
+         {
+           that.mazeSquares[this.i].endtile = true;
+         }
+
+         else if(this.map[this.i] === 9)
+         {
+           that.mazeSquares[this.i].edgeLeft = true;
+         }
+         else if(this.map[this.i] === 10)
+         {
+           that.mazeSquares[this.i].edgeRight = true;
+         }
+         else if(this.map[this.i] === 11)
+         {
+           that.mazeSquares[this.i].edgeDown = true;
+         }
+
+
+     }
+
+});
+this.request.open("GET", "js/level.json");
+this.request.send();
+  }
+
+  NextLevel()
+  {
+     this.map = [];
+     this.mazeSquares = [];
+     this.request = new XMLHttpRequest();
+
+     var that = this;
+     this.request.addEventListener("load", function requestListener(){
+    //TADA! Now I have the class data.
+     this.levelloader = JSON.parse(this.responseText);
+     if(gameNs.map1 === true)
+     {
+       gameNs.map1 = false
+       gameNs.map2 = true
+       this.map = this.levelloader.Map2
+     }
+     else if(gameNs.map2 === true)
+     {
+       gameNs.map2 = false
+       this.map = this.levelloader.Map3
+     }
      //console.log("MapData :" +that.map[10] );
 
      that.y = that.squareSize * 1.5;
@@ -192,26 +291,27 @@ this.request.send();
 
       this.mazeSquares[this.i].update();
     }
-    var explosionTut = gameNs.tutorialScene.player.bomb.onExplode(this.mazeSquares,gameNs.tutorialScene.player.bombVal)
-    for (this.i = 0; this.i < 195; this.i++)
+    if(gameNs.sceneManager.currentScene.title === gameNs.tutorialScene.title)
     {
-      if((this.mazeSquares[this.i].row / (75 * 0.8) >= explosionTut.x - 1 &&
-        this.mazeSquares[this.i].row / (75 * 0.8) <= explosionTut.x + 1 &&
-        (this.mazeSquares[this.i].col - 90) / (75 * 0.8) == explosionTut.y) ||
-        (this.mazeSquares[this.i].row / (75 * 0.8) == explosionTut.x &&
-        (this.mazeSquares[this.i].col - 90) / (75 * 0.8) >= explosionTut.y - 1 &&
-        (this.mazeSquares[this.i].col - 90) / (75 * 0.8) <= explosionTut.y + 1))
-        {
-          if(this.mazeSquares[this.i].breakWall)
+      var explosionTut = gameNs.tutorialScene.player.bomb.onExplode(this.mazeSquares, gameNs.tutorialScene.player.bombVal)
+      for (this.i = 0; this.i < 195; this.i++)
+      {
+        if((this.mazeSquares[this.i].row / (75 * 0.8) >= explosionTut.x - 1 &&
+          this.mazeSquares[this.i].row / (75 * 0.8) <= explosionTut.x + 1 &&
+          (this.mazeSquares[this.i].col - 90) / (75 * 0.8) == explosionTut.y) ||
+          (this.mazeSquares[this.i].row / (75 * 0.8) == explosionTut.x &&
+          (this.mazeSquares[this.i].col - 90) / (75 * 0.8) >= explosionTut.y - 1 &&
+          (this.mazeSquares[this.i].col - 90) / (75 * 0.8) <= explosionTut.y + 1))
           {
-            this.mazeSquares[this.i].breakWall = false;
+            if(this.mazeSquares[this.i].breakWall)
+            {
+              this.mazeSquares[this.i].breakWall = false;
+            }
           }
-        }
-
-
-
-      this.mazeSquares[this.i].update();
+        this.mazeSquares[this.i].update();
+      }
     }
+
   }
 
   updateFromNet(index,containsWall,breakWall,moveWall)
@@ -229,4 +329,6 @@ this.request.send();
     this.mazeSquares[index1].speedUp = speedUp;
 
   }
+
+
 }
