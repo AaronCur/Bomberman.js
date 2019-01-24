@@ -73,6 +73,11 @@ class Player
     this.fsm.addEvent(this.eventDown)
     this.fsm.addEvent(this.eventDie)
 
+    // Animation timers
+    this.animeTimer = 0;
+    this.animeTimerLimit = 5;
+    this.animeCounter = 0;
+
     this.collisionUp = false;
     this.collisionDown = false;
     this.collisionLeft = false;
@@ -374,7 +379,6 @@ class Player
    else {
      this.moveX = null;
      this.moveY = null;
-     this.direction = 0;
    }
 
    if(this.idle == true){
@@ -405,44 +409,59 @@ class Player
 
    var image = this.img;
 
-  if (this.moveX == false)
+
+   if(this.animeTimer > this.animeTimerLimit)
    {
-     gameNs.ctx.drawImage(image, this.index* 80 , 100, 80, 100 ,this.x,this.y, this.width,this.height);
+     this.animeCounter++;
+     if(this.animeCounter === 3)
+     {
+       this.animeCounter = 0;
+     }
+     this.animeTimer = 0;
    }
-   else if (this.moveX == true)
+   else
    {
-     gameNs.ctx.drawImage(image, this.index* 80 , 200,80, 100 ,this.x,this.y, this.width,this.height);
+     this.animeTimer++;
    }
-   else if (this.moveY == true)
+
+   if(this.id === 1)
    {
-     gameNs.ctx.drawImage(image, this.index* 80, 0,80, 100 ,this.x,this.y, this.width,this.height);
+     console.log(this.direction)
+     console.log(this.fsm.currentState)
+     console.log(80 * this.animeCounter)
    }
-   else if (this.moveY == false)
+
+   if(this.stateUp === this.fsm.currentState)
    {
-     gameNs.ctx.drawImage(image, this.index* 80 , 300,80, 100 ,this.x,this.y, this.width,this.height);
+     console.log("Up")
+     gameNs.ctx.drawImage(image, 80 * this.animeCounter, 300,80, 100 ,this.x,this.y, this.width,this.height);
+   }
+   else if(this.stateRight === this.fsm.currentState)
+   {
+     console.log("Right")
+     gameNs.ctx.drawImage(image, 80 * this.animeCounter , 200,80, 100 ,this.x,this.y, this.width,this.height);
+   }
+   else if(this.stateDown === this.fsm.currentState)
+   {
+     console.log("Down")
+     gameNs.ctx.drawImage(image, 80 * this.animeCounter, 0,80, 100 ,this.x,this.y, this.width,this.height);
+   }
+   else if(this.stateLeft === this.fsm.currentState)
+   {
+     console.log("Left")
+     gameNs.ctx.drawImage(image, 80 * this.animeCounter, 100,80, 100 ,this.x,this.y, this.width,this.height);
+   }
+   else if(this.stateIdle === this.fsm.currentState)
+   {
+      gameNs.ctx.drawImage(image, 80 , 0,80, 100 ,this.x,this.y, this.width,this.height);
    }
 
    if(this.moveX== null && this.moveY ==null)
    {
-     if(this.direction == 1)
-     {
 
-       gameNs.ctx.drawImage(image, 80 , 300,80, 100 ,this.x,this.y, this.width,this.height);
 
-     }
-     else if(this.direction == 2)
-     {
 
-       gameNs.ctx.drawImage(image, 80 , 300,80, 100 ,this.x,this.y, this.width,this.height);
-     }
-     else if(this.direction == 3)
-     {
-       gameNs.ctx.drawImage(image, 80, 0,80, 100 ,this.x,this.y, this.width,this.height);
-     }
-     else
-     {
-        gameNs.ctx.drawImage(image, 80 , 100,80, 100 ,this.x,this.y, this.width,this.height);
-     }
+
 
 
 
