@@ -101,11 +101,11 @@ this.request.send();
   {
     // Check player one bomb
     // Get Player one bomb grid position
-    var exploSrc = gameNs.playScene.player.bomb.onExplode()
+    var exploSrc = gameNs.playScene.player.bomb.onExplode(this.mazeSquares,gameNs.playScene.player.bombVal)
 
     // Check player two bomb
     // Get Player two bomb grid position
-    var player2ExploSrc = gameNs.playScene.otherPlayer.bomb.onExplode()
+    var player2ExploSrc = gameNs.playScene.otherPlayer.bomb.onExplode(this.mazeSquares,gameNs.playScene.otherPlayer.bombVal)
 
     // Check every square in the grid vs the bomb and the effected area
     for (this.i = 0; this.i < 195; this.i++)
@@ -192,7 +192,7 @@ this.request.send();
 
       this.mazeSquares[this.i].update();
     }
-    var explosionTut = gameNs.tutorialScene.player.bomb.onExplode()
+    var explosionTut = gameNs.tutorialScene.player.bomb.onExplode(this.mazeSquares,gameNs.tutorialScene.player.bombVal)
     for (this.i = 0; this.i < 195; this.i++)
     {
       if((this.mazeSquares[this.i].row / (75 * 0.8) >= explosionTut.x - 1 &&

@@ -49,14 +49,7 @@ class PlayScene
     this.scoreboard = new ScoreboardManager();
     this.scoreboard.initBoard("Local");
 
-    var canvas = document.createElement("mycanvas");
-    var ctx = mycanvas.getContext("2d");
-
    ctx.translate((window.innerWidth / 2)- (7.5*(75 * 0.8)), 0);
-   //ctx.scale(0.9,0.9);
-
-
-
 
   }
   initWorld() //prints out “Initialising game world”
@@ -119,17 +112,17 @@ class PlayScene
     this.ai2.checkEnemyBomb(this.otherPlayer.bomb.onExplode());
     this.ai2.checkEnemyBomb(this.player.bomb.onExplode());
 
+
     this.time = this.scoreboard.getDisplayTimer();
 
     //console.log(this.time);
 
-    if(this.time == "20:22"){
+    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0){
       this.endScene.render();
      this.scoreboard.addToBoard(40);
      this.scoreboard.filterTime(1);
      console.log(this.scoreboard.getBoard());
      this.scoreboard.generate_table();
-
    }
 
 

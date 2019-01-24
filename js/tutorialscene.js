@@ -82,12 +82,14 @@ class TutorialScene
      if(index !== -1)
      {
        gameNs.count += 1;
-
+       var canvas = document.getElementById('mycanvas');
+       var ctx = canvas.getContext('2d');
         filename = fullPath.substring(index+1,fullPath.length);
         console.log(filename);
         if(filename === "back.png")
         {
           gameNs.sceneManager.goToScene(gameNs.menuScene.title);
+          ctx.translate((window.innerWidth / 10)- (7.5*(106.75 * 0.9)), 0);
           var el = document.getElementById('return')
           el.parentNode.removeChild(el)
           gameNs.menuScene.createDiv("Play");

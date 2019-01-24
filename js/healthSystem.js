@@ -10,7 +10,7 @@ class HealthSystem
     this.windowHeight = window.innerHeight;
    this.heartimg = new Image();
     this.heartimg.src ="img/gameoverbg.png"
-    this.healthVal = 2;
+    this.healthVal = 3;
     this.playerID = val;
     this.positionX;
     this.positionY;
