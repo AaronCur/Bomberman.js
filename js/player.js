@@ -229,10 +229,10 @@ class Player
   }
   checkCollisionAi(level, ai)
   {
-      if((this.x< ai.x + ai.width)&&
+      if((this.x< ai.x + ai.width/4)&&
         (this.x+this.width>ai.x)&&
         (this.y+this.height>ai.y)&&
-        (this.y<ai.y+ai.height) )
+        (this.y<ai.y + ai.height/4) )
         {
           console.log("collides");
           if(this.invincible == false){

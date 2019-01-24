@@ -93,12 +93,15 @@ class PlayScene
     //check player - ai
     if(this.ai.alive == true){
       this.player.checkCollisionAi(this.level, this.ai);
+      this.otherPlayer.checkCollisionAi(this.level, this.ai);
     }
     if(this.ai1.alive == true){
       this.player.checkCollisionAi(this.level, this.ai1);
+      this.otherPlayer.checkCollisionAi(this.level, this.ai1);
     }
     if(this.ai2.alive == true){
       this.player.checkCollisionAi(this.level, this.ai2);
+      this.otherPlayer.checkCollisionAi(this.level, this.ai2);
     }
 
     this.player.checkEnemyBomb(this.otherPlayer.bomb.onExplode());
