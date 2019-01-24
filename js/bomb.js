@@ -59,8 +59,11 @@ class Bomb
   {
     if(this.exploding)
     {
-      level[i].containsBomb = false;
-      level[i].containsWall = false;
+      if(level != undefined)
+      {
+        level[i].containsBomb = false;
+        level[i].containsWall = false;
+      }
       return this.gridPos;
 
 

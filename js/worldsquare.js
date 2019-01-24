@@ -137,6 +137,7 @@ class WorldSquare
       var image = this.endGoal
       ctx.drawImage(image,0,0,this.squareSize, this.squareSize, this.row, this.col, this.squareSize, this.squareSize)
     }
+    
     if(this.edgeLeft == true)
     {
       this.containsWall = true;
