@@ -131,12 +131,12 @@ class WorldSquare
       var image = this.imgBreakWall;
       ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
     }
-<<<<<<< HEAD
+
     if(this.goal === true && this.breakWall === false)
     {
       var image = this.endGoal
       ctx.drawImage(image,0,0,this.squareSize, this.squareSize, this.row, this.col, this.squareSize, this.squareSize)
-=======
+    }
     if(this.edgeLeft == true)
     {
       this.containsWall = true;
@@ -154,7 +154,6 @@ class WorldSquare
       this.containsWall = true;
       var image = this.imgEdgeDown;
       ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
->>>>>>> d2b3128ae53013abe8d994a7b9b6c95424678d54
     }
   }
   draw()
