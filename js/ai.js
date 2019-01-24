@@ -50,6 +50,8 @@ class Ai
   this.tile = {};
   this.tile.width = 75;
   this.tile.height = 75;
+  //bomb collisionUp
+  this.alive = true;
 
 
   //call at the start
@@ -291,8 +293,9 @@ class Ai
        (this.y+this.height>player.y)&&
        (this.y<player.y+player.height) )
        {
-
-         this.pickDirection();
+         if(this.alive == true){
+          this.pickDirection();
+         }
 
        }
         else
@@ -300,6 +303,24 @@ class Ai
         //console.log("Not Collided")
         //this.timer =0;
       }
+  }
+  checkEnemyBomb(bombP)
+  {
+    if(((this.col - 1) >= bombP.x - 1 &&
+      (this.col - 1) <= bombP.x + 1 &&
+      this.row == bombP.y)||
+      ((this.col - 1) == bombP.x &&
+      this.row >= bombP.y - 1 &&
+      this.row <= bombP.y + 1))
+      {
+        console.log("AI bomb");
+
+        this.die();
+
+      }
+  }
+  die(){
+    this.alive = false;
   }
 
 }
