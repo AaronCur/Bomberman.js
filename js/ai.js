@@ -192,7 +192,8 @@ class Ai
     if(this.direction == 2  )
     {
       this.x += 2;
-      if(level.mazeSquares[this.i+1].containsWall === true || level.mazeSquares[this.i+1].breakWall === true)
+      if(level.mazeSquares[this.i+1].containsWall === true || level.mazeSquares[this.i+1].breakWall === true
+          || level.mazeSquares[this.i + 1].containsBomb === true)
       {
         if(level.mazeSquares[this.i+1].x <= this.x+this.width - 6)
         {
@@ -212,7 +213,8 @@ class Ai
       else if(this.direction == 4 )
       {
         this.x -= 2;
-        if(level.mazeSquares[this.i - 1].containsWall === true || level.mazeSquares[this.i - 1].breakWall === true )
+        if(level.mazeSquares[this.i - 1].containsWall === true || level.mazeSquares[this.i - 1].breakWall === true
+         || level.mazeSquares[this.i - 1].containsBomb === true)
         {
           if(this.x <= level.mazeSquares[this.i - 1].x + (this.squareSize - 6)   )
           {
@@ -233,7 +235,8 @@ class Ai
     else if(this.direction == 1)
     {
       this.y -= 2;
-      if(level.mazeSquares[this.i - this.maxCols].containsWall ===true || level.mazeSquares[this.i - this.maxCols].breakWall ===true)
+      if(level.mazeSquares[this.i - this.maxCols].containsWall ===true || level.mazeSquares[this.i - this.maxCols].breakWall ===true
+         || level.mazeSquares[this.i - this.maxCols].containsBomb === true)
       {
         if(this.y + (this.height / 2) + 5<= level.mazeSquares[this.i-this.maxCols].y + this.squareSize)
         {
@@ -254,7 +257,8 @@ class Ai
   else if(this.direction == 3)
   {
       this.y += 2;
-    if(level.mazeSquares[this.i + this.maxCols].containsWall===true || level.mazeSquares[this.i + this.maxCols].breakWall===true)
+    if(level.mazeSquares[this.i + this.maxCols].containsWall===true || level.mazeSquares[this.i + this.maxCols].breakWall===true
+       || level.mazeSquares[this.i + this.maxCols].containsBomb === true)
     {
       if(this.y + this.height >= level.mazeSquares[this.i+this.maxCols].y)
       {
