@@ -108,20 +108,28 @@ class Player
 
      this.bomb.update();
 
-     if(this.moveX == false && this.x> 0 /*&& this.checkCollisionMap(level.mazeSquares[this.i -1])==false*/)
+     if(this.moveX == false && this.x> 0)
       {
         gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(0.5, 2))];
-        this.x -= 5;
+
+        if(this.checkCollisionMapLeft(level) == false)
+        {
+          this.x -= 5;
+        }
+
         this.direction = 4;
         this.collisionRight = false;
         this.collisionUp = false;
         this.collisionDown = false;
 
       }
-      else if (this.moveX == true && this.x < 23 * 75 /*&& this.checkCollisionMap(level.mazeSquares[this.i +1]==false)*/)
+      else if (this.moveX == true && this.x < 23 * 75 )
       {
         gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(3.5, 2))];
-        this.x +=5;
+        if(this.checkCollisionMapRight(level) == false)
+        {
+            this.x +=5;
+        }
         this.direction = 2;
         this.collisionLeft = false;
         this.collisionUp = false;
@@ -130,16 +138,25 @@ class Player
       else if (this.moveY == false && this.y > 10)
       {
         gameNs.emitters = [new Emitter(new VectorTwo(this.x + 40, this.y +75), VectorTwo.fromAngle(2, 2))];
-         this.y-=5;
+
+        if(this.checkCollisionMapUp(level) == false)
+        {
+          this.y-=5;
+        }
+
          this.direction = 1;
          this.collisionDown = false;
          this.collisionLeft = false;
          this.collisionRight = false;
       }
-      else if (this.moveY == true && this.y < 12 * 75)
+      else if (this.moveY == true && this.y < 12 * 75 )
       {
         gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(5, 2))];
-       this.y+=5;
+        if(this.checkCollisionMapDown(level) == false)
+        {
+          this.y+=5;
+        }
+
        this.direction = 3;
        this.collisionUp = false;
        this.collisionLeft = false;
@@ -234,8 +251,6 @@ class Player
      gameNs.soundManager.playSound("backGround", true, gameNs.volume)
      this.play=false
    }
-
-   this.checkCollisionMap(level);
    this.collectPowerUp(level);
 
 
@@ -249,33 +264,9 @@ class Player
     this.bomb.place({x:this.col - 1, y:this.row})
   }
 
-  checkCollisionMap(level)
+  checkCollisionMapLeft(level)
   {
-
-    if(this.direction == 2  )
-    {
-      if(level.mazeSquares[this.i+1].containsWall === true || level.mazeSquares[this.i+1].breakWall === true)
-      {
-        if(level.mazeSquares[this.i+1].x <= this.x+this.width - 6)
-        {
-          this.moveX = null;
-          this.moveY = null;
-          this.collisionRight = true;
-          this.healthSystem.healthVal = 1;
-          if(this.moved==false)
-          {
-
-            this.moved=true;
-          }
-        }
-        else
-         {
-           this.moved=false;
-           this.collisionRight = false;
-        }
-      }
-    }
-      else if(this.direction == 4 )
+      if(this.direction == 4 )
       {
         if(level.mazeSquares[this.i - 1].containsWall === true || level.mazeSquares[this.i - 1].breakWall === true )
         {
@@ -284,6 +275,8 @@ class Player
             this.moveX = null;
             this.moveY = null;
             this.collisionLeft = true;
+            this.x+=5.1;
+            console.log("Left collision")
             if(this.moved==false)
             {
               this.moved=true;
@@ -297,54 +290,128 @@ class Player
         }
 
     }
-    else if(this.direction == 1)
-    {
-      if(level.mazeSquares[this.i - this.maxCols].containsWall ===true || level.mazeSquares[this.i - this.maxCols].breakWall ===true)
-      {
-        if(this.y + (this.height / 2) + 5<= level.mazeSquares[this.i-this.maxCols].y + this.squareSize)
-        {
-          this.moveX = null;
-          this.moveY = null;
-          this.collisionUp = true;
-          if(this.moved==false)
-          {
-            this.moved=true;
-          }
-          if(this.moved==false)
-          {
-            this.moved=true;
-          }
-        }
-        else
-         {
-           this.moved=false;
-           this.collisionUp = false;
-        }
-      }
 
-  }
-  else if(this.direction == 3)
+    if(this.collisionLeft == true){
+      return true;
+    }
+    else {
+      return false;
+    }
+
+}
+checkCollisionMapRight(level)
+{
+
+  if(this.direction == 2  )
   {
-    if(level.mazeSquares[this.i + this.maxCols].containsWall===true || level.mazeSquares[this.i + this.maxCols].breakWall===true)
+    if(level.mazeSquares[this.i+1].containsWall === true || level.mazeSquares[this.i+1].breakWall === true)
     {
-      if(this.y + this.height >= level.mazeSquares[this.i+this.maxCols].y)
+      if(level.mazeSquares[this.i+1].x <= this.x+this.width - 6)
       {
         this.moveX = null;
         this.moveY = null;
-        this.collisionDown = true;
+        this.collisionRight = true;
+        console.log("Right Collision")
+        this.x-=5.1;
+        this.healthSystem.healthVal = 1;
         if(this.moved==false)
         {
-                    this.moved=true;
+
+          this.moved=true;
         }
       }
       else
        {
          this.moved=false;
-         this.collisionDown = false;
+         this.collisionRight = false;
+      }
+    }
+  }
+
+  if(this.collisionRight == true)
+  {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+checkCollisionMapUp(level)
+{
+
+  if(this.direction == 1)
+  {
+    if(level.mazeSquares[this.i - this.maxCols].containsWall ===true || level.mazeSquares[this.i - this.maxCols].breakWall ===true)
+    {
+      if(this.y + (this.height / 2) + 5<= level.mazeSquares[this.i-this.maxCols].y + this.squareSize)
+      {
+        this.moveX = null;
+        this.moveY = null;
+        this.collisionUp = true;
+        console.log("Up collision")
+        this.y+=5.1;
+        if(this.moved==false)
+        {
+          this.moved=true;
+        }
+        if(this.moved==false)
+        {
+          this.moved=true;
+        }
+      }
+      else
+       {
+         this.moved=false;
+         this.collisionUp = false;
       }
     }
 
- }
+  }
+
+  if(this.collisionUp == true)
+  {
+    return true;
+  }
+  else {
+    return false;
+  }
+
+}
+checkCollisionMapDown(level)
+{
+
+    if(this.direction == 3)
+    {
+      if(level.mazeSquares[this.i + this.maxCols].containsWall===true || level.mazeSquares[this.i + this.maxCols].breakWall===true)
+      {
+        if(this.y + this.height >= level.mazeSquares[this.i+this.maxCols].y)
+        {
+          this.moveX = null;
+          this.moveY = null;
+          this.collisionDown = true;
+          console.log("Down collision")
+          this.y-=5.1;
+          if(this.moved==false)
+          {
+                      this.moved=true;
+          }
+        }
+        else
+         {
+           this.moved=false;
+           this.collisionDown = false;
+        }
+      }
+
+    }
+
+    if(this.collisionDown == true)
+    {
+      return true;
+    }
+    else {
+      return false;
+    }
 }
   collectPowerUp(level)
   {
