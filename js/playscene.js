@@ -11,19 +11,19 @@ class PlayScene
     this.level = new LevelLoader();
     this.title = title;
     this.img=new Image();
-    this.img.src = "img/player.png";
+    this.img.src = "img/playerSheet.png";
     var canvas = document.getElementById('mycanvas');
     var ctx = canvas.getContext('2d');
 
     this.player = new Player(ctx, {
-    width: 78 * 0.8,
-    height: 108 * 0.8,
+    width: 80 * 0.8,
+    height: 100 * 0.8,
     image: this.img
   }, 10, 100, 50, 1);
 
     this.otherPlayer = new Player(ctx, {
-    width: 78 * 0.8,
-    height: 108 * 0.8,
+    width: 80 * 0.8,
+    height: 100 * 0.8,
     image: this.img
   }, 10, 700, 790, 2);
 
@@ -86,7 +86,7 @@ class PlayScene
 
    var canvas = document.createElement("mycanvas");
    var ctx = mycanvas.getContext("2d");
-   document.body.style.background = "#ffffff";
+   document.body.style.background = "#000000";
 
     ctx.fillStyle ='white';
     ctx.font = '55px Adventure Regular';

@@ -10,6 +10,9 @@ class WorldSquare
     this.imgNotWall = new Image();
     this.imgBreakWall = new Image();
     this.imgMoveWall = new Image();
+    this.imgEdgeLeft = new Image();
+    this.imgEdgeRight = new Image();
+    this.imgEdgeDown = new Image();
     //power-up
     this.imgSpeedUp = new Image();
     this.imgArmour = new Image();
@@ -17,9 +20,12 @@ class WorldSquare
     this.imgFire = new Image();
     this.imgOneUp = new Image();
 
-    this.imgWall.src = "img/wall.png";
-    this.imgNotWall.src = "img/notwall.png";
-    this.imgBreakWall.src = "img/breakwall.png";
+    this.imgWall.src = "img/indistructableWall.png";
+    this.imgNotWall.src = "img/floor.png";
+    this.imgBreakWall.src = "img/destructableWall.png";
+    this.imgEdgeLeft.src = "img/borderWallLeft.png";
+    this.imgEdgeRight.src = "img/borderWallRight.png";
+    this.imgEdgeDown.src = "img/borderWallDown.png";
     //power-up
     this.imgSpeedUp.src = "img/skate.png";
     this.imgArmour.src = "img/armour.png";
@@ -34,6 +40,9 @@ class WorldSquare
     this.bomb = false;
     this.fire = false;
     this.oneup = false;
+    this.edgeLeft = false;
+    this.edgeRight = false;
+    this.edgeDown = false;
     this.row = row;
     this.x = this.row;
     this.col = col;
@@ -110,6 +119,24 @@ class WorldSquare
     if(this.breakWall == true)
     {
       var image = this.imgBreakWall;
+      ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
+    }
+    if(this.edgeLeft == true)
+    {
+      this.containsWall = true;
+      var image = this.imgEdgeLeft;
+      ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
+    }
+    if(this.edgeRight == true)
+    {
+      this.containsWall = true;
+      var image = this.imgEdgeRight;
+      ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
+    }
+    if(this.edgeDown == true)
+    {
+      this.containsWall = true;
+      var image = this.imgEdgeDown;
       ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
     }
   }
