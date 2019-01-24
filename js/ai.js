@@ -123,19 +123,19 @@ class Ai
 
   if (this.moveX == false)
    {
-     gameNs.ctx.drawImage(image, this.index* 78 , 108,78, 108 ,this.x,this.y, this.width,this.height);
+     gameNs.ctx.drawImage(image, this.index* 80 , 100,80, 100 ,this.x,this.y, this.width,this.height);
    }
    else if (this.moveX == true)
    {
-     gameNs.ctx.drawImage(image, this.index* 78 , 216,78, 108 ,this.x,this.y, this.width,this.height);
+     gameNs.ctx.drawImage(image, this.index* 80 , 200,80, 100 ,this.x,this.y, this.width,this.height);
    }
    else if (this.moveY == true)
    {
-     gameNs.ctx.drawImage(image, this.index* 78, 0,78, 108 ,this.x,this.y, this.width,this.height);
+     gameNs.ctx.drawImage(image, this.index* 80, 0,80, 100 ,this.x,this.y, this.width,this.height);
    }
    else if (this.moveY == false)
    {
-     gameNs.ctx.drawImage(image, this.index* 78 , 324,78, 108 ,this.x,this.y, this.width,this.height);
+     gameNs.ctx.drawImage(image, this.index* 80 , 300,80, 100 ,this.x,this.y, this.width,this.height);
    }
 
 //idle and facing a direction
@@ -144,21 +144,21 @@ class Ai
      if(this.direction == 1)
      {
 
-       gameNs.ctx.drawImage(image, 78 , 324,78, 108 ,this.x,this.y, this.width,this.height);
+       gameNs.ctx.drawImage(image, 80 , 300,80, 100 ,this.x,this.y, this.width,this.height);
 
      }
      else if(this.direction == 2)
      {
 
-       gameNs.ctx.drawImage(image, 78 , 216,78, 108 ,this.x,this.y, this.width,this.height);
+       gameNs.ctx.drawImage(image, 80 , 200,80, 100 ,this.x,this.y, this.width,this.height);
      }
      else if(this.direction == 3)
      {
-       gameNs.ctx.drawImage(image, 78, 0,78, 108 ,this.x,this.y, this.width,this.height);
+       gameNs.ctx.drawImage(image, 80, 0,80, 100 ,this.x,this.y, this.width,this.height);
      }
      else
      {
-        gameNs.ctx.drawImage(image, 78 , 108,78, 108 ,this.x,this.y, this.width,this.height);
+        gameNs.ctx.drawImage(image, 80 , 100,80, 100 ,this.x,this.y, this.width,this.height);
      }
 
    }

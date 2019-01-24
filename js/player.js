@@ -85,6 +85,8 @@ class Player
 
   this.id = playerID;
 
+  this.bombGrid;
+
 
   update();
 
@@ -110,7 +112,7 @@ class Player
     this.y = this.spawnY;
     if(this.respawnTimer > this.respawnTimerLimit)
     {
-      this.healthSystem.healthVal = 1;
+      this.healthSystem.healthVal -= 1;
       this.respawnTimer = 0;
     }
     // Make invinciple for 5 seconds
@@ -130,9 +132,9 @@ class Player
       }
   }
 
-  checkBomb()
+  checkBomb(level)
   {
-    var explosionSrc = this.bomb.onExplode();
+    var explosionSrc = this.bomb.onExplode(level.mazeSquares, this.bombVal);
 
     if(((this.col - 1) >= explosionSrc.x - 1 &&
       (this.col - 1) <= explosionSrc.x + 1 &&
@@ -157,7 +159,7 @@ class Player
    //console.log("X: " + (this.col - 1))
    //console.log("Y: " + this.row)
    //console.log(this.bomb.onExplode());
-   this.checkBomb()
+   this.checkBomb(level)
 
    if(gameNs.playScene.gameover == false)
    {
@@ -165,7 +167,7 @@ class Player
      this.respawnTimer++;
      if(this.id === 1)
      {
-       console.log(this.respawnTimer);
+    //   console.log(this.respawnTimer);
      }
      this.bomb.update();
 
@@ -317,9 +319,12 @@ class Player
 
  }
 
-  plantBomb()
+  plantBomb(level)
   {
     this.bomb.place({x:this.col - 1, y:this.row})
+    level.mazeSquares[this.i].containsBomb = true;
+    this.bombVal = this.i;
+
   }
 
   checkCollisionMapLeft(level)
@@ -327,7 +332,8 @@ class Player
 
       if(this.direction == 4 )
       {
-        if(level.mazeSquares[this.i - 1].containsWall === true || level.mazeSquares[this.i - 1].breakWall === true )
+        if(level.mazeSquares[this.i - 1].containsWall === true || level.mazeSquares[this.i - 1].breakWall === true ||
+           level.mazeSquares[this.i - 1].containsBomb === true)
         {
           if(this.x <= level.mazeSquares[this.i - 1].x + (this.squareSize - 6)   )
           {
@@ -363,7 +369,8 @@ checkCollisionMapRight(level)
 
   if(this.direction == 2  )
   {
-    if(level.mazeSquares[this.i+1].containsWall === true || level.mazeSquares[this.i+1].breakWall === true)
+    if(level.mazeSquares[this.i+1].containsWall === true || level.mazeSquares[this.i+1].breakWall === true ||
+        level.mazeSquares[this.i+1].containsBomb === true)
     {
       if(level.mazeSquares[this.i+1].x <= this.x+this.width - 6)
       {
@@ -372,7 +379,6 @@ checkCollisionMapRight(level)
         this.collisionRight = true;
         console.log("Right Collision")
         this.x-=5.1;
-        this.healthSystem.healthVal = 1;
         if(this.moved==false)
         {
 
@@ -400,7 +406,8 @@ checkCollisionMapUp(level)
 
   if(this.direction == 1)
   {
-    if(level.mazeSquares[this.i - this.maxCols].containsWall ===true || level.mazeSquares[this.i - this.maxCols].breakWall ===true)
+    if(level.mazeSquares[this.i - this.maxCols].containsWall ===true || level.mazeSquares[this.i - this.maxCols].breakWall ===true ||
+      level.mazeSquares[this.i - this.maxCols].containsBomb === true)
     {
       if(this.y + (this.height / 2) + 5<= level.mazeSquares[this.i-this.maxCols].y + this.squareSize)
       {
@@ -441,7 +448,8 @@ checkCollisionMapDown(level)
 
     if(this.direction == 3)
     {
-      if(level.mazeSquares[this.i + this.maxCols].containsWall===true || level.mazeSquares[this.i + this.maxCols].breakWall===true)
+      if(level.mazeSquares[this.i + this.maxCols].containsWall===true || level.mazeSquares[this.i + this.maxCols].breakWall===true ||
+          level.mazeSquares[this.i + this.maxCols].containsBomb === true)
       {
         if(this.y + this.height >= level.mazeSquares[this.i+this.maxCols].y)
         {
