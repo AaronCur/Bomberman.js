@@ -19,6 +19,8 @@ class WorldSquare
     this.imgBomb = new Image();
     this.imgFire = new Image();
     this.imgOneUp = new Image();
+    //end game
+    this.imgEnd = new Image();
 
     this.imgWall.src = "img/indistructableWall.png";
     this.imgNotWall.src = "img/floor.png";
@@ -32,6 +34,8 @@ class WorldSquare
     this.imgBomb.src = "img/bombP.png";
     this.imgFire.src = "img/Fire.png";
     this.imgOneUp.src = "img/OneUp.png";
+    //end game
+    this.imgEnd.src = "img/exit.png";
 
     this.containsWall = false;
     this.breakWall = false;
@@ -43,6 +47,7 @@ class WorldSquare
     this.edgeLeft = false;
     this.edgeRight = false;
     this.edgeDown = false;
+    this.endtile = false;
     this.row = row;
     this.x = this.row;
     this.col = col;
@@ -113,6 +118,11 @@ class WorldSquare
     if(this.oneup == true)
     {
       var image = this.imgOneUp;
+      ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
+    }
+    if(this.endtile == true)
+    {
+      var image = this.imgEnd;
       ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
     }
 

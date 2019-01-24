@@ -27,6 +27,8 @@ class Player
 
   this.img= imageOptions.image;
   this.fps = fps;
+  this.spawnX = x;
+  this.spawnY = y;
   this.x = x;
   this.xFeet = this.x + (this.width / 2);
   this.yFeet = this.y + (this.height/2);
@@ -61,6 +63,8 @@ class Player
   }, 10, this.tile)
 
   this.healthSystem = new HealthSystem(playerID);
+  this.respawnTimer = 0;
+  this.respawnTimerLimit = 100;
 
   //particle effects
   gameNs.maxParticles = 200;
@@ -78,6 +82,9 @@ class Player
   gameNs.canvas.width = window.innerWidth;
   gameNs.canvas.height = window.innerHeight;
   gameNs.emitters = [new Emitter(new VectorTwo(this.x+40, this.y+75), VectorTwo.fromAngle(0, 0))];
+
+  this.id = playerID;
+
 
   update();
 
@@ -97,15 +104,69 @@ class Player
     this.direction = direction;
   }
 
+  die()
+  {
+    this.x = this.spawnX;
+    this.y = this.spawnY;
+    if(this.respawnTimer > this.respawnTimerLimit)
+    {
+      this.healthSystem.healthVal = 1;
+      this.respawnTimer = 0;
+    }
+    // Make invinciple for 5 seconds
+  }
+
+  checkEnemyBomb(bombP)
+  {
+    if(((this.col - 1) >= bombP.x - 1 &&
+      (this.col - 1) <= bombP.x + 1 &&
+      this.row == bombP.y)||
+      ((this.col - 1) == bombP.x &&
+      this.row >= bombP.y - 1 &&
+      this.row <= bombP.y + 1))
+      {
+        console.log("Enemy bomb")
+        this.die()
+      }
+  }
+
+  checkBomb()
+  {
+    var explosionSrc = this.bomb.onExplode();
+
+    if(((this.col - 1) >= explosionSrc.x - 1 &&
+      (this.col - 1) <= explosionSrc.x + 1 &&
+      this.row == explosionSrc.y)||
+      ((this.col - 1) == explosionSrc.x &&
+      this.row >= explosionSrc.y - 1 &&
+      this.row <= explosionSrc.y + 1))
+      {
+        console.log("Own bomb")
+        this.die()
+      }
+
+
+  }
+
  update(level)
  {
 
    drawParticles();
    this.bomb.draw()
 
+   //console.log("X: " + (this.col - 1))
+   //console.log("Y: " + this.row)
+   //console.log(this.bomb.onExplode());
+   this.checkBomb()
+
    if(gameNs.playScene.gameover == false)
    {
 
+     this.respawnTimer++;
+     if(this.id === 1)
+     {
+       console.log(this.respawnTimer);
+     }
      this.bomb.update();
 
      if(this.moveX == false && this.x> 0)
@@ -173,8 +234,6 @@ class Player
        gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(0, 0))];
    }
 
-   //var canvas = document.getElementById('mycanvas');
-   //var gameNs.ctx = canvas.getContext('2d');
 
      if (gameNs.playScene.player.moveY == null && gameNs.playScene.player.moveX == null){
        gameNs.playScene.player.idle= true;
@@ -185,7 +244,6 @@ class Player
 
 
    var image = this.img;
-   //if(moveX == true)
 
   if (this.moveX == false)
    {
@@ -252,7 +310,7 @@ class Player
      this.play=false
    }
    this.collectPowerUp(level);
-
+   this.collectEndTile(level);
 
    this.healthSystem.update();
 
@@ -266,6 +324,7 @@ class Player
 
   checkCollisionMapLeft(level)
   {
+
       if(this.direction == 4 )
       {
         if(level.mazeSquares[this.i - 1].containsWall === true || level.mazeSquares[this.i - 1].breakWall === true )
@@ -446,6 +505,21 @@ checkCollisionMapDown(level)
           level.mazeSquares[this.i].fire = false;
           level.mazeSquares[this.i].bomb = false;
           level.mazeSquares[this.i].oneup = false;
+
+
+    }
+  }
+
+  collectEndTile(level)
+  {
+    if(level.mazeSquares[this.i].endtile == true )
+      {
+        //output speed collected
+        console.log("game Over");
+
+
+        level.mazeSquares[this.i].endtile = false;
+
 
 
     }
