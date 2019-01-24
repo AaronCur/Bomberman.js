@@ -404,6 +404,11 @@ class Player
 
    var image = this.img;
 
+   if(this.id === 1)
+   {
+
+   }
+
   if (this.moveX == false)
    {
      gameNs.ctx.drawImage(image, this.index* 80 , 100, 80, 100 ,this.x,this.y, this.width,this.height);
