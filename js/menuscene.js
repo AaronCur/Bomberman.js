@@ -13,11 +13,8 @@ class MenuScene
     this.title = title;
     this.width = window.innerWidth;
     this.height = window.innerHeight;
-
-    this.createDiv("Play");
-    this.createDiv("Options");
-    this.createDiv("Tutorial");
-
+    this.BGimg = new Image()
+    this.BGimg.src = "img/Assets/Assets/Logo.png"
   }
    createDiv(divId)
   {
@@ -30,8 +27,8 @@ class MenuScene
         this.div = div;
         //var d = document.getElementById('yourDivId');
         div.style.position = "absolute";
-        div.style.left = (this.width/ 2) - 135 +"px";
-        div.style.top = (this.height/ 8) + 40 +'px';
+        div.style.left = (this.width/ 2) - 150 +"px";
+        div.style.top = (this.height/ 8) *4 + 80 +'px';
       }
       else if(div.id === "Options")
       {
@@ -39,8 +36,8 @@ class MenuScene
         this.div = div;
 
         div.style.position = "absolute";
-        div.style.left = (this.width/ 2) - 135 +"px";
-        div.style.top = (this.height/ 8) * 3 + 40 +'px';
+        div.style.left = (this.width/ 2) - 150 +"px";
+        div.style.top = (this.height/ 8) * 5 + 80 +'px';
       }
       else if(div.id === "Tutorial")
       {
@@ -48,8 +45,8 @@ class MenuScene
         this.div = div;
 
         div.style.position = "absolute";
-        div.style.left = (this.width/ 2) - 135 +"px";
-        div.style.top = (this.height/8) * 5 + 40 +'px';
+        div.style.left = (this.width/ 2) - 150 +"px";
+        div.style.top = (this.height/8) * 6 + 80 +'px';
       }
 
     div.addEventListener("click", this.onTouchStart,{passive:false});
@@ -80,12 +77,14 @@ class MenuScene
       if(index !== -1)
       {
         gameNs.count += 1;
-
+        var canvas = document.getElementById('mycanvas');
+        var ctx = canvas.getContext('2d');
          filename = fullPath.substring(index+1,fullPath.length);
          console.log(filename);
          if(filename === "playbutton.png")
          {
-
+           ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
+           ctx.translate((window.innerWidth / 2)- (7.5*(75 * 0.8)), 0);
            gameNs.sceneManager.goToScene(gameNs.playScene.title);
            gameNs.playScene.initWorld();
            gameNs.timerStart = true;
@@ -105,6 +104,8 @@ class MenuScene
          }
          else if (filename === "tutorialbutton.png" )
          {
+           ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
+           ctx.translate((window.innerWidth / 2)- (7.5*(75 * 0.8)), 0);
            gameNs.sceneManager.goToScene(gameNs.tutorialScene.title);
            gameNs.tutorialScene.createDiv("return")
          }
@@ -133,9 +134,10 @@ class MenuScene
     var canvas = document.createElement("mycanvas");
     var ctx = mycanvas.getContext("2d");
     ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
+    var img = this.BGimg
+    ctx.drawImage(img,0,0,this.width,this.height)
     document.body.style.background = "#bbcfed";
     ctx.font = '55px Adventure Regular';
-    ctx.fillText(this.title, this.width/2 - 170, 70);
 
   }
 }

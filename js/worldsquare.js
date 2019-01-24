@@ -16,10 +16,12 @@ class WorldSquare
     this.imgBomb = new Image();
     this.imgFire = new Image();
     this.imgOneUp = new Image();
+    this.endGoal = new Image()
 
     this.imgWall.src = "img/wall.png";
     this.imgNotWall.src = "img/notwall.png";
     this.imgBreakWall.src = "img/breakwall.png";
+    this.endGoal.src = "img/goal.png"
     //power-up
     this.imgSpeedUp.src = "img/skate.png";
     this.imgArmour.src = "img/armour.png";
@@ -34,6 +36,8 @@ class WorldSquare
     this.bomb = false;
     this.fire = false;
     this.oneup = false;
+    this.goal = false;
+    this.wallBroken = false
     this.row = row;
     this.x = this.row;
     this.col = col;
@@ -111,6 +115,11 @@ class WorldSquare
     {
       var image = this.imgBreakWall;
       ctx.drawImage(image, 0 , 0,this.squareSize, this.squareSize ,this.row,this.col, this.squareSize,this.squareSize);
+    }
+    if(this.goal === true && this.breakWall === false)
+    {
+      var image = this.endGoal
+      ctx.drawImage(image,0,0,this.squareSize, this.squareSize, this.row, this.col, this.squareSize, this.squareSize)
     }
   }
   draw()

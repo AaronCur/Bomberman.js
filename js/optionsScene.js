@@ -126,7 +126,8 @@ class optionsScene
      if(index !== -1)
      {
        //this.count+=1;
-
+       var canvas = document.getElementById('mycanvas');
+       var ctx = canvas.getContext('2d');
 
         filename = fullPath.substring(index+1,fullPath.length);
         console.log(filename);
@@ -198,6 +199,7 @@ class optionsScene
         {
          // gameNs.soundManager.playSound("Concentrate", true, 0.2);
           gameNs.sceneManager.goToScene(gameNs.menuScene.title);
+
           var el = document.getElementById( 'Back' );
           el.parentNode.removeChild( el );
           var el = document.getElementById( 'VolumeUp' );
@@ -211,6 +213,7 @@ class optionsScene
           gameNs.menuScene.createDiv("Play");
           gameNs.menuScene.createDiv("Options");
           gameNs.menuScene.createDiv("Tutorial");
+
 
         }
 
@@ -246,7 +249,6 @@ class optionsScene
 
     document.body.style.background = "#FFFACD";
     ctx.font = '55px Adventure Regular';
-    ctx.fillText(this.title, this.width/2 - 170, 70);
 
     var image = this.img;
 
