@@ -76,6 +76,19 @@ class LevelLoader
            that.mazeSquares[this.i].endtile = true;
          }
 
+         else if(this.map[this.i] === 9)
+         {
+           that.mazeSquares[this.i].edgeLeft = true;
+         }
+         else if(this.map[this.i] === 10)
+         {
+           that.mazeSquares[this.i].edgeRight = true;
+         }
+         else if(this.map[this.i] === 11)
+         {
+           that.mazeSquares[this.i].edgeDown = true;
+         }
+
 
      }
 
