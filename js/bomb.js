@@ -55,11 +55,19 @@ class Bomb
 
   }
 
-  onExplode()
+  onExplode(level, i)
   {
     if(this.exploding)
     {
+      if(level != undefined)
+      {
+        level[i].containsBomb = false;
+        level[i].containsWall = false;
+      }
       return this.gridPos;
+
+
+
     }
     else {
       return {x:-10, y:-10};
