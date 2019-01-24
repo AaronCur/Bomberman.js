@@ -156,6 +156,23 @@ class Player
 
 
   }
+  checkCollisionAi(level, ai)
+  {
+      if((this.x< ai.x + ai.width)&&
+        (this.x+this.width>ai.x)&&
+        (this.y+this.height>ai.y)&&
+        (this.y<ai.y+ai.height) )
+        {
+          console.log("collides");
+          if(this.invincible == false){
+            this.die();
+          }
+        }
+         else
+       {
+         //do not nothing
+       }
+   }
 
  update(level)
  {
@@ -164,10 +181,10 @@ class Player
 
    if(this.invincible == true){
      this.invincibleCount++;
-     console.log("invincible");
+     //console.log("invincible");
    }
    else{
-     console.log("not invincible");
+     //console.log("not invincible");
    }
    if(this.invincibleCount > 300){
      this.invincible = false;
@@ -175,7 +192,7 @@ class Player
    //console.log("X: " + (this.col - 1))
    //console.log("Y: " + this.row)
    //console.log(this.bomb.onExplode());
-   this.checkBomb()
+   this.checkBomb();
 
    if(gameNs.playScene.gameover == false)
    {

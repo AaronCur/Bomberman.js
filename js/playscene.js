@@ -78,9 +78,15 @@ class PlayScene
     this.player.update(this.level);
     this.otherPlayer.update(this.level);
     //ai - player collision
-    this.ai.update(this.level);
-    this.ai1.update(this.level);
-    this.ai2.update(this.level);
+    if(this.ai.alive == true){
+      this.ai.update(this.level);
+    }
+    if(this.ai1.alive == true){
+      this.ai1.update(this.level);
+    }
+    if(this.ai2.alive == true){
+      this.ai2.update(this.level);
+    }
     //ai - ai collision
     this.ai.checkCollision(this.level, this.ai1);
     this.ai.checkCollision(this.level, this.ai2);
@@ -91,8 +97,27 @@ class PlayScene
     this.ai2.checkCollision(this.level, this.ai);
     this.ai2.checkCollision(this.level, this.ai1);
 
-    this.player.checkEnemyBomb(this.otherPlayer.bomb.onExplode())
-    this.otherPlayer.checkEnemyBomb(this.player.bomb.onExplode())
+    //check player - ai
+    if(this.ai.alive == true){
+      this.player.checkCollisionAi(this.level, this.ai);
+    }
+    if(this.ai1.alive == true){
+      this.player.checkCollisionAi(this.level, this.ai1);
+    }
+    if(this.ai2.alive == true){
+      this.player.checkCollisionAi(this.level, this.ai2);
+    }
+
+    this.player.checkEnemyBomb(this.otherPlayer.bomb.onExplode());
+    this.otherPlayer.checkEnemyBomb(this.player.bomb.onExplode());
+
+    //Check if ai is bombed
+    this.ai.checkEnemyBomb(this.otherPlayer.bomb.onExplode());
+    this.ai.checkEnemyBomb(this.player.bomb.onExplode());
+    this.ai1.checkEnemyBomb(this.otherPlayer.bomb.onExplode());
+    this.ai1.checkEnemyBomb(this.player.bomb.onExplode());
+    this.ai2.checkEnemyBomb(this.otherPlayer.bomb.onExplode());
+    this.ai2.checkEnemyBomb(this.player.bomb.onExplode());
 
     this.time = this.scoreboard.getDisplayTimer();
 
