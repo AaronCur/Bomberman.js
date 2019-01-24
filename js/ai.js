@@ -65,7 +65,7 @@ class Ai
     this.direction = direction;
   }
 
- update(level, player)
+ update(level)
  {
 
    if(gameNs.playScene.gameover == false)
@@ -180,14 +180,13 @@ class Ai
    this.i = (this.row * this.maxCols)+this.col;
    this.i = this.i - 1  ;
 
-   this.checkCollisionMap(level, player);
-   this.checkCollision(level, player)
+   this.checkCollisionMap(level);
 
  }
 
 
 
-  checkCollisionMap(level, player)
+  checkCollisionMap(level)
   {
 
     if(this.direction == 2  )
@@ -274,8 +273,13 @@ class Ai
  }
 
  pickDirection(){
+   var currentDirection = this.direction;
    this.direction = Math.floor((Math.random() * 4) + 1);
+   if (currentDirection == this.direction){
+     this.pickDirection();
+   }
  }
+
  checkCollision(level, player)
  {
      if((this.x< player.x + player.width)&&
@@ -283,12 +287,14 @@ class Ai
        (this.y+this.height>player.y)&&
        (this.y<player.y+player.height) )
        {
-         //console.log("Collided");
+
+         this.pickDirection();
+
        }
         else
       {
-        //this.pickDirection();
         //console.log("Not Collided")
+        //this.timer =0;
       }
   }
 

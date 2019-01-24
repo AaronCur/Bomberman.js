@@ -31,19 +31,19 @@ class PlayScene
     width: 78 * 0.8,
     height: 108 * 0.8,
     image: this.img
-  }, 10, 100, 100);
+  }, 10, 245, 425);
 
     this.ai1 = new Ai(ctx, {
     width: 78 * 0.8,
     height: 108 * 0.8,
     image: this.img
-  }, 10, 90, 100);
+  }, 10, 365, 180);
 
     this.ai2 = new Ai(ctx, {
     width: 78 * 0.8,
     height: 108 * 0.8,
     image: this.img
-  }, 10, 100, 90);
+  }, 10, 605, 660);
 
 
     this.scoreboard = new ScoreboardManager();
@@ -79,9 +79,20 @@ class PlayScene
 
     this.player.update(this.level);
     this.otherPlayer.update(this.level);
-  //  this.ai.update(this.level, this.player);
-  //  this.ai1.update(this.level, this.player);
-  //  this.ai2.update(this.level, this.player);
+    //ai - player collision
+    this.ai.update(this.level);
+    this.ai1.update(this.level);
+    this.ai2.update(this.level);
+    //ai - ai collision
+    this.ai.checkCollision(this.level, this.ai1);
+    this.ai.checkCollision(this.level, this.ai2);
+    //ai1 - ai colllision
+    this.ai1.checkCollision(this.level, this.ai);
+    this.ai1.checkCollision(this.level, this.ai2);
+    //ai2 - ai colllision
+    this.ai2.checkCollision(this.level, this.ai);
+    this.ai2.checkCollision(this.level, this.ai1);
+
     this.time = this.scoreboard.getDisplayTimer();
 
     //console.log(this.time);
