@@ -11,85 +11,149 @@ class Player
   */
   constructor(context, imageOptions, fps, y, x, playerID)
   {
-//  this.x=x;
-  this.collisionUp = false;
-  this.collisionDown = false;
-  this.collisionLeft = false;
-  this.collisionRight = false;
-  this.moveX = null;
-  this.moveY = null;
-  this.enableLeft = null;
-  this.enableRight = null;
-  this.enableDown = null;
-  this.enableUp = null;
-  this.direction = 0;
-  this.idle = false;
+    // States
+    this.stateIdle = new State("Idle")
+    this.stateLeft = new State("Left")
+    this.stateRight = new State("Right")
+    this.stateUp = new State("Up")
+    this.stateDown = new State("Down")
+    this.stateDie = new State("Die")
 
-  this.img= imageOptions.image;
-  this.fps = fps;
-  this.spawnX = x;
-  this.spawnY = y;
-  this.x = x;
-  this.xFeet = this.x + (this.width / 2);
-  this.yFeet = this.y + (this.height/2);
-  this.y = y;
-  this.index = 0;
-  this.width = imageOptions.width;
-  this.height = imageOptions.height;
-  this.time = 0;
-  this.ticksPerFrame = 1000/this.fps;
-  this.col = 0;
-  this.row = 0;
-  this.i = 0;
-  this.j = 0;
-  this.squareSize = 75 * 0.8;
-
-  this.maxRows=13
-  this.maxCols=15
-
-  this.moved =false
-  gameNs.collides = false;
-
-  this.imgB=new Image();
-  this.imgB.src = "img/Bomb.png";
-  this.tile = {};
-  this.tile.width = 75;
-  this.tile.height = 75;
-
-  this.bomb = new Bomb({
-    width: 256,
-    height: 244,
-    image: this.imgB
-  }, 10, this.tile)
-
-  this.healthSystem = new HealthSystem(playerID);
-  this.respawnTimer = 0;
-  this.respawnTimerLimit = 100;
-
-  //particle effects
-  gameNs.maxParticles = 200;
-  gameNs.particleSize = 1;
-  gameNs.objectSize = 10;
-  gameNs.life = 0;
-  gameNs.maxLife = 200;
-  gameNs.loop = true;
-  gameNs.alpha = 255;
-
-  gameNs.particles = [];
-  gameNs.canvas = document.querySelector('canvas');
-  gameNs.ctx = gameNs.canvas.getContext('2d');
-
-  gameNs.canvas.width = window.innerWidth;
-  gameNs.canvas.height = window.innerHeight;
-  gameNs.emitters = [new Emitter(new VectorTwo(this.x+40, this.y+75), VectorTwo.fromAngle(0, 0))];
-
-  this.id = playerID;
+    // Events
+    this.eventLeft = new Event("Move_Left", this.stateIdle, this.stateLeft, true);
+    this.eventRight = new Event("Move_Right", this.stateIdle, this.stateRight, true);
+    this.eventUp = new Event("Move_Up", this.stateIdle, this.stateUp, true);
+    this.eventDown = new Event("Move_Down", this.stateIdle, this.stateDown, true);
+    this.eventDie = new Event("Die", this.stateIdle, this.stateDie, true);
 
 
-  update();
+    // FSM
+    this.fsm = new NStateMEvent("Animations", this.stateIdle);
+
+    this.eventLeft.addTrigger({
+      id: "Left",
+      width: 0,
+      height: 0,
+      image: new Image()
+    }, this.fsm)
+    this.eventRight.addTrigger({
+      id: "Right",
+      width: 0,
+      height: 0,
+      image: new Image()
+    }, this.fsm)
+    this.eventUp.addTrigger({
+      id: "Up",
+      width: 0,
+      height: 0,
+      image: new Image()
+    }, this.fsm)
+    this.eventDown.addTrigger({
+      id: "Down",
+      width: 0,
+      height: 0,
+      image: new Image()
+    }, this.fsm)
+    this.eventDie.addTrigger({
+      id: "Die",
+      width: 0,
+      height: 0,
+      image: new Image()
+    }, this.fsm)
+
+    this.fsm.addState(this.stateLeft)
+    this.fsm.addState(this.stateRight)
+    this.fsm.addState(this.stateUp)
+    this.fsm.addState(this.stateDown)
+    this.fsm.addState(this.stateDie)
+
+    this.fsm.addEvent(this.eventLeft)
+    this.fsm.addEvent(this.eventRight)
+    this.fsm.addEvent(this.eventUp)
+    this.fsm.addEvent(this.eventDown)
+    this.fsm.addEvent(this.eventDie)
+
+    this.collisionUp = false;
+    this.collisionDown = false;
+    this.collisionLeft = false;
+    this.collisionRight = false;
+    this.moveX = null;
+    this.moveY = null;
+    this.enableLeft = null;
+    this.enableRight = null;
+    this.enableDown = null;
+    this.enableUp = null;
+    this.direction = 0;
+    this.idle = false;
+
+    this.img= imageOptions.image;
+    this.fps = fps;
+    this.spawnX = x;
+    this.spawnY = y;
+    this.x = x;
+    this.xFeet = this.x + (this.width / 2);
+    this.yFeet = this.y + (this.height/2);
+    this.y = y;
+    this.index = 0;
+    this.width = imageOptions.width;
+    this.height = imageOptions.height;
+    this.time = 0;
+    this.ticksPerFrame = 1000/this.fps;
+    this.col = 0;
+    this.row = 0;
+    this.i = 0;
+    this.j = 0;
+    this.squareSize = 75 * 0.8;
+
+    this.maxRows=13
+    this.maxCols=15
+
+    this.moved =false
+    gameNs.collides = false;
+
+    this.imgB=new Image();
+    this.imgB.src = "img/Bomb.png";
+    this.tile = {};
+    this.tile.width = 75;
+    this.tile.height = 75;
+
+    this.bomb = new Bomb({
+      width: 256,
+      height: 244,
+      image: this.imgB
+    }, 10, this.tile)
+
+    this.healthSystem = new HealthSystem(playerID);
+    this.respawnTimer = 0;
+    this.respawnTimerLimit = 100;
+
+    //particle effects
+    gameNs.maxParticles = 200;
+    gameNs.particleSize = 1;
+    gameNs.objectSize = 10;
+    gameNs.life = 0;
+    gameNs.maxLife = 200;
+    gameNs.loop = true;
+    gameNs.alpha = 255;
+
+    gameNs.particles = [];
+    gameNs.canvas = document.querySelector('canvas');
+    gameNs.ctx = gameNs.canvas.getContext('2d');
+
+    gameNs.canvas.width = window.innerWidth;
+    gameNs.canvas.height = window.innerHeight;
+    gameNs.emitters = [new Emitter(new VectorTwo(this.x+40, this.y+75), VectorTwo.fromAngle(0, 0))];
+
+    this.id = playerID;
+
+
+    update();
 
 
   }
+
+
+
   setPosition()
   {
     this.x = 800;
@@ -150,7 +214,8 @@ class Player
 
  update(level)
  {
-
+   //console.log(this.fsm.currentState)
+   //console.log(this.fsm.getAvailableEvents(this.stateIdle))
    drawParticles();
    this.bomb.draw()
 
@@ -161,18 +226,18 @@ class Player
 
    if(gameNs.playScene.gameover == false)
    {
-
+     this.fsm.updateAvailableEvents(false);
      this.respawnTimer++;
-     if(this.id === 1)
-     {
-       console.log(this.respawnTimer);
-     }
      this.bomb.update();
 
      if(this.moveX == false && this.x> 0 /*&& this.checkCollisionMap(level.mazeSquares[this.i -1])==false*/)
       {
         gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(0.5, 2))];
         this.x -= 5;
+        if(this.direction === 0)
+        {
+          this.fsm.changeState(this.eventLeft);
+        }
         this.direction = 4;
         this.collisionRight = false;
         this.collisionUp = false;
@@ -183,6 +248,10 @@ class Player
       {
         gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(3.5, 2))];
         this.x +=5;
+        if(this.direction === 0)
+        {
+          this.fsm.changeState(this.eventRight);
+        }
         this.direction = 2;
         this.collisionLeft = false;
         this.collisionUp = false;
@@ -192,6 +261,10 @@ class Player
       {
         gameNs.emitters = [new Emitter(new VectorTwo(this.x + 40, this.y +75), VectorTwo.fromAngle(2, 2))];
          this.y-=5;
+         if(this.direction === 0)
+         {
+           this.fsm.changeState(this.eventUp);
+         }
          this.direction = 1;
          this.collisionDown = false;
          this.collisionLeft = false;
@@ -200,19 +273,45 @@ class Player
       else if (this.moveY == true && this.y < 12 * 75)
       {
         gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(5, 2))];
-       this.y+=5;
-       this.direction = 3;
-       this.collisionUp = false;
-       this.collisionLeft = false;
-       this.collisionRight = false;
+        this.y+=5;
+        if(this.direction === 0)
+        {
+          this.fsm.changeState(this.eventDown);
+        }
+        this.direction = 3;
+        this.collisionUp = false;
+        this.collisionLeft = false;
+        this.collisionRight = false;
       }
+      else {
 
-
+        if(this.direction === 0)
+        {
+          if(this.fsm.currentState === this.stateLeft)
+          {
+            this.fsm.changeState(this.eventLeft);
+          }
+          else if (this.fsm.currentState === this.stateRight)
+          {
+            this.fsm.changeState(this.eventRight)
+          }
+          else if (this.fsm.currentState === this.stateUp)
+          {
+            this.fsm.changeState(this.eventUp)
+          }
+          else if (this.fsm.currentState === this.stateDown)
+          {
+            this.fsm.changeState(this.eventDown)
+          }
+        }
+      }
    }
    else {
      this.moveX = null;
      this.moveY = null;
+     this.direction = 0;
    }
+
    if(this.idle == true){
        gameNs.emitters = [new Emitter(new VectorTwo(this.x +40, this.y +75), VectorTwo.fromAngle(0, 0))];
    }
@@ -220,6 +319,7 @@ class Player
 
      if (gameNs.playScene.player.moveY == null && gameNs.playScene.player.moveX == null){
        gameNs.playScene.player.idle= true;
+       this.direction = 0;
      }
      else{
        gameNs.playScene.player.idle= false;

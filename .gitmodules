@@ -13,3 +13,6 @@
 [submodule "RWM1819-Audio-A"]
 	path = RWM1819-Audio-A
 	url = https://github.com/itcgames/RWM1819-Audio-A
+[submodule "RWM1819-FSM-A"]
+	path = RWM1819-FSM-A
+	url = https://github.com/itcgames/RWM1819-FSM-A
