@@ -27,6 +27,24 @@ class PlayScene
     image: this.img
   }, 10, 700, 790, 2);
 
+    this.ai = new Ai(ctx, {
+    width: 78 * 0.8,
+    height: 108 * 0.8,
+    image: this.img
+  }, 10, 245, 425);
+
+    this.ai1 = new Ai(ctx, {
+    width: 78 * 0.8,
+    height: 108 * 0.8,
+    image: this.img
+  }, 10, 365, 180);
+
+    this.ai2 = new Ai(ctx, {
+    width: 78 * 0.8,
+    height: 108 * 0.8,
+    image: this.img
+  }, 10, 605, 660);
+
 
     this.scoreboard = new ScoreboardManager();
     this.scoreboard.initBoard("Local");
@@ -59,6 +77,19 @@ class PlayScene
 
     this.player.update(this.level);
     this.otherPlayer.update(this.level);
+    //ai - player collision
+    this.ai.update(this.level);
+    this.ai1.update(this.level);
+    this.ai2.update(this.level);
+    //ai - ai collision
+    this.ai.checkCollision(this.level, this.ai1);
+    this.ai.checkCollision(this.level, this.ai2);
+    //ai1 - ai colllision
+    this.ai1.checkCollision(this.level, this.ai);
+    this.ai1.checkCollision(this.level, this.ai2);
+    //ai2 - ai colllision
+    this.ai2.checkCollision(this.level, this.ai);
+    this.ai2.checkCollision(this.level, this.ai1);
 
     this.player.checkEnemyBomb(this.otherPlayer.bomb.onExplode())
     this.otherPlayer.checkEnemyBomb(this.player.bomb.onExplode())

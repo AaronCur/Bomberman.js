@@ -71,6 +71,10 @@ class LevelLoader
          {
            that.mazeSquares[this.i].oneup = true;
          }
+         else if(this.map[this.i] === 8)
+         {
+           that.mazeSquares[this.i].endtile = true;
+         }
 
 
      }
@@ -123,6 +127,12 @@ this.request.send();
             }
             if (powerRnd == 5){
               this.mazeSquares[this.i].armour = true;
+            }
+            else{
+              var endRnd = Math.floor((Math.random() * 100) + 1);
+              if (endRnd == 1){
+                this.mazeSquares[this.i].endtile = true;
+             }
             }
           }
         }
