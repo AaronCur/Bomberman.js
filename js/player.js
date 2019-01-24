@@ -317,6 +317,8 @@ class Player
    }
 
 
+   if(this.id === 1)
+   {
      if (gameNs.playScene.player.moveY == null && gameNs.playScene.player.moveX == null){
        gameNs.playScene.player.idle= true;
        this.direction = 0;
@@ -324,6 +326,17 @@ class Player
      else{
        gameNs.playScene.player.idle= false;
      }
+   }
+   else if (this.id === 2)
+   {
+     if (gameNs.playScene.otherPlayer.moveY == null && gameNs.playScene.otherPlayer.moveX == null){
+       gameNs.playScene.otherPlayer.idle= true;
+       this.direction = 0;
+     }
+     else{
+       gameNs.playScene.otherPlayer.idle= false;
+     }
+   }
 
 
    var image = this.img;
