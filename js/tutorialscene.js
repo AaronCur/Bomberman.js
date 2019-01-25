@@ -16,7 +16,7 @@ class TutorialScene
 
 
      this.img=new Image();
-     this.img.src = "img/player.png";
+     this.img.src = "img/playerSheet.png";
      var canvas = document.getElementById('mycanvas');
      var ctx = canvas.getContext('2d');
 

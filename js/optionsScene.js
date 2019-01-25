@@ -17,8 +17,8 @@ class optionsScene
     this.count = 0;
     gameNs.widthVol = 0;
     this.heightVol = 200;
-    this.x = 300;
-    this.y=400;
+    this.x = 750;
+    this.y=600;
     this.img=new Image();
     this.img.src="img/music.png";
     this.imgSize = 400;

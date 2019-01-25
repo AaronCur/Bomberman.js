@@ -216,18 +216,37 @@ function keyUpHandler(e)
     {
       gameNs.tutorialScene.player.moveX = null;
     }
-    if(e.keyCode === 68 )
+  else if(e.keyCode === 68 )
     {
       gameNs.tutorialScene.player.moveX = null;
     }
   //code triggered when UP arrow is pressed
-    if(e.keyCode === 87)
+    else if(e.keyCode === 87)
     {
       gameNs.tutorialScene.player.moveY = null;
     }
-    if(e.keyCode === 83)
+    else if(e.keyCode === 83)
     {
       gameNs.tutorialScene.player.moveY = null;
+    }
+    else
+    {
+      if(this.fsm.currentState === this.stateLeft)
+      {
+        this.fsm.changeState(this.eventLeft);
+      }
+      else if (this.fsm.currentState === this.stateRight)
+      {
+        this.fsm.changeState(this.eventRight)
+      }
+      else if (this.fsm.currentState === this.stateUp)
+      {
+        this.fsm.changeState(this.eventUp)
+      }
+      else if (this.fsm.currentState === this.stateDown)
+      {
+        this.fsm.changeState(this.eventDown)
+      }
     }
   }
 }
