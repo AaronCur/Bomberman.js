@@ -315,23 +315,28 @@ class Player
       this.row <= bombP.y + 1))
       {
 
-        var collide = true;
+
         console.log("Enemy bomb");
         if(this.invincible == false){
 
-          if(playerid == 1 && collide == true)
+          if(this.fsm.currentState != this.stateDie)
           {
-            gameNs.playScene.otherPlayer.scoreSystem.scoreVal += 200;
-            collide = false;
-          }
-          else {
-            gameNs.playScene.player.scoreSystem.scoreVal += 200;
-            collide = false;
-          }
- 
+            if(playerid == 1)
+            {
+              gameNs.playScene.otherPlayer.scoreSystem.scoreVal += 200;
 
-  
-          this.dieAnime();
+            }
+            else if (playerid == 2 ){
+              gameNs.playScene.player.scoreSystem.scoreVal += 200;
+            
+            }
+          }
+
+
+
+
+            this.dieAnime();
+
 
         }
       }
