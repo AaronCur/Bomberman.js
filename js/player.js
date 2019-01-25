@@ -180,14 +180,13 @@ class Player
     this.direction = direction;
   }
 
-  die(level)
+  die()
   {
     this.x = this.spawnX;
     this.y = this.spawnY;
     if(this.respawnTimer > this.respawnTimerLimit)
     {
       this.healthSystem.healthVal -= 1;
-      level.NextLevel()
       this.respawnTimer = 0;
     }
     // Make invinciple for 5 seconds
@@ -222,7 +221,7 @@ class Player
       {
         console.log("Own bomb")
         if(this.invincible == false){
-          this.die(level);
+          this.die();
         }
       }
 
@@ -237,7 +236,7 @@ class Player
         {
           console.log("collides");
           if(this.invincible == false){
-            this.die(level);
+            this.die();
           }
         }
          else

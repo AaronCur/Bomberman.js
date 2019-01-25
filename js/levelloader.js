@@ -119,6 +119,7 @@ this.request.send();
      else if(gameNs.map2 === true)
      {
        gameNs.map2 = false
+       gameNs.map3 = true
        this.map = this.levelloader.Map3
      }
      //console.log("MapData :" +that.map[10] );

@@ -116,7 +116,23 @@ class PlayScene
     this.time = this.scoreboard.getDisplayTimer();
 
     //console.log(this.time);
-    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0){
+    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0)
+    {
+
+     this.level.NextLevel()
+     this.player.x = this.player.spawnX
+     this.player.y = this.player.spawnY
+     this.otherPlayer.x = this.otherPlayer.spawnX
+     this.otherPlayer.y = this.otherPlayer.spawnY
+     this.ai.alive = true
+     this.ai1.alive = true
+     this.ai1.alive = true
+     this.player.healthSystem.healthVal = 3
+     this.otherPlayer.healthSystem.healthVal = 3
+
+   }
+    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0
+      && gameNs.map3 === true){
       this.endScene.render();
      this.scoreboard.addToBoard(40);
      this.scoreboard.filterTime(1);
