@@ -12,3 +12,6 @@
 [submodule "RWM1819-FSM-A"]
 	path = RWM1819-FSM-A
 	url = https://github.com/itcgames/RWM1819-FSM-A
+[submodule "RWM1819-Scoreboard-A"]
+	path = RWM1819-Scoreboard-A
+	url = https://github.com/itcgames/RWM1819-Scoreboard-A.git
