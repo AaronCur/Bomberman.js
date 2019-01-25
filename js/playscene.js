@@ -167,16 +167,16 @@ class PlayScene
 
    }
    console.log(this.player.endtileCollected);
-    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0 || this.player.endtileCollected == true
+    if(this.otherPlayer.healthSystem.healthVal == 0|| this.player.endtileCollected == true
       && gameNs.map3 === true){
       this.player.endtileCollected = false;
       this.endScene.render();
-      this.scoreboard.addToBoard(40);
+      this.scoreboard.addToBoard(this.player.scoreSystem.scoreVal);
       this.scoreboard.filterTime(1);
       console.log(this.scoreboard.getBoard());
       this.scoreboard.generate_table();
    }
-   else if (this.player.endtileCollected == true || this.player.healthSystem.healthVal == 0  && gameNs.map3 === true){
+   else if (this.otherPlayer.endtileCollected == true || this.player.healthSystem.healthVal == 0  && gameNs.map3 === true){
 
       this.endScene.render();
       this.scoreboard.addToBoard(this.otherPlayer.scoreSystem.scoreVal);
