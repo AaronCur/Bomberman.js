@@ -291,7 +291,7 @@ class Ai
      if((this.x< player.x + player.width)&&
        (this.x+this.width>player.x)&&
        (this.y+this.height>player.y)&&
-       (this.y<player.y+player.height) )
+       (this.y +this.height/2 <player.y+player.height) )
        {
          if(this.alive == true){
           this.pickDirection();
@@ -304,7 +304,7 @@ class Ai
         //this.timer =0;
       }
   }
-  checkEnemyBomb(bombP)
+  checkEnemyBomb(bombP ,playerid)
   {
     if(((this.col - 1) >= bombP.x - 1 &&
       (this.col - 1) <= bombP.x + 1 &&
@@ -315,12 +315,25 @@ class Ai
       {
         console.log("AI bomb");
 
-        this.die();
+        this.die(playerid);
+
+
 
       }
+
   }
-  die(){
-    this.alive = false;
+  die(playerid){
+    if(playerid == 1 && this.alive == true)
+    {
+      gameNs.playScene.player.scoreSystem.scoreVal += 100;
+      this.alive = false;
+    }
+    else if(playerid == 2 && this.alive == true){
+      gameNs.playScene.otherPlayer.scoreSystem.scoreVal += 100;
+      this.alive = false;
+    }
+
+
   }
 
 }
