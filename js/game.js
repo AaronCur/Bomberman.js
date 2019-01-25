@@ -40,9 +40,13 @@ class Game
     // Audio sceneManager
     gameNs.audioManager = new AudioManager();
     gameNs.audioManager.init();
-    gameNs.audioManager.loadSoundFile("bg", "img/audio/backGround.mp3");
+    gameNs.audioManager.loadSoundFile("bg", "img/audio/background.mp4");
+    gameNs.audioManager.loadSoundFile("bomb", "img/audio/BombBlowUp.mp3");
+    gameNs.audioManager.loadSoundFile("die", "img/audio/Dead.mp3");
+    gameNs.audioManager.loadSoundFile("break", "img/audio/DestroyWall.mp3");
     gameNs.audioManager.loadSoundFile("drop", "img/audio/Drop.mp3");
     gameNs.audioManager.loadSoundFile("goal", "img/audio/Goal.mp3");
+    gameNs.audioManager.loadSoundFile("menu", "img/audio/MenuSelect.mp3");
   }
   /**
   *Update function called every frame. sets the current time when the function is called

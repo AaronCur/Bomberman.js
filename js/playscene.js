@@ -194,7 +194,6 @@ class PlayScene
      }, 10, 605, 660);
 
    }
-   console.log(this.player.endtileCollected);
     if(this.otherPlayer.healthSystem.healthVal == 0 && gameNs.lastLevel === true|| this.player.endtileCollected == true && gameNs.lastLevel === true
       ){
       this.player.endtileCollected = false;
