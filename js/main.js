@@ -88,27 +88,31 @@ function keyDownHandler(e)
   {
     if(e.keyCode === 32)
   	{
-      gameNs.tutorialScene.player.plantBomb();
+      gameNs.tutorialScene.player.plantBomb(gameNs.tutorialScene.level);
     }
 
-    if(e.keyCode === 65 && gameNs.tutorialScene.player.collisionLeft == false) //65
+    if(e.keyCode === 65 && gameNs.tutorialScene.player.collisionLeft == false
+    && gameNs.display === false) //65
   	{
   		gameNs.tutorialScene.player.moveX = false;
 
 
   	}
-     if(e.keyCode === 68 && gameNs.tutorialScene.player.collisionRight == false) // 68
+     if(e.keyCode === 68 && gameNs.tutorialScene.player.collisionRight == false
+     && gameNs.display === false) // 68
   	{
   		gameNs.tutorialScene.player.moveX = true;
 
   	}
 
   //code triggered when UP arrow is pressed
-  	if(e.keyCode === 87 && gameNs.tutorialScene.player.collisionUp == false) //87
+  	if(e.keyCode === 87 && gameNs.tutorialScene.player.collisionUp == false
+      && gameNs.display === false) //87
   	{
   		gameNs.tutorialScene.player.moveY = false;
   	}
-    if(e.keyCode === 83 && gameNs.tutorialScene.player.collisionDown == false) // 83
+    if(e.keyCode === 83 && gameNs.tutorialScene.player.collisionDown == false
+    && gameNs.display === false) // 83
   	{
   		gameNs.tutorialScene.player.moveY = true;
   	}
