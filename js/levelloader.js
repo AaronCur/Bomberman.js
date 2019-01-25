@@ -103,6 +103,12 @@ this.request.send();
   {
      this.map = [];
      this.mazeSquares = [];
+    if(gameNs.map2 === true)
+     {
+       gameNs.map2 = false
+       gameNs.map3 = true
+     }
+
      this.request = new XMLHttpRequest();
 
      var that = this;
@@ -115,10 +121,9 @@ this.request.send();
        gameNs.map2 = true
        this.map = this.levelloader.Map2
      }
-     else if(gameNs.map2 === true)
+     else if(gameNs.map3 === true)
      {
        gameNs.map2 = false
-       gameNs.map3 = true
        this.map = this.levelloader.Map3
      }
      //console.log("MapData :" +that.map[10] );

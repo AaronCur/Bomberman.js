@@ -121,7 +121,8 @@ class PlayScene
     this.time = this.scoreboard.getDisplayTimer();
 
     //console.log(this.time);
-    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0)
+    if(this.otherPlayer.healthSystem.healthVal == 0 && gameNs.map3 === false
+       || this.player.healthSystem.healthVal == 0 && gameNs.map3 === false)
     {
 
      this.level.NextLevel()
@@ -129,20 +130,42 @@ class PlayScene
      this.player.y = this.player.spawnY
      this.otherPlayer.x = this.otherPlayer.spawnX
      this.otherPlayer.y = this.otherPlayer.spawnY
-     this.ai.alive = true
-     this.ai1.alive = true
-     this.ai1.alive = true
+     this.ai.alive = false
+     this.ai1.alive = false
+     this.ai2.alive = false
+
+
      this.player.healthSystem.healthVal = 3
      this.otherPlayer.healthSystem.healthVal = 3
 
+      this.ai = new Ai(ctx, {
+      width: 78 * 0.8,
+      height: 108 * 0.8,
+      image: this.imgAi
+      }, 10, 245, 425);
+
+       this.ai1 = new Ai(ctx, {
+       width: 78 * 0.8,
+       height: 108 * 0.8,
+       image: this.imgAi
+     }, 10, 365, 180);
+
+       this.ai2 = new Ai(ctx, {
+       width: 78 * 0.8,
+       height: 108 * 0.8,
+       image: this.imgAi
+     }, 10, 605, 660);
+
    }
-    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0
-      && gameNs.map3 === true){
+
+  if(this.otherPlayer.healthSystem.healthVal == 0 && gameNs.map3 === true ||
+    this.player.healthSystem.healthVal == 0 && gameNs.map3 === true)
+  {
       this.endScene.render();
-     this.scoreboard.addToBoard(40);
-     this.scoreboard.filterTime(1);
-     console.log(this.scoreboard.getBoard());
-     this.scoreboard.generate_table();
+      this.scoreboard.addToBoard(40);
+      this.scoreboard.filterTime(1);
+      console.log(this.scoreboard.getBoard());
+      this.scoreboard.generate_table();
    }
 
 
