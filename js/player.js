@@ -135,6 +135,7 @@ class Player
     }, 10, this.tile)
 
     this.healthSystem = new HealthSystem(playerID);
+    this.scoreSystem = new ScoreSystem(playerID);
     this.respawnTimer = 0;
     this.respawnTimerLimit = 100;
 
@@ -192,7 +193,7 @@ class Player
     // Make invinciple for 5 seconds
   }
 
-  checkEnemyBomb(bombP)
+  checkEnemyBomb(bombP, playerid)
   {
     if(((this.col - 1) >= bombP.x - 1 &&
       (this.col - 1) <= bombP.x + 1 &&
@@ -201,8 +202,19 @@ class Player
       this.row >= bombP.y - 1 &&
       this.row <= bombP.y + 1))
       {
+        var collide = true;
         console.log("Enemy bomb");
         if(this.invincible == false){
+
+          if(playerid == 1 && collide == true)
+          {
+            gameNs.playScene.otherPlayer.scoreSystem.scoreVal += 200;
+            collide = false;
+          }
+          else {
+            gameNs.playScene.player.scoreSystem.scoreVal += 200;
+            collide = false;
+          }
           this.die();
         }
       }
@@ -472,6 +484,7 @@ class Player
    this.collectEndTile(level);
 
    this.healthSystem.update();
+   this.scoreSystem.update();
 
 
 }
