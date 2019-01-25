@@ -15,6 +15,15 @@ class HealthSystem
     this.positionX;
     this.positionY;
   }
+
+  healthIncrease()
+  {
+    if(this.healthVal != 3)
+    {
+      this.healthVal++;
+    }
+  }
+
   update()
   {
     if(this.playerID == 1)

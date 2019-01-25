@@ -237,11 +237,15 @@ class Player
     this.tile.width = 75;
     this.tile.height = 75;
 
-    this.bomb = new Bomb({
+    var bomb = new Bomb({
       width: 300,
       height: 75,
       image: this.imgB
     }, 10, this.tile)
+
+    this.bombs = []
+
+    this.bombs.push(bomb)
 
     this.healthSystem = new HealthSystem(playerID);
     this.respawnTimer = 0;
@@ -303,34 +307,136 @@ class Player
     // Make invinciple for 5 seconds
   }
 
-  checkEnemyBomb(bombP, level)
+  checkEnemyBomb(bombP, id, i)
   {
-    if(((this.col - 1) >= bombP.x - 1 &&
-      (this.col - 1) <= bombP.x + 1 &&
-      this.row == bombP.y)||
-      ((this.col - 1) == bombP.x &&
-      this.row >= bombP.y - 1 &&
-      this.row <= bombP.y + 1))
+    if(this.invincible == false){
+
+      if(this.id === 2)
       {
-        if(this.invincible == false){
-          this.dieAnime();
+        var boost = gameNs.playScene.player.bombs[i].firePowerUp
+        var walls =  gameNs.playScene.player.bombs[i].surroundingWalls
+      }
+      else
+      {
+        var boost = gameNs.playScene.otherPlayer.bombs[i].firePowerUp
+        var walls =  gameNs.playScene.otherPlayer.bombs[i].surroundingWalls
+      }
+
+      if(boost)
+      {
+        var explosionSize = 2;
+      }
+      else {
+        var explosionSize = 1;
+      }
+
+      if(((this.col - 1) >= bombP.x - explosionSize &&
+        (this.col - 1) <= bombP.x + explosionSize &&
+        this.row == bombP.y)||
+        ((this.col - 1) == bombP.x &&
+        this.row >= bombP.y - explosionSize &&
+        this.row <= bombP.y + explosionSize))
+        {
+
+          if((this.col - 1) > bombP.x )
+          {
+            // Right
+            var diff  = (this.col - 1) - bombP.x;
+            if(diff === 1 || !walls["Right1"])
+            {
+              this.dieAnime();
+            }
+          }
+          else if((this.col - 1) < bombP.x)
+          {
+            // Left
+            var diff  = bombP.x - (this.col - 1);
+            if(diff === 1 || !walls["Left1"])
+            {
+              this.dieAnime();
+            }
+          }
+          else if(this.row > bombP.y)
+          {
+            // Down
+            var diff  = this.row - bombP.y;
+            if(diff === 1 || !walls["Down1"])
+            {
+              this.dieAnime();
+            }
+          }
+          else if(this.row < bombP.y)
+          {
+            // Up
+            var diff  = bombP.y - this.row;
+            if(diff === 1 || !walls["Up1"])
+            {
+              this.dieAnime();
+            }
+          }
         }
       }
   }
 
   checkBomb(level)
   {
-    var explosionSrc = this.bomb.onExplode(level.mazeSquares, this.bombVal);
+    for (var i = 0; i < this.bombs.length; i++) {
 
-    if(((this.col - 1) >= explosionSrc.x - 1 &&
-      (this.col - 1) <= explosionSrc.x + 1 &&
-      this.row == explosionSrc.y)||
-      ((this.col - 1) == explosionSrc.x &&
-      this.row >= explosionSrc.y - 1 &&
-      this.row <= explosionSrc.y + 1))
+      if(this.bombs[i].firePowerUp)
       {
-        if(this.invincible == false){
-          this.dieAnime();
+        var explosionSize = 2;
+      }
+      else {
+        var explosionSize = 1;
+      }
+
+      var explosionSrc = this.bombs[i].onExplode(level.mazeSquares, this.bombVal);
+
+      if(((this.col - 1) >= explosionSrc.x - explosionSize &&
+        (this.col - 1) <= explosionSrc.x + explosionSize &&
+        this.row == explosionSrc.y)||
+        ((this.col - 1) == explosionSrc.x &&
+        this.row >= explosionSrc.y - explosionSize &&
+        this.row <= explosionSrc.y + explosionSize))
+        {
+          if(this.invincible == false){
+            if((this.col - 1) > explosionSrc.x )
+            {
+              // Right
+              var diff  = (this.col - 1) - explosionSrc.x;
+              if(diff === 1 || !this.bombs[i].surroundingWalls["Right1"])
+              {
+                this.dieAnime();
+              }
+            }
+            else if((this.col - 1) < explosionSrc.x)
+            {
+              // Left
+              var diff  = explosionSrc.x - (this.col - 1);
+              if(diff === 1 || !this.bombs[i].surroundingWalls["Left1"])
+              {
+                this.dieAnime();
+              }
+            }
+            else if(this.row > explosionSrc.y)
+            {
+              // Down
+              var diff  = this.row - explosionSrc.y;
+              if(diff === 1 || !this.bombs[i].surroundingWalls["Down1"])
+              {
+                this.dieAnime();
+              }
+            }
+            else if(this.row < explosionSrc.y)
+            {
+              // Up
+              var diff  = explosionSrc.y - this.row;
+              if(diff === 1 || !this.bombs[i].surroundingWalls["Up1"])
+              {
+                this.dieAnime();
+              }
+            }
+          }
         }
       }
   }
@@ -361,7 +467,9 @@ class Player
  update(level)
  {
    drawParticles();
-   this.bomb.draw();
+   for (var i = 0; i < this.bombs.length; i++) {
+     this.bombs[i].draw()
+   }
 
    if(this.invincible == true){
      this.invincibleCount++;
@@ -383,7 +491,9 @@ class Player
    {
      this.fsm.updateAvailableEvents(false);
      this.respawnTimer++;
-     this.bomb.update();
+     for (var i = 0; i < this.bombs.length; i++) {
+       this.bombs[i].update();
+     }
 
      if(this.moveX == false && this.x> 0)
       {
@@ -681,7 +791,14 @@ class Player
 
   plantBomb(level)
   {
-    this.bomb.place({x:this.col - 1, y:this.row})
+    // Place one
+    for (var i = 0; i < this.bombs.length; i++) {
+      if(!this.bombs[i].alive && !this.bombs[i].exploding)
+      {
+        this.bombs[i].place({x:this.col - 1, y:this.row})
+        break;
+      }
+    }
     level.mazeSquares[this.i].containsBomb = true;
     this.bombVal = this.i;
 
@@ -858,14 +975,26 @@ checkCollisionMapDown(level)
         if(level.mazeSquares[this.i].fire == true){
           //output speed collected
           console.log("fire");
+          for (var i = 0; i < this.bombs.length; i++) {
+            this.bombs[i].fireBoost(true)
+          }
         }
         if(level.mazeSquares[this.i].bomb == true){
           //output speed collected
           console.log("bomb");
+          var bomb = new Bomb({
+              width: 300,
+              height: 75,
+              image: this.imgB
+            }, 10, this.tile)
+
+            this.bombs.push(bomb)
+            console.log(this.bombs.length)
         }
         if(level.mazeSquares[this.i].oneup == true){
           //output speed collected
           console.log("oneup");
+          this.healthSystem.healthIncrease()
         }
 
           level.mazeSquares[this.i].containsWall = false;

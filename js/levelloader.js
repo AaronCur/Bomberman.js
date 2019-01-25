@@ -198,180 +198,268 @@ this.request.send();
 
   update()
   {
-    // Check player one bomb
-    // Get Player one bomb grid position
-    var exploSrc = gameNs.playScene.player.bomb.onExplode(this.mazeSquares,gameNs.playScene.player.bombVal)
-
-    // Check player two bomb
-    // Get Player two bomb grid position
-    var player2ExploSrc = gameNs.playScene.otherPlayer.bomb.onExplode(this.mazeSquares,gameNs.playScene.otherPlayer.bombVal)
-
-    // Check every square in the grid vs the bomb and the effected area
-    for (this.i = 0; this.i < 195; this.i++)
+    if(gameNs.sceneManager.currentScene.title === gameNs.playScene.title)
     {
-      // if its inside the effected area
-      if((this.mazeSquares[this.i].row / (75 * 0.8) >= exploSrc.x - 1 &&
-        this.mazeSquares[this.i].row / (75 * 0.8) <= exploSrc.x + 1 &&
-        (this.mazeSquares[this.i].col - 90) / (75 * 0.8) == exploSrc.y) ||
-        (this.mazeSquares[this.i].row / (75 * 0.8) == exploSrc.x &&
-        (this.mazeSquares[this.i].col - 90) / (75 * 0.8) >= exploSrc.y - 1 &&
-        (this.mazeSquares[this.i].col - 90) / (75 * 0.8) <= exploSrc.y + 1))
+      // Check player one bomb
+      // Get Player one bomb grid position
+      for (var i = 0; i < gameNs.playScene.player.bombs.length; i++) {
+        var exploSrc = gameNs.playScene.player.bombs[i].onExplode(this.mazeSquares,gameNs.playScene.player.bombVal)
+        if(gameNs.playScene.player.bombs[i].firePowerUp)
         {
-          // If the wall is not breakable
-          if(this.mazeSquares[this.i].containsWall)
-          {
-            if(this.mazeSquares[this.i].row / (75 * 0.8) > exploSrc.x)
-            {  // Right
-              gameNs.playScene.player.bomb.addWall("Right", true)
-            }
-            else if(this.mazeSquares[this.i].row / (75 * 0.8) < exploSrc.x)
-            {  // Left
-              gameNs.playScene.player.bomb.addWall("Left", true)
-            }
-            else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) > exploSrc.y)
-            {  // Down
-              gameNs.playScene.player.bomb.addWall("Down", true)
-            }
-            else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) < exploSrc.y)
-            {  // Up
-              gameNs.playScene.player.bomb.addWall("Up", true)
-            }
-          }
-
-          // If the wall is breakable
-          if(this.mazeSquares[this.i].breakWall)
-          {
-            // Destroy wall
-            this.mazeSquares[this.i].breakWall = false;
-            //randomly give a power up
-            var powerRnd = Math.floor((Math.random() * 10) + 1);
-            //console.log(powerRnd);
-            if (powerRnd == 1){
-              this.mazeSquares[this.i].speedUp = true;
-            }
-            if (powerRnd == 2){
-              this.mazeSquares[this.i].bomb = true;
-            }
-            if (powerRnd == 3){
-              this.mazeSquares[this.i].fire = true;
-            }
-            if (powerRnd == 4){
-              this.mazeSquares[this.i].oneup = true;
-            }
-            if (powerRnd == 5){
-              this.mazeSquares[this.i].armour = true;
-            }
-            else{
-              var endRnd = Math.floor((Math.random() * 100) + 1);
-              if (endRnd == 1){
-                this.mazeSquares[this.i].endtile = true;
-             }
-            }
-          }
+          var explosionSize = 2;
         }
-
-      // if its inside the effected area
-      if((this.mazeSquares[this.i].row / (75 * 0.8) >= player2ExploSrc.x - 1 &&
-        this.mazeSquares[this.i].row / (75 * 0.8) <= player2ExploSrc.x + 1 &&
-        (this.mazeSquares[this.i].col - 90) / (75 * 0.8) == player2ExploSrc.y) ||
-        (this.mazeSquares[this.i].row / (75 * 0.8) == player2ExploSrc.x &&
-        (this.mazeSquares[this.i].col - 90) / (75 * 0.8) >= player2ExploSrc.y - 1 &&
-        (this.mazeSquares[this.i].col - 90) / (75 * 0.8) <= player2ExploSrc.y + 1))
+        else {
+          var explosionSize = 1;
+        }
+        // Check every square in the grid vs the bomb and the effected area
+        for (this.j = 0; this.j < 195; this.j++)
         {
-
-          // If the wall is not breakable
-          if(this.mazeSquares[this.i].containsWall)
-          {
-            if(this.mazeSquares[this.i].row / (75 * 0.8) > player2ExploSrc.x)
-            {  // Right
-              gameNs.playScene.otherPlayer.bomb.addWall("Right", true)
-            }
-            else if(this.mazeSquares[this.i].row / (75 * 0.8) < player2ExploSrc.x)
-            {  // Left
-              gameNs.playScene.otherPlayer.bomb.addWall("Left", true)
-            }
-            else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) > player2ExploSrc.y)
-            {  // Down
-              gameNs.playScene.otherPlayer.bomb.addWall("Down", true)
-            }
-            else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) < player2ExploSrc.y)
-            {  // Up
-              gameNs.playScene.otherPlayer.bomb.addWall("Up", true)
-            }
-          }
-
-          // If the wall is breakable
-          if(this.mazeSquares[this.i].breakWall)
-          {
-            // Destroy wall
-            this.mazeSquares[this.i].breakWall = false;
-            //randomly give a power up
-            var powerRnd = Math.floor((Math.random() * 10) + 1);
-            //console.log(powerRnd);
-            if (powerRnd == 1){
-              this.mazeSquares[this.i].speedUp = true;
-            }
-            if (powerRnd == 2){
-              this.mazeSquares[this.i].bomb = true;
-            }
-            if (powerRnd == 3){
-              this.mazeSquares[this.i].fire = true;
-            }
-            if (powerRnd == 4){
-              this.mazeSquares[this.i].oneup = true;
-            }
-            if (powerRnd == 5){
-              this.mazeSquares[this.i].armour = true;
-            }
-            else{
-              var endRnd = Math.floor((Math.random() * 100) + 1);
-              if (endRnd == 1){
-                this.mazeSquares[this.i].endtile = true;
-             }
-            }
-          }
-        }
-
-      this.mazeSquares[this.i].update();
-    }
-    if(gameNs.sceneManager.currentScene.title === gameNs.tutorialScene.title)
-    {
-      var explosionTut = gameNs.tutorialScene.player.bomb.onExplode(this.mazeSquares, gameNs.tutorialScene.player.bombVal)
-      for (this.i = 0; this.i < 195; this.i++)
-      {
-        if((this.mazeSquares[this.i].row / (75 * 0.8) >= explosionTut.x - 1 &&
-          this.mazeSquares[this.i].row / (75 * 0.8) <= explosionTut.x + 1 &&
-          (this.mazeSquares[this.i].col - 90) / (75 * 0.8) == explosionTut.y) ||
-          (this.mazeSquares[this.i].row / (75 * 0.8) == explosionTut.x &&
-          (this.mazeSquares[this.i].col - 90) / (75 * 0.8) >= explosionTut.y - 1 &&
-          (this.mazeSquares[this.i].col - 90) / (75 * 0.8) <= explosionTut.y + 1))
-          {
-            // If the wall is not breakable
-            if(this.mazeSquares[this.i].containsWall)
+          // if its inside the effected area
+          if((this.mazeSquares[this.j].row / (75 * 0.8) >= exploSrc.x - explosionSize &&
+            this.mazeSquares[this.j].row / (75 * 0.8) <= exploSrc.x + explosionSize &&
+            (this.mazeSquares[this.j].col - 90) / (75 * 0.8) == exploSrc.y) ||
+            (this.mazeSquares[this.j].row / (75 * 0.8) == exploSrc.x &&
+            (this.mazeSquares[this.j].col - 90) / (75 * 0.8) >= exploSrc.y - explosionSize &&
+            (this.mazeSquares[this.j].col - 90) / (75 * 0.8) <= exploSrc.y + explosionSize))
             {
-              if(this.mazeSquares[this.i].row / (75 * 0.8) > explosionTut.x)
-              {  // Right
-                gameNs.playScene.player.bomb.addWall("Right", true)
+              // If the wall is not breakable
+              if(this.mazeSquares[this.j].containsWall)
+              {
+                if(this.mazeSquares[this.j].row / (75 * 0.8) > exploSrc.x)
+                {  // Right
+                  var diff  = (this.mazeSquares[this.j].row / (75 * 0.8) - exploSrc.x);
+                  if(diff === 1 || gameNs.playScene.player.bombs[i].firePowerUp)
+                  {
+                    gameNs.playScene.player.bombs[i].addWall("Right" + diff, true)
+                  }
+                }
+                else if(this.mazeSquares[this.j].row / (75 * 0.8) < exploSrc.x)
+                {  // Left
+                  var diff  = (exploSrc.x - this.mazeSquares[this.j].row / (75 * 0.8));
+                  if(diff === 1 || gameNs.playScene.player.bombs[i].firePowerUp)
+                  {
+                    gameNs.playScene.player.bombs[i].addWall("Left" + diff, true)
+                  }
+                }
+                else if((this.mazeSquares[this.j].col - 90) / (75 * 0.8) > exploSrc.y)
+                {  // Down
+                  var diff  = ((this.mazeSquares[this.j].col - 90) / (75 * 0.8) - exploSrc.y);
+                  if(diff === 1 || gameNs.playScene.player.bombs[i].firePowerUp)
+                  {
+                    gameNs.playScene.player.bombs[i].addWall("Down" + diff, true)
+                  }
+                }
+                else if((this.mazeSquares[this.j].col - 90) / (75 * 0.8) < exploSrc.y)
+                {  // Up
+                  var diff  = (exploSrc.y - (this.mazeSquares[this.j].col - 90) / (75 * 0.8));
+                  if(diff === 1 || gameNs.playScene.player.bombs[i].firePowerUp)
+                  {
+                    gameNs.playScene.player.bombs[i].addWall("Up" + diff, true)
+                  }
+                }
               }
-              else if(this.mazeSquares[this.i].row / (75 * 0.8) < explosionTut.x)
-              {  // Left
-                gameNs.playScene.player.bomb.addWall("Left", true)
-              }
-              else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) > explosionTut.y)
-              {  // Down
-                gameNs.playScene.player.bomb.addWall("Down", true)
-              }
-              else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) < explosionTut.y)
-              {  // Up
-                gameNs.playScene.player.bomb.addWall("Up", true)
+              else if(this.mazeSquares[this.j].breakWall)
+              { // If the wall is breakable
+                // Destroy wall
+                this.mazeSquares[this.j].breakWall = false;
+                //randomly give a power up
+                var powerRnd = Math.floor((Math.random() * 10) + 1);
+                //console.log(powerRnd);
+                if (powerRnd == 1){
+                  this.mazeSquares[this.j].speedUp = true;
+                }
+                if (powerRnd == 2){
+                  this.mazeSquares[this.j].bomb = true;
+                }
+                if (powerRnd == 3){
+                  this.mazeSquares[this.j].fire = true;
+                }
+                if (powerRnd == 4){
+                  this.mazeSquares[this.j].oneup = true;
+                }
+                if (powerRnd == 5){
+                  this.mazeSquares[this.j].armour = true;
+                }
+                else{
+                  var endRnd = Math.floor((Math.random() * 100) + 1);
+                  if (endRnd == 1){
+                    this.mazeSquares[this.j].endtile = true;
+                  }
+                }
               }
             }
+          }
+      }
+
+
+      for (var j = 0; j < gameNs.playScene.otherPlayer.bombs.length; j++) {
+        // Check player two bomb
+        // Get Player two bomb grid position
+        var player2ExploSrc = gameNs.playScene.otherPlayer.bombs[j].onExplode(this.mazeSquares,gameNs.playScene.otherPlayer.bombVal)
+
+        if(gameNs.playScene.otherPlayer.bombs[j].firePowerUp)
+        {
+          var explosionSize = 2;
+        }
+        else {
+          var explosionSize = 1;
+        }
+        // Check every square in the grid vs the bomb and the effected area
+        for (this.i = 0; this.i < 195; this.i++)
+        {
+
+          // if its inside the effected area
+          if((this.mazeSquares[this.i].row / (75 * 0.8) >= player2ExploSrc.x - explosionSize &&
+            this.mazeSquares[this.i].row / (75 * 0.8) <= player2ExploSrc.x + explosionSize &&
+            (this.mazeSquares[this.i].col - 90) / (75 * 0.8) == player2ExploSrc.y) ||
+            (this.mazeSquares[this.i].row / (75 * 0.8) == player2ExploSrc.x &&
+            (this.mazeSquares[this.i].col - 90) / (75 * 0.8) >= player2ExploSrc.y - explosionSize &&
+            (this.mazeSquares[this.i].col - 90) / (75 * 0.8) <= player2ExploSrc.y + explosionSize))
+            {
+
+              // If the wall is not breakable
+              if(this.mazeSquares[this.i].containsWall)
+              {
+                if(this.mazeSquares[this.i].row / (75 * 0.8) > player2ExploSrc.x)
+                {
+                  // Right
+                  var diff  = (this.mazeSquares[this.i].row / (75 * 0.8) - player2ExploSrc.x);
+                  if(diff === 1 || gameNs.playScene.otherPlayer.bombs[j].firePowerUp)
+                  {
+                    gameNs.playScene.otherPlayer.bombs[j].addWall("Right" + diff, true)
+                  }
+                }
+                else if(this.mazeSquares[this.i].row / (75 * 0.8) < player2ExploSrc.x)
+                {  // Left
+                  var diff  = (player2ExploSrc.x - this.mazeSquares[this.i].row / (75 * 0.8));
+                  if(diff === 1 || gameNs.playScene.otherPlayer.bombs[j].firePowerUp)
+                  {
+                    gameNs.playScene.otherPlayer.bombs[j].addWall("Left" + diff, true)
+                  }
+                }
+                else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) > player2ExploSrc.y)
+                {  // Down
+                  var diff  = ((this.mazeSquares[this.i].col - 90) / (75 * 0.8) - player2ExploSrc.y);
+                  if(diff === 1 || gameNs.playScene.otherPlayer.bombs[j].firePowerUp)
+                  {
+                    gameNs.playScene.otherPlayer.bombs[j].addWall("Down" + diff, true)
+                  }
+                }
+                else if((this.mazeSquares[this.i].col - 90) / (75 * 0.8) < player2ExploSrc.y)
+                {  // Up
+                  var diff  = (player2ExploSrc.y - (this.mazeSquares[this.i].col - 90) / (75 * 0.8));
+                  if(diff === 1 || gameNs.playScene.otherPlayer.bombs[j].firePowerUp)
+                  {
+                    gameNs.playScene.otherPlayer.bombs[j].addWall("Up" + diff, true)
+                  }
+                }
+              }
+
+            // If the wall is breakable
             if(this.mazeSquares[this.i].breakWall)
             {
+              // Destroy wall
               this.mazeSquares[this.i].breakWall = false;
+              //randomly give a power up
+              var powerRnd = Math.floor((Math.random() * 10) + 1);
+              //console.log(powerRnd);
+              if (powerRnd == 1){
+                this.mazeSquares[this.i].speedUp = true;
+              }
+              if (powerRnd == 2){
+                this.mazeSquares[this.i].bomb = true;
+              }
+              if (powerRnd == 3){
+                this.mazeSquares[this.i].fire = true;
+              }
+              if (powerRnd == 4){
+                this.mazeSquares[this.i].oneup = true;
+              }
+              if (powerRnd == 5){
+                this.mazeSquares[this.i].armour = true;
+              }
+              else{
+                var endRnd = Math.floor((Math.random() * 100) + 1);
+                if (endRnd == 1){
+                  this.mazeSquares[this.i].endtile = true;
+                }
+              }
             }
           }
-        this.mazeSquares[this.i].update();
+            this.mazeSquares[this.i].update();
+          }
+        }
+      }
+
+
+    if(gameNs.sceneManager.currentScene.title === gameNs.tutorialScene.title)
+    {
+      // Check player one bomb
+      // Get Player one bomb grid position
+      for (var i = 0; i < gameNs.tutorialScene.player.bombs.length; i++) {
+        var explosionTut = gameNs.tutorialScene.player.bombs[i].onExplode(this.mazeSquares,gameNs.tutorialScene.player.bombVal)
+
+        if(gameNs.tutorialScene.player.bombs[i].firePowerUp)
+        {
+          var explosionSize = 2;
+        }
+        else {
+          var explosionSize = 1;
+        }
+
+        // Check every square in the grid vs the bomb and the effected area
+        for (this.j = 0; this.j < 195; this.j++)
+        {
+          if((this.mazeSquares[this.j].row / (75 * 0.8) >= explosionTut.x - explosionSize &&
+            this.mazeSquares[this.j].row / (75 * 0.8) <= explosionTut.x + explosionSize &&
+            (this.mazeSquares[this.j].col - 90) / (75 * 0.8) == explosionTut.y) ||
+            (this.mazeSquares[this.j].row / (75 * 0.8) == explosionTut.x &&
+            (this.mazeSquares[this.j].col - 90) / (75 * 0.8) >= explosionTut.y - explosionSize &&
+            (this.mazeSquares[this.j].col - 90) / (75 * 0.8) <= explosionTut.y + explosionSize))
+            {
+              // If the wall is not breakable
+              if(this.mazeSquares[this.j].containsWall)
+              {
+                if(this.mazeSquares[this.j].row / (75 * 0.8) > explosionTut.x)
+                {  // Right
+                  var diff  = ((this.mazeSquares[this.j].row / (75 * 0.8)) - explosionTut.x);
+                  if(diff === 1 || gameNs.tutorialScene.player.bombs[i].firePowerUp)
+                  {
+                    gameNs.tutorialScene.player.bombs[i].addWall("Right" + diff, true)
+                  }
+                }
+                else if(this.mazeSquares[this.j].row / (75 * 0.8) < explosionTut.x)
+                {  // Left
+                  var diff  = (explosionTut.x - (this.mazeSquares[this.j].row / (75 * 0.8)));
+                  if(diff === 1 || gameNs.tutorialScene.player.bombs[i].firePowerUp)
+                  {
+                    gameNs.tutorialScene.player.bombs[i].addWall("Left" + diff, true)
+                  }
+                }
+                else if((this.mazeSquares[this.j].col - 90) / (75 * 0.8) > explosionTut.y)
+                {  // Down
+                  var diff  = (((this.mazeSquares[this.j].col - 90) / (75 * 0.8)) - explosionTut.y);
+                  if(diff === 1 || gameNs.tutorialScene.player.bombs[i].firePowerUp)
+                  {
+                    gameNs.tutorialScene.player.bombs[i].addWall("Down" + diff, true)
+                  }
+                }
+                else if((this.mazeSquares[this.j].col - 90) / (75 * 0.8) < explosionTut.y)
+                {  // Up
+                  var diff  = (explosionTut.y - ((this.mazeSquares[this.j].col - 90) / (75 * 0.8)));
+                  if(diff === 1 || gameNs.tutorialScene.player.bombs[i].firePowerUp)
+                  {
+                    gameNs.tutorialScene.player.bombs[i].addWall("Up" + diff, true)
+                  }
+                }
+              }
+              if(this.mazeSquares[this.j].breakWall)
+              {
+                this.mazeSquares[this.j].breakWall = false;
+              }
+            }
+          this.mazeSquares[this.j].update();
+        }
       }
     }
 
