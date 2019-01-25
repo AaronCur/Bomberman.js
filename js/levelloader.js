@@ -223,9 +223,9 @@ this.request.send();
             // Destroy wall
             this.mazeSquares[this.i].breakWall = false;
             //randomly give a power up
-            var powerRnd = Math.floor((Math.random() * 10) + 1);
+            var powerRnd = Math.floor((Math.random() * 1) + 1);
             //console.log(powerRnd);
-            if (powerRnd == 1){
+            if (powerRnd == 5){
               this.mazeSquares[this.i].speedUp = true;
             }
             if (powerRnd == 2){
@@ -237,7 +237,7 @@ this.request.send();
             if (powerRnd == 4){
               this.mazeSquares[this.i].oneup = true;
             }
-            if (powerRnd == 5){
+            if (powerRnd == 1){
               this.mazeSquares[this.i].armour = true;
             }
             else{

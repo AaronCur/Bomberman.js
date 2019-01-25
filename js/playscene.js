@@ -117,11 +117,28 @@ class PlayScene
     this.ai2.checkEnemyBomb(this.otherPlayer.bomb.onExplode());
     this.ai2.checkEnemyBomb(this.player.bomb.onExplode());
 
+    //invincible indicater
+    if(this.player.invincible == true){
+      gameNs.ctx.font = "30px Arial";
+      gameNs.ctx.fillText("Invincible", 250, 65);
+    }
+    else{
+      gameNs.ctx.fillText("", 0, 100);
+    }
+
+    if(this.otherPlayer.invincible == true){
+      gameNs.ctx.font = "30px Arial";
+      gameNs.ctx.fillText("Invincible", 550, 65);
+    }
+    else{
+      gameNs.ctx.fillText("", 0, 100);
+    }
+
 
     this.time = this.scoreboard.getDisplayTimer();
 
     //console.log(this.time);
-    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0)
+    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0 || this.player.endtileCollected == true)
     {
 
      this.level.NextLevel()
@@ -134,15 +151,20 @@ class PlayScene
      this.ai1.alive = true
      this.player.healthSystem.healthVal = 3
      this.otherPlayer.healthSystem.healthVal = 3
+     this.player.endtileCollected = false;
+     this.player.invincible = false;
+     this.otherPlayer.invincible = false;
 
    }
-    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0
+   console.log(this.player.endtileCollected);
+    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0 || this.player.endtileCollected == true
       && gameNs.map3 === true){
+      this.player.endtileCollected = false;
       this.endScene.render();
-     this.scoreboard.addToBoard(40);
-     this.scoreboard.filterTime(1);
-     console.log(this.scoreboard.getBoard());
-     this.scoreboard.generate_table();
+      this.scoreboard.addToBoard(40);
+      this.scoreboard.filterTime(1);
+      console.log(this.scoreboard.getBoard());
+      this.scoreboard.generate_table();
    }
 
 

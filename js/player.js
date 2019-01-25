@@ -109,6 +109,7 @@ class Player
     this.speed = 5;
     this.invincible = false;
     this.invincibleCount = 0;
+    this.endtileCollected = false;
 
 
     this.maxRows=13
@@ -117,9 +118,11 @@ class Player
     this.moved =false
     gameNs.collides = false;
     //power up
-      this.speed = 5;
-      this.invincible = false;
-      this.invincibleCount = 0;
+    this.speed = 5;
+    this.invincible = false;
+    this.invincibleCount = 0;
+    this.imgInvincible=new Image();
+    this.imgInvincible.src = "img/power/armour.png";
 
 
     this.imgB=new Image();
@@ -205,6 +208,8 @@ class Player
         if(this.invincible == false){
           this.die(level);
         }
+        this.invincibleCount =0;
+        this.invincible = true;
       }
   }
 
@@ -223,6 +228,8 @@ class Player
         if(this.invincible == false){
           this.die();
         }
+        this.invincibleCount =0;
+        this.invincible = true;
       }
 
 
@@ -235,6 +242,8 @@ class Player
           if(this.invincible == false){
             this.die();
           }
+          this.invincibleCount =0;
+          this.invincible = true;
         }
          else
        {
@@ -684,6 +693,7 @@ checkCollisionMapDown(level)
         //output speed collected
         console.log("game Over");
         level.mazeSquares[this.i].endtile = false;
+        this.endtileCollected = true;
     }
   }
 
