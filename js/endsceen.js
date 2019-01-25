@@ -24,7 +24,7 @@ class EndScene
     var ctx = mycanvas.getContext("2d");
     var imagebg = this.bgimg;
     var image = this.img;
-    ctx.drawImage(imagebg, 0 , 0,this.windowWidth, this.windowHeight ,0,0, this.windowWidth ,this.windowHeight);
+    ctx.drawImage(imagebg, 0 , 90);
 
   }
 
