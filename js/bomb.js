@@ -32,29 +32,47 @@ class Bomb
     this.animeTimerLimit = 5;
     this.animeCounter = 0;
 
-    this.surroundingWalls = {};
-    this.surroundingWalls["Up"] = false;
-    this.surroundingWalls["Down"] = false;
-    this.surroundingWalls["Left"] = false;
-    this.surroundingWalls["Right"] = false;
+    this.firePowerUp = false;
 
+    this.surroundingWalls = {};
+    this.surroundingWalls["Up1"] = false;
+    this.surroundingWalls["Down1"] = false;
+    this.surroundingWalls["Left1"] = false;
+    this.surroundingWalls["Right1"] = false;
+    this.surroundingWalls["Up2"] = false;
+    this.surroundingWalls["Down2"] = false;
+    this.surroundingWalls["Left2"] = false;
+    this.surroundingWalls["Right2"] = false;
+
+  }
+
+  fireBoost(fb)
+  {
+    this.firePowerUp = fb;
   }
 
   place(pos)
   {
-    this.alive = true;
-    this.time = 0;
-    this.timeExplode = 0;
-    this.gridPos.x = pos.x;
-    this.gridPos.y = pos.y;
-    this.x = (this.gridPos.x * this.tileWidth * .8) + 10;
-    this.y = (this.gridPos.y * this.tileHeight * .8) + 90;
-    this.animeCounter = 0;
-    this.animeTimer = 0;
-    this.surroundingWalls["Up"] = false;
-    this.surroundingWalls["Down"] = false;
-    this.surroundingWalls["Left"] = false;
-    this.surroundingWalls["Right"] = false;
+    if(!this.alive && !this.exploding)
+    {
+      this.alive = true;
+      this.time = 0;
+      this.timeExplode = 0;
+      this.gridPos.x = pos.x;
+      this.gridPos.y = pos.y;
+      this.x = (this.gridPos.x * this.tileWidth * .8) + 10;
+      this.y = (this.gridPos.y * this.tileHeight * .8) + 90;
+      this.animeCounter = 0;
+      this.animeTimer = 0;
+      this.surroundingWalls["Up1"] = false;
+      this.surroundingWalls["Down1"] = false;
+      this.surroundingWalls["Left1"] = false;
+      this.surroundingWalls["Right1"] = false;
+      this.surroundingWalls["Up2"] = false;
+      this.surroundingWalls["Down2"] = false;
+      this.surroundingWalls["Left2"] = false;
+      this.surroundingWalls["Right2"] = false;
+    }
   }
 
   update()
@@ -116,7 +134,6 @@ class Bomb
 
   addWall(key, wall)
   {
-    console.log(key)
     this.surroundingWalls[key] = wall;
   }
 
@@ -136,24 +153,52 @@ class Bomb
 
       ctx.drawImage(this.explosionImg, 0, 0,this.tileWidth, this.height ,this.x - 10, this.y - 10, this.tileWidth - 15,this.height - 15);
 
-      if(!this.surroundingWalls["Right"])
+      if(!this.surroundingWalls["Right1"])
       {
-        ctx.drawImage(this.explosionImg, 150, 0,this.tileWidth, this.height ,this.x - 10 + 45, this.y - 10, this.tileWidth - 15,this.height - 15);
+        if(!this.surroundingWalls["Right2"] && this.firePowerUp)
+        {
+          ctx.drawImage(this.explosionImg, 0, 0,this.tileWidth, this.height ,this.x - 10 + 55, this.y - 10 , this.tileWidth - 15,this.height - 15);
+          ctx.drawImage(this.explosionImg, 150, 0,this.tileWidth, this.height ,this.x - 10 + 100, this.y - 10, this.tileWidth - 15,this.height - 15);
+        }
+        else {
+          ctx.drawImage(this.explosionImg, 150, 0,this.tileWidth, this.height ,this.x - 10 + 45, this.y - 10, this.tileWidth - 15,this.height - 15);
+        }
       }
 
-      if(!this.surroundingWalls["Left"])
+      if(!this.surroundingWalls["Left1"])
       {
-        ctx.drawImage(this.explosionImg, 300, 0,this.tileWidth, this.height ,this.x - 10 - 45, this.y - 10, this.tileWidth - 15,this.height - 15);
+        if(!this.surroundingWalls["Left2"] && this.firePowerUp)
+        {
+          ctx.drawImage(this.explosionImg, 0, 0,this.tileWidth, this.height ,this.x - 10 - 55, this.y - 10 , this.tileWidth - 15,this.height - 15);
+          ctx.drawImage(this.explosionImg, 300, 0,this.tileWidth, this.height ,this.x - 10 - 100, this.y - 10, this.tileWidth - 15,this.height - 15);
+        }
+        else {
+          ctx.drawImage(this.explosionImg, 300, 0,this.tileWidth, this.height ,this.x - 10 - 45, this.y - 10, this.tileWidth - 15,this.height - 15);
+        }
       }
 
-      if(!this.surroundingWalls["Down"])
+      if(!this.surroundingWalls["Down1"])
       {
-        ctx.drawImage(this.explosionImg, 225, 0,this.tileWidth, this.height ,this.x - 10, this.y - 10 + 45, this.tileWidth - 15,this.height - 15);
+        if(!this.surroundingWalls["Down2"] && this.firePowerUp)
+        {
+          ctx.drawImage(this.explosionImg, 0, 0,this.tileWidth, this.height ,this.x - 10, this.y - 10 + 55, this.tileWidth - 15,this.height - 15);
+          ctx.drawImage(this.explosionImg, 225, 0,this.tileWidth, this.height ,this.x - 10, this.y - 10 + 100, this.tileWidth - 15,this.height - 15);
+        }
+        else {
+          ctx.drawImage(this.explosionImg, 225, 0,this.tileWidth, this.height ,this.x - 10, this.y - 10 + 45, this.tileWidth - 15,this.height - 15);
+        }
       }
 
-      if(!this.surroundingWalls["Up"])
+      if(!this.surroundingWalls["Up1"])
       {
-        ctx.drawImage(this.explosionImg, 75, 0,this.tileWidth, this.height ,this.x - 10, this.y - 10 - 45, this.tileWidth - 15,this.height - 15);
+        if(!this.surroundingWalls["Up2"] && this.firePowerUp)
+        {
+          ctx.drawImage(this.explosionImg, 0, 0,this.tileWidth, this.height ,this.x - 10, this.y - 10 - 55, this.tileWidth - 15,this.height - 15);
+          ctx.drawImage(this.explosionImg, 75, 0,this.tileWidth, this.height ,this.x - 10, this.y - 10 - 100, this.tileWidth - 15,this.height - 15);
+        }
+        else {
+          ctx.drawImage(this.explosionImg, 75, 0,this.tileWidth, this.height ,this.x - 10, this.y - 10 - 45, this.tileWidth - 15,this.height - 15);
+        }
       }
     }
 

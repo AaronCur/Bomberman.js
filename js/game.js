@@ -43,8 +43,6 @@ class Game
     gameNs.audioManager.loadSoundFile("bg", "img/audio/backGround.mp3");
     gameNs.audioManager.loadSoundFile("drop", "img/audio/Drop.mp3");
     gameNs.audioManager.loadSoundFile("goal", "img/audio/Goal.mp3");
-    gameNs.audioManager.loadSoundFile("rocks", "img/audio/rocks.mp3");
-    gameNs.audioManager.loadSoundFile("swoosh", "img/audio/swoosh.mp3");
   }
   /**
   *Update function called every frame. sets the current time when the function is called
