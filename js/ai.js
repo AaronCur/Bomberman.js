@@ -291,7 +291,7 @@ class Ai
      if((this.x< player.x + player.width)&&
        (this.x+this.width>player.x)&&
        (this.y+this.height>player.y)&&
-       (this.y<player.y+player.height) )
+       (this.y +this.height/2 <player.y+player.height) )
        {
          if(this.alive == true){
           this.pickDirection();

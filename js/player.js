@@ -229,10 +229,7 @@ class Player
   }
   checkCollisionAi(level, ai)
   {
-      if((this.x< ai.x + ai.width/4)&&
-        (this.x+this.width>ai.x)&&
-        (this.y+this.height>ai.y)&&
-        (this.y<ai.y + ai.height/4) )
+      if(level.mazeSquares[this.i] == level.mazeSquares[ai.i])
         {
           console.log("collides");
           if(this.invincible == false){
