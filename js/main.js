@@ -34,13 +34,10 @@ function keyDownHandler(e)
     if(e.keyCode === 65 && gameNs.playScene.player.collisionLeft == false) //65
   	{
   		gameNs.playScene.player.moveX = false;
-
-
   	}
      if(e.keyCode === 68 && gameNs.playScene.player.collisionRight == false) // 68
   	{
   		gameNs.playScene.player.moveX = true;
-
   	}
 
   //code triggered when UP arrow is pressed
@@ -81,6 +78,45 @@ function keyDownHandler(e)
     if(e.keyCode === 40 && gameNs.playScene.otherPlayer.collisionDown == false) // 40
   	{
   		gameNs.playScene.otherPlayer.moveY = true;
+    }
+
+    if(gameNs.playScene.drawText===true && e.keyCode === 77)
+    {
+      var canvas = document.createElement("mycanvas");
+      var ctx = mycanvas.getContext("2d");
+      ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
+      ctx.translate((window.innerWidth / 10)- (7.5*(106.75 * 0.9)), 0);
+      document.getElementById("table").style.display = "none";
+      gameNs.sceneManager.goToScene(gameNs.menuScene.title)
+      gameNs.menuScene.createDiv("Play")
+      gameNs.menuScene.createDiv("Options")
+      gameNs.menuScene.createDiv("Tutorial")
+      gameNs.playScene.drawText=false
+      gameNs.map3 = false
+      gameNs.lastLevel = false
+      gameNs.map2 = false
+      gameNs.map1 = true
+      gameNs.called = true
+
+    }
+    else if(gameNs.playScene.drawText===true && e.keyCode === 82)
+    {
+      var canvas = document.createElement("mycanvas");
+      var ctx = mycanvas.getContext("2d");
+      ctx.clearRect(0, 0, mycanvas.width, mycanvas.height);
+      document.getElementById("table").style.display = "none";
+      gameNs.playScene.level.Level1()
+      gameNs.sceneManager.goToScene(gameNs.playScene.title);
+      gameNs.playScene.initWorld();
+      gameNs.timerStart = true;
+      gameNs.start = Date.now();
+      gameNs.playScene.drawText=false
+      gameNs.map3 = false
+      gameNs.lastLevel = false
+      gameNs.map2 = false
+      gameNs.map1 = true
+      gameNs.called = true
+
     }
   }
 

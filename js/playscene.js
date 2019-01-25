@@ -10,6 +10,10 @@ class PlayScene
     this.gameover = false;
     this.level = new LevelLoader();
     this.title = title;
+    this.drawText = false
+    gameNs.map1 = false
+    gameNs.map2 = false
+    gameNs.map3 = false
     this.img=new Image();
     this.img.src = "img/playerSheet.png";
     this.imgAi=new Image();
@@ -121,11 +125,12 @@ class PlayScene
     this.time = this.scoreboard.getDisplayTimer();
 
     //console.log(this.time);
-    if(this.otherPlayer.healthSystem.healthVal == 0 && gameNs.map3 === false
-       || this.player.healthSystem.healthVal == 0 && gameNs.map3 === false)
+    if(this.otherPlayer.healthSystem.healthVal == 0 && gameNs.lastLevel===false
+       || this.player.healthSystem.healthVal == 0 && gameNs.lastLevel === false )
     {
 
      this.level.NextLevel()
+     gameNs.called = true
      this.player.x = this.player.spawnX
      this.player.y = this.player.spawnY
      this.otherPlayer.x = this.otherPlayer.spawnX
@@ -158,14 +163,18 @@ class PlayScene
 
    }
 
-  if(this.otherPlayer.healthSystem.healthVal == 0 && gameNs.map3 === true ||
-    this.player.healthSystem.healthVal == 0 && gameNs.map3 === true)
+  if(this.otherPlayer.healthSystem.healthVal == 0 && gameNs.lastLevel === true ||
+    this.player.healthSystem.healthVal == 0 && gameNs.lastLevel === true)
   {
       this.endScene.render();
+      this.menuText = "Press ' M ' to return to menus"
+      this.playAgainText = "Press ' R ' to replay"
+      //debugger
       this.scoreboard.addToBoard(40);
       this.scoreboard.filterTime(1);
-      console.log(this.scoreboard.getBoard());
+      //console.log(this.scoreboard.getBoard());
       this.scoreboard.generate_table();
+      this.drawText = true
    }
 
 
@@ -186,6 +195,15 @@ class PlayScene
     ctx.strokeStyle = 'black';
     ctx.fillText(this.time,390,60);
     ctx.strokeText(this.time,390,60);
+    if(this.drawText===true)
+    {
+      ctx.font = '40px Adventure Regular';
+      ctx.fillStyle = 'Red';
+      ctx.fillText(this.playAgainText, 800, 1200)
+      ctx.fillText(this.menuText,800, 1300)
+    }
+
+
 
   }
 }
