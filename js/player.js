@@ -298,6 +298,8 @@ class Player
       this.healthSystem.healthVal -= 1;
       this.respawnTimer = 0;
     }
+
+    this.fsm.changeState(this.eventDie);
     // Make invinciple for 5 seconds
   }
 
