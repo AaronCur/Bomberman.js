@@ -468,7 +468,10 @@ class Player
   dieAnime()
   {
     if(this.fsm.currentState === this.stateIdle)
-    this.fsm.changeState(this.eventDie);
+    {
+      this.fsm.changeState(this.eventDie);
+      gameNs.audioManager.playAudio("die", false, gameNs.volume);
+    }
   }
 
   checkCollisionAi(level, ai)
@@ -481,10 +484,6 @@ class Player
           this.invincibleCount =0;
           this.invincible = true;
         }
-         else
-       {
-         //do not nothing
-       }
    }
 
  update(level)
@@ -983,6 +982,8 @@ checkCollisionMapDown(level)
     || level.mazeSquares[this.i].fire == true || level.mazeSquares[this.i].bomb == true
   || level.mazeSquares[this.i].oneup == true)
       {
+
+        gameNs.audioManager.playAudio("drop", false, gameNs.volume);
         if(level.mazeSquares[this.i].speedUp == true){
           //output speed collected
           console.log("speed");
@@ -1040,6 +1041,8 @@ checkCollisionMapDown(level)
         console.log("game Over");
         level.mazeSquares[this.i].endtile = false;
         this.endtileCollected = true;
+        gameNs.audioManager.playAudio("goal", false, gameNs.volume);
+
     }
   }
 

@@ -372,6 +372,7 @@ this.request.send();
                 this.mazeSquares[this.j].breakWall = false;
                 //randomly give a power up
                 var powerRnd = Math.floor((Math.random() * 10) + 1);
+                gameNs.audioManager.playAudio("break", false, gameNs.volume);
                 //console.log(powerRnd);
                 if (powerRnd == 1){
                   this.mazeSquares[this.j].speedUp = true;
@@ -399,7 +400,7 @@ this.request.send();
           }
       }
 
-          
+
         }
 
       for (var j = 0; j < gameNs.playScene.otherPlayer.bombs.length; j++) {
@@ -472,20 +473,23 @@ this.request.send();
               this.mazeSquares[this.i].breakWall = false;
               //randomly give a power up
               var powerRnd = Math.floor((Math.random() * 10) + 1);
+              
+              gameNs.audioManager.playAudio("break", false, gameNs.volume);
+
               //console.log(powerRnd);
               if (powerRnd == 1){
                 this.mazeSquares[this.i].speedUp = true;
               }
-              if (powerRnd == 2){
+              else if (powerRnd == 2){
                 this.mazeSquares[this.i].bomb = true;
               }
-              if (powerRnd == 3){
+              else if (powerRnd == 3){
                 this.mazeSquares[this.i].fire = true;
               }
-              if (powerRnd == 4){
+              else if (powerRnd == 4){
                 this.mazeSquares[this.i].oneup = true;
               }
-              if (powerRnd == 5){
+              else if (powerRnd == 5){
                 this.mazeSquares[this.i].armour = true;
               }
               else{

@@ -101,6 +101,10 @@ class Bomb
       {
         this.alive = false;
         this.timeExplode = this.timeExplode + this.ticksPerFrame;
+        if(!this.exploding)
+        {
+          gameNs.audioManager.playAudio("bomb", false, gameNs.volume);
+        }
         this.exploding = true;
         if (this.timeExplode > this.explosionTime)
         {
