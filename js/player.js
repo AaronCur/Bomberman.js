@@ -192,7 +192,7 @@ class Player
     // Make invinciple for 5 seconds
   }
 
-  checkEnemyBomb(bombP)
+  checkEnemyBomb(bombP, level)
   {
     if(((this.col - 1) >= bombP.x - 1 &&
       (this.col - 1) <= bombP.x + 1 &&
@@ -203,7 +203,7 @@ class Player
       {
         console.log("Enemy bomb");
         if(this.invincible == false){
-          this.die();
+          this.die(level);
         }
       }
   }
