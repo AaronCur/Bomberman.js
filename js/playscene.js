@@ -12,6 +12,8 @@ class PlayScene
     this.title = title;
     this.img=new Image();
     this.img.src = "img/playerSheet.png";
+    this.imgAi=new Image();
+    this.imgAi.src = "img/ai/ai.png";
     var canvas = document.getElementById('mycanvas');
     var ctx = canvas.getContext('2d');
 
@@ -30,19 +32,19 @@ class PlayScene
     this.ai = new Ai(ctx, {
     width: 78 * 0.8,
     height: 108 * 0.8,
-    image: this.img
+    image: this.imgAi
   }, 10, 245, 425);
 
     this.ai1 = new Ai(ctx, {
     width: 78 * 0.8,
     height: 108 * 0.8,
-    image: this.img
+    image: this.imgAi
   }, 10, 365, 180);
 
     this.ai2 = new Ai(ctx, {
     width: 78 * 0.8,
     height: 108 * 0.8,
-    image: this.img
+    image: this.imgAi
   }, 10, 605, 660);
 
 
@@ -93,15 +95,18 @@ class PlayScene
     //check player - ai
     if(this.ai.alive == true){
       this.player.checkCollisionAi(this.level, this.ai);
+      this.otherPlayer.checkCollisionAi(this.level, this.ai);
     }
     if(this.ai1.alive == true){
       this.player.checkCollisionAi(this.level, this.ai1);
+      this.otherPlayer.checkCollisionAi(this.level, this.ai1);
     }
     if(this.ai2.alive == true){
       this.player.checkCollisionAi(this.level, this.ai2);
+      this.otherPlayer.checkCollisionAi(this.level, this.ai2);
     }
 
-    this.player.checkEnemyBomb(this.otherPlayer.bomb.onExplode());
+    this.player.checkEnemyBomb(this.otherPlayer.bomb.onExplode(), this.level);
     this.otherPlayer.checkEnemyBomb(this.player.bomb.onExplode());
 
     //Check if ai is bombed
@@ -116,8 +121,23 @@ class PlayScene
     this.time = this.scoreboard.getDisplayTimer();
 
     //console.log(this.time);
+    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0)
+    {
 
-    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0){
+     this.level.NextLevel()
+     this.player.x = this.player.spawnX
+     this.player.y = this.player.spawnY
+     this.otherPlayer.x = this.otherPlayer.spawnX
+     this.otherPlayer.y = this.otherPlayer.spawnY
+     this.ai.alive = true
+     this.ai1.alive = true
+     this.ai1.alive = true
+     this.player.healthSystem.healthVal = 3
+     this.otherPlayer.healthSystem.healthVal = 3
+
+   }
+    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0
+      && gameNs.map3 === true){
       this.endScene.render();
      this.scoreboard.addToBoard(40);
      this.scoreboard.filterTime(1);

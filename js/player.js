@@ -192,7 +192,7 @@ class Player
     // Make invinciple for 5 seconds
   }
 
-  checkEnemyBomb(bombP)
+  checkEnemyBomb(bombP, level)
   {
     if(((this.col - 1) >= bombP.x - 1 &&
       (this.col - 1) <= bombP.x + 1 &&
@@ -203,7 +203,7 @@ class Player
       {
         console.log("Enemy bomb");
         if(this.invincible == false){
-          this.die();
+          this.die(level);
         }
       }
   }
@@ -229,10 +229,10 @@ class Player
   }
   checkCollisionAi(level, ai)
   {
-      if((this.x< ai.x + ai.width)&&
+      if((this.x< ai.x + ai.width/4)&&
         (this.x+this.width>ai.x)&&
         (this.y+this.height>ai.y)&&
-        (this.y<ai.y+ai.height) )
+        (this.y<ai.y + ai.height/4) )
         {
           console.log("collides");
           if(this.invincible == false){
