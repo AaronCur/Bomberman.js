@@ -9,7 +9,7 @@ class EndScene
     this.title = title;
     this.windowWidth = window.innerWidth;
     this.windowHeight = window.innerHeight;
-   this.bgimg = new Image();
+    this.bgimg = new Image();
     this.bgimg.src ="img/gameoverbg.png"
   }
 

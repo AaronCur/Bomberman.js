@@ -10,6 +10,10 @@ class PlayScene
     this.gameover = false;
     this.level = new LevelLoader();
     this.title = title;
+    this.drawText = false
+    gameNs.map1 = false
+    gameNs.map2 = false
+    gameNs.map3 = false
     this.img=new Image();
     this.img.src = "img/playerSheet.png";
     this.imgAi=new Image();
@@ -148,36 +152,64 @@ class PlayScene
     }
 
     //console.log(this.time);
-    if(this.otherPlayer.healthSystem.healthVal == 0 || this.player.healthSystem.healthVal == 0 || this.player.endtileCollected == true)
+    if(this.otherPlayer.healthSystem.healthVal == 0  && gameNs.lastLevel === false
+      || this.player.healthSystem.healthVal == 0 && gameNs.lastLevel === false
+      || this.player.endtileCollected == true && gameNs.lastLevel === false)
     {
 
      this.level.NextLevel()
+     gameNs.called = true
      this.player.x = this.player.spawnX
      this.player.y = this.player.spawnY
      this.otherPlayer.x = this.otherPlayer.spawnX
      this.otherPlayer.y = this.otherPlayer.spawnY
-     this.ai.alive = true
-     this.ai1.alive = true
-     this.ai1.alive = true
+     this.ai.alive = false
+     this.ai1.alive = false
+     this.ai2.alive = false
+
+
      this.player.healthSystem.healthVal = 3
      this.otherPlayer.healthSystem.healthVal = 3
      this.player.endtileCollected = false;
      this.player.invincible = false;
      this.otherPlayer.invincible = false;
 
+      this.ai = new Ai(ctx, {
+      width: 78 * 0.8,
+      height: 108 * 0.8,
+      image: this.imgAi
+      }, 10, 245, 425);
+
+       this.ai1 = new Ai(ctx, {
+       width: 78 * 0.8,
+       height: 108 * 0.8,
+       image: this.imgAi
+     }, 10, 365, 180);
+
+       this.ai2 = new Ai(ctx, {
+       width: 78 * 0.8,
+       height: 108 * 0.8,
+       image: this.imgAi
+     }, 10, 605, 660);
+
    }
    console.log(this.player.endtileCollected);
-    if(this.otherPlayer.healthSystem.healthVal == 0|| this.player.endtileCollected == true
-      && gameNs.map3 === true){
+    if(this.otherPlayer.healthSystem.healthVal == 0 && gameNs.lastLevel === true|| this.player.endtileCollected == true && gameNs.lastLevel === true
+      ){
       this.player.endtileCollected = false;
+      this.menuText = "Press ' M ' to return to menus"
+      this.playAgainText = "Press ' R ' to replay"
       this.endScene.render();
       this.scoreboard.addToBoard(this.player.scoreSystem.scoreVal);
-      this.scoreboard.filterTime(1);
+      this.scoreboard.filterTime(-1);
       console.log(this.scoreboard.getBoard());
       this.scoreboard.generate_table();
+      this.drawText = true
    }
-   else if (this.otherPlayer.endtileCollected == true || this.player.healthSystem.healthVal == 0  && gameNs.map3 === true){
-
+   else if (this.otherPlayer.endtileCollected == true && gameNs.lastLevel === true || this.player.healthSystem.healthVal == 0  && gameNs.lastLevel === true){
+     this.menuText = "Press ' M ' to return to menus"
+     this.playAgainText = "Press ' R ' to replay"
+     this.drawText = true
       this.endScene.render();
       this.scoreboard.addToBoard(this.otherPlayer.scoreSystem.scoreVal);
       this.scoreboard.filterSPM(-1);
@@ -204,6 +236,15 @@ class PlayScene
     ctx.strokeStyle = 'black';
     ctx.fillText(this.time,390,60);
     ctx.strokeText(this.time,390,60);
+    if(this.drawText===true)
+    {
+      ctx.font = '40px Adventure Regular';
+      ctx.fillStyle = 'Red';
+      ctx.fillText(this.playAgainText, 800, 1200)
+      ctx.fillText(this.menuText,800, 1300)
+    }
+
+
 
   }
 }
