@@ -144,7 +144,7 @@ class PlayScene
      this.ai1.alive = true
      this.player.healthSystem.healthVal = 3
      this.otherPlayer.healthSystem.healthVal = 3
-
+   }
 
     if(this.otherPlayer.healthSystem.healthVal == 0  && gameNs.map3 === true){
       this.endScene.render();
