@@ -23,6 +23,21 @@ class Bomb
     this.ticksPerFrame = 1000/this.fps;
     this.tileWidth = tile.width;
     this.tileHeight = tile.height;
+
+    this.explosionImg = new Image()
+    this.explosionImg.src = "img/ExplosionSheet.png";
+
+    // Animation
+    this.animeTimer = 0;
+    this.animeTimerLimit = 5;
+    this.animeCounter = 0;
+
+    this.surroundingWalls = {};
+    this.surroundingWalls["Up"] = false;
+    this.surroundingWalls["Down"] = false;
+    this.surroundingWalls["Left"] = false;
+    this.surroundingWalls["Right"] = false;
+
   }
 
   place(pos)
@@ -34,12 +49,36 @@ class Bomb
     this.gridPos.y = pos.y;
     this.x = (this.gridPos.x * this.tileWidth * .8) + 10;
     this.y = (this.gridPos.y * this.tileHeight * .8) + 90;
+    this.animeCounter = 0;
+    this.animeTimer = 0;
+    this.surroundingWalls["Up"] = false;
+    this.surroundingWalls["Down"] = false;
+    this.surroundingWalls["Left"] = false;
+    this.surroundingWalls["Right"] = false;
   }
 
   update()
   {
     if(this.alive || this.exploding)
     {
+      if(this.alive)
+      {
+         if(this.animeTimer > this.animeTimerLimit)
+         {
+           this.animeCounter++;
+           if(this.animeCounter === 4)
+           {
+             this.animeCounter = 0;
+           }
+           this.animeTimer = 0;
+         }
+         else
+         {
+           this.animeTimer++;
+         }
+
+      }
+
       if(this.time > this.fuse)
       {
         this.alive = false;
@@ -74,6 +113,13 @@ class Bomb
     }
   }
 
+
+  addWall(key, wall)
+  {
+    console.log(key)
+    this.surroundingWalls[key] = wall;
+  }
+
   draw()
   {
     if(this.alive)
@@ -81,7 +127,34 @@ class Bomb
       var canvas = document.getElementById('mycanvas');
       var ctx = canvas.getContext('2d');
 
-      ctx.drawImage(this.img, 0, 0,this.width, this.height ,this.x,this.y, this.width / 5,this.height / 5);
+      ctx.drawImage(this.img, 75 * this.animeCounter, 0,this.tileWidth, this.height ,this.x - 10,this.y - 10, this.tileWidth - 15,this.height - 15);
+    }
+    else if(this.exploding)
+    {
+      var canvas = document.getElementById('mycanvas');
+      var ctx = canvas.getContext('2d');
+
+      ctx.drawImage(this.explosionImg, 0, 0,this.tileWidth, this.height ,this.x - 10, this.y - 10, this.tileWidth - 15,this.height - 15);
+
+      if(!this.surroundingWalls["Right"])
+      {
+        ctx.drawImage(this.explosionImg, 150, 0,this.tileWidth, this.height ,this.x - 10 + 45, this.y - 10, this.tileWidth - 15,this.height - 15);
+      }
+
+      if(!this.surroundingWalls["Left"])
+      {
+        ctx.drawImage(this.explosionImg, 300, 0,this.tileWidth, this.height ,this.x - 10 - 45, this.y - 10, this.tileWidth - 15,this.height - 15);
+      }
+
+      if(!this.surroundingWalls["Down"])
+      {
+        ctx.drawImage(this.explosionImg, 225, 0,this.tileWidth, this.height ,this.x - 10, this.y - 10 + 45, this.tileWidth - 15,this.height - 15);
+      }
+
+      if(!this.surroundingWalls["Up"])
+      {
+        ctx.drawImage(this.explosionImg, 75, 0,this.tileWidth, this.height ,this.x - 10, this.y - 10 - 45, this.tileWidth - 15,this.height - 15);
+      }
     }
 
   }
