@@ -92,61 +92,62 @@ class PlayScene
       gameNs.ctx.fillText("", 0, 100);
     }
 
-          this.level.update();
+    this.level.update();
 
-          this.player.update(this.level);
-          this.otherPlayer.update(this.level);
-          //ai - player collision
-          if(this.ai.alive == true){
-            this.ai.update(this.level);
-          }
-          if(this.ai1.alive == true){
-            this.ai1.update(this.level);
-          }
-          if(this.ai2.alive == true){
-            this.ai2.update(this.level);
-          }
-          //ai - ai collision
-          this.ai.checkCollision(this.level, this.ai1);
-          this.ai.checkCollision(this.level, this.ai2);
-          //ai1 - ai colllision
-          this.ai1.checkCollision(this.level, this.ai);
-          this.ai1.checkCollision(this.level, this.ai2);
-          //ai2 - ai colllision
-          this.ai2.checkCollision(this.level, this.ai);
-          this.ai2.checkCollision(this.level, this.ai1);
+    this.player.update(this.level);
+    this.otherPlayer.update(this.level);
+    //ai - player collision
+    if(this.ai.alive == true){
+      this.ai.update(this.level);
+    }
+    if(this.ai1.alive == true){
+      this.ai1.update(this.level);
+    }
+    if(this.ai2.alive == true){
+      this.ai2.update(this.level);
+    }
+    //ai - ai collision
+    this.ai.checkCollision(this.level, this.ai1);
+    this.ai.checkCollision(this.level, this.ai2);
+    //ai1 - ai colllision
+    this.ai1.checkCollision(this.level, this.ai);
+    this.ai1.checkCollision(this.level, this.ai2);
+    //ai2 - ai colllision
+    this.ai2.checkCollision(this.level, this.ai);
+    this.ai2.checkCollision(this.level, this.ai1);
 
-          //check player - ai
-          if(this.ai.alive == true){
-            this.player.checkCollisionAi(this.level, this.ai);
-            this.otherPlayer.checkCollisionAi(this.level, this.ai);
-          }
-          if(this.ai1.alive == true){
-            this.player.checkCollisionAi(this.level, this.ai1);
-            this.otherPlayer.checkCollisionAi(this.level, this.ai1);
-          }
-          if(this.ai2.alive == true){
-            this.player.checkCollisionAi(this.level, this.ai2);
-            this.otherPlayer.checkCollisionAi(this.level, this.ai2);
-          }
+    //check player - ai
+    if(this.ai.alive == true){
+      this.player.checkCollisionAi(this.level, this.ai);
+      this.otherPlayer.checkCollisionAi(this.level, this.ai);
+    }
+    if(this.ai1.alive == true){
+      this.player.checkCollisionAi(this.level, this.ai1);
+      this.otherPlayer.checkCollisionAi(this.level, this.ai1);
+    }
+    if(this.ai2.alive == true){
+      this.player.checkCollisionAi(this.level, this.ai2);
+      this.otherPlayer.checkCollisionAi(this.level, this.ai2);
+    }
 
-          this.player.checkEnemyBomb(this.otherPlayer.bomb.onExplode(), 1);
-          this.otherPlayer.checkEnemyBomb(this.player.bomb.onExplode(), 2);
+    for (var i = 0; i < this.player.bombs.length; i++) {
+      this.otherPlayer.checkEnemyBomb(this.player.bombs[i].onExplode(), 1, i);
+      //Check if ai is bombed
+      this.ai.checkEnemyBomb(this.player.bombs[i].onExplode(), 1, i);
+      this.ai1.checkEnemyBomb(this.player.bombs[i].onExplode(), 1, i);
+      this.ai2.checkEnemyBomb(this.player.bombs[i].onExplode(), 1, i);
+    }
 
-          //Check if ai is bombed
-          this.ai.checkEnemyBomb(this.otherPlayer.bomb.onExplode(), 2);
+    for (var i = 0; i < this.otherPlayer.bombs.length; i++)
+    {
+      this.player.checkEnemyBomb(this.otherPlayer.bombs[i].onExplode(), 2, i);
+      //Check if ai is bombed
+      this.ai.checkEnemyBomb(this.otherPlayer.bombs[i].onExplode(), 2, i);
+      this.ai1.checkEnemyBomb(this.otherPlayer.bombs[i].onExplode(), 2, i);
+      this.ai2.checkEnemyBomb(this.otherPlayer.bombs[i].onExplode(), 2, i);
+    }
 
-          this.ai.checkEnemyBomb(this.player.bomb.onExplode(), 1);
-
-          this.ai1.checkEnemyBomb(this.otherPlayer.bomb.onExplode(), 2);
-
-          this.ai1.checkEnemyBomb(this.player.bomb.onExplode(), 1);
-
-          this.ai2.checkEnemyBomb(this.otherPlayer.bomb.onExplode(), 2);
-
-          this.ai2.checkEnemyBomb(this.player.bomb.onExplode(), 1);
-
-          this.time = this.scoreboard.getDisplayTimer();
+    this.time = this.scoreboard.getDisplayTimer();
 
 
     }

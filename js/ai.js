@@ -304,24 +304,80 @@ class Ai
         //this.timer =0;
       }
   }
-  checkEnemyBomb(bombP ,playerid)
+
+  checkEnemyBomb(bombP, id, i)
   {
-    if(((this.col - 1) >= bombP.x - 1 &&
-      (this.col - 1) <= bombP.x + 1 &&
+    if(id === 1)
+    {
+      var boost = gameNs.playScene.player.bombs[i].firePowerUp
+      var walls =  gameNs.playScene.player.bombs[i].surroundingWalls
+    }
+    else
+    {
+      var boost = gameNs.playScene.otherPlayer.bombs[i].firePowerUp
+      var walls =  gameNs.playScene.otherPlayer.bombs[i].surroundingWalls
+    }
+
+    if(boost)
+    {
+      var explosionSize = 2;
+    }
+    else {
+      var explosionSize = 1;
+    }
+
+    if(((this.col - 1) >= bombP.x - explosionSize &&
+      (this.col - 1) <= bombP.x + explosionSize &&
       this.row == bombP.y)||
       ((this.col - 1) == bombP.x &&
-      this.row >= bombP.y - 1 &&
-      this.row <= bombP.y + 1))
+      this.row >= bombP.y - explosionSize &&
+      this.row <= bombP.y + explosionSize))
       {
-        console.log("AI bomb");
 
-        this.die(playerid);
+        this.die(id);
 
-
+        if((this.col - 1) > bombP.x )
+        {
+          // Right
+          var diff  = (this.col - 1) - bombP.x;
+          if(diff === 1 || !walls["Right1"])
+          {
+            this.die();
+          }
+        }
+        else if((this.col - 1) < bombP.x)
+        {
+          // Left
+          var diff  = bombP.x - (this.col - 1);
+          if(diff === 1 || !walls["Left1"])
+          {
+            this.die();
+          }
+        }
+        else if(this.row > bombP.y)
+        {
+          // Down
+          var diff  = this.row - bombP.y;
+          if(diff === 1 || !walls["Down1"])
+          {
+            this.die();
+          }
+        }
+        else if(this.row < bombP.y)
+        {
+          // Up
+          var diff  = bombP.y - this.row;
+          if(diff === 1 || !walls["Up1"])
+          {
+            this.die();
+          }
+        }
+        //this.die();
 
       }
 
   }
+
   die(playerid){
     if(playerid == 1 && this.alive == true)
     {
