@@ -47,6 +47,7 @@ class Player
 
     // FSM
     this.fsm = new NStateMEvent("Animations", this.stateIdle);
+    this.fsm.createTrigger()
 
     this.eventLeft.addTrigger({
       id: "Left",
