@@ -194,6 +194,7 @@ class PlayScene
      }, 10, 605, 660);
 
    }
+   console.log(this.player.endtileCollected);
     if(this.otherPlayer.healthSystem.healthVal == 0 && gameNs.lastLevel === true|| this.player.endtileCollected == true && gameNs.lastLevel === true
       ){
       this.player.endtileCollected = false;
@@ -207,9 +208,9 @@ class PlayScene
       this.drawText = true
    }
    else if (this.otherPlayer.endtileCollected == true && gameNs.lastLevel === true || this.player.healthSystem.healthVal == 0  && gameNs.lastLevel === true){
-     this.menuText = "Press ' M ' to return to menus"
-     this.playAgainText = "Press ' R ' to replay"
-     this.drawText = true
+      this.menuText = "Press ' M ' to return to menus"
+      this.playAgainText = "Press ' R ' to replay"
+      this.drawText = true
       this.endScene.render();
       this.scoreboard.addToBoard(this.otherPlayer.scoreSystem.scoreVal);
       this.scoreboard.filterSPM(-1);
@@ -240,8 +241,8 @@ class PlayScene
     {
       ctx.font = '40px Adventure Regular';
       ctx.fillStyle = 'Red';
-      ctx.fillText(this.playAgainText, 800, 1200)
-      ctx.fillText(this.menuText,800, 1300)
+      ctx.fillText(this.playAgainText, 800, 600)
+      ctx.fillText(this.menuText,800, 700)
     }
 
 
