@@ -63,6 +63,7 @@ function keyDownHandler(e)
 
       if(e.keyCode === 96)  // 0 button
       {
+        console.log("Pressed 0");
         gameNs.playScene.otherPlayer.plantBomb(gameNs.playScene.level);
       }
 

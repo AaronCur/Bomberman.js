@@ -458,9 +458,19 @@ class Player
                 this.dieAnime();
               }
             }
+            else if(this.row == explosionSrc.y && this.col == explosionSrc.x + 1)
+            {
+              // same place as the bomb
+              this.dieAnime();
+
+            }
           }
           this.invincibleCount =0;
           this.invincible = true;
+          console.log("rowBomb" + explosionSrc.y);
+          console.log("rowPlayer" + this.row);
+          console.log("colBomb" + explosionSrc.x);
+          console.log("colPlayer" + this.col);
         }
       }
   }
