@@ -279,6 +279,8 @@ class Player
 
     this.bombGrid;
 
+    this.bombVal = [];
+
     update();
 
 
@@ -829,11 +831,11 @@ class Player
       if(!this.bombs[i].alive && !this.bombs[i].exploding)
       {
         this.bombs[i].place({x:this.col - 1, y:this.row})
+        level.mazeSquares[this.i].containsBomb = true;
+        this.bombVal.push(this.i);
         break;
       }
     }
-    level.mazeSquares[this.i].containsBomb = true;
-    this.bombVal = this.i;
 
   }
 

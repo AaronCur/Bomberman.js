@@ -116,15 +116,18 @@ class Bomb
 
   }
 
-  onExplode(level, i)
+  onExplode(level, bVal)
   {
     if(this.exploding)
     {
       if(level != undefined)
       {
-        level[i].containsBomb = false;
-        level[i].containsWall = false;
+        for (var i = 0; i < bVal.length; i++) {
+          level[bVal[i]].containsBomb = false;
+          level[bVal[i]].containsWall = false;
+        }
       }
+      bVal = [];
       return this.gridPos;
 
 
