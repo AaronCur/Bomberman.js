@@ -55,7 +55,7 @@ class MenuScene
   }
   onTouchStart(e)
   {
-
+    gameNs.audioManager.playAudio("menu", false, gameNs.volume);
     //gameNs.sceneManager.goToScene(gameNs.optionsScene.title);
 
     e.preventDefault();
