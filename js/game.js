@@ -35,7 +35,7 @@ class Game
     gameNs.sceneManager.addScene(gameNs.hintsScene)
     gameNs.sceneManager.addScene(gameNs.tutorialScene)
     gameNs.sceneManager.addScene(gameNs.splashScene)
-    gameNs.sceneManager.goToScene(gameNs.splashScene.title);
+    gameNs.sceneManager.goToScene(gameNs.playScene.title);
 
     // Audio sceneManager
     gameNs.audioManager = new AudioManager();
